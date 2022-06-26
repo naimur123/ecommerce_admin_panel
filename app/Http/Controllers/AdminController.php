@@ -38,6 +38,7 @@ class AdminController extends Controller
             if( !empty($admin) ){
                 if( Hash::check($request->password, $admin->password) ){
                     Session::put('email',$admin->email);
+                    Session::put('admin',$admin->id);
                     return redirect()->route('admin.home');
                     
                 }else{

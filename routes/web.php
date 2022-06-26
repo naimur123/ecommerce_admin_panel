@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\GenericStatusController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +21,9 @@ use App\Http\Controllers\Admin\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.masterPage');
-});
+// Route::get('/', function () {
+//     return view('admin.masterPage');
+// });
 
 // Auth::routes();
 
@@ -33,8 +37,30 @@ Route::middleware(["admin"])->group(function(){
     Route::get('home',[AdminController::class, 'dashboard'])->name('home');
     Route::post('logout',[AdminController::class, 'logout'])->name('logout');
 
+     // Generic Status
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/status/create',[GenericStatusController::class, 'create'])->name('status.create');
+     Route::post('/status/create',[GenericStatusController::class, 'store'])->name('status.store');
+
+     // Category
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/category/create',[CategoryController::class, 'create'])->name('category.create');
+     Route::post('/category/create',[CategoryController::class, 'store'])->name('category.store');
+
+     // SubCategory
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/subcategory/create',[SubCategoryController::class, 'create'])->name('subcategory.create');
+     Route::post('/subcategory/create',[SubCategoryController::class, 'store'])->name('subcategory.store');
+
+     // Country
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/country/create',[CountryController::class, 'create'])->name('country.create');
+     Route::post('/country/create',[CountryController::class, 'store'])->name('country.store');
+
     // Products
     Route::get('products',[ProductController::class, 'index'])->name('products');
+    Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
+    Route::post('/products/create',[ProductController::class, 'store'])->name('products.store');
 
     });
 });
