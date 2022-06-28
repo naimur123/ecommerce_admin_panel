@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\GenericStatus;
 use Illuminate\Http\Request;
 use Exception;
@@ -13,11 +14,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class CountryController extends Controller
+class CurrencyController extends Controller
 {
-     //GetModel
-     private function getModel(){
-        return new Country();
+    //GetModel
+    private function getModel(){
+        return new Currency();
     }
 
     //create
@@ -25,10 +26,11 @@ class CountryController extends Controller
         $params = [
              "title"       =>   "Create",
              "statuses"    => GenericStatus::all(),
-             "form_url"    => route('admin.country.store')
+             "countries"   => Country::all(),
+             "form_url"    => route('admin.currency.store')
 
         ];
-        return view('admin.country.create',$params);
+        return view('admin.currency.create',$params);
     }
 
     //store
@@ -61,6 +63,7 @@ class CountryController extends Controller
                 $data->name = $request->name;
                 $data->short_name = $request->short_name ?? null;
                 $data->remarks = $request->remarks ?? null;
+                $data->country_id = $request->country_id;
                 $data->status_id = $request->status_id;
                 $data->save();
                 

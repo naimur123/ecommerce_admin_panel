@@ -6,12 +6,12 @@
     <form class="row form-horizontal" action="{{ $form_url }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col-12 mt-10">
-            <h3>Country {{ $title ?? "" }}</h3>
+            <h3>Currency {{ $title ?? "" }}</h3>
             <input type="hidden" name="id" value="{{ $data->id ?? 0 }}">
             <hr/>
         </div>
 
-        <!-- Country Name -->
+        <!-- Currency Name -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
                 <label>Name <span class="text-danger">*</span></label>
@@ -40,6 +40,19 @@
                 @error('remarks')
                 <strong class="text-danger">{{ $message }}</strong>
          @enderror
+            </div>
+        </div>
+
+        <!--Set Country -->
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <div class="form-group">
+                <label>Country<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="country_id" required >
+                    <option value="">Select Country</option>
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}"  {{ old('country_id') && old('country_id') == $country->id ? 'selected' : (isset($data->country_id) && $data->country_id == $country->id ? "selected" : Null) }}> {{ $country->name }} </option>     
+                    @endforeach                           
+                </select>
             </div>
         </div>
 

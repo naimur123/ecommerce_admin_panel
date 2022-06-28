@@ -6,12 +6,12 @@
     <form class="row form-horizontal" action="{{ $form_url }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col-12 mt-10">
-            <h3>Country {{ $title ?? "" }}</h3>
+            <h3>Unit {{ $title ?? "" }}</h3>
             <input type="hidden" name="id" value="{{ $data->id ?? 0 }}">
             <hr/>
         </div>
 
-        <!-- Country Name -->
+        <!-- Unit Name -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
                 <label>Name <span class="text-danger">*</span></label>

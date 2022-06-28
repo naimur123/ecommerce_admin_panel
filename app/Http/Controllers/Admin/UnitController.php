@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
 use App\Models\GenericStatus;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -13,11 +13,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class CountryController extends Controller
+class UnitController extends Controller
 {
      //GetModel
      private function getModel(){
-        return new Country();
+        return new Unit();
     }
 
     //create
@@ -25,10 +25,10 @@ class CountryController extends Controller
         $params = [
              "title"       =>   "Create",
              "statuses"    => GenericStatus::all(),
-             "form_url"    => route('admin.country.store')
+             "form_url"    => route('admin.unit.store')
 
         ];
-        return view('admin.country.create',$params);
+        return view('admin.unit.create',$params);
     }
 
     //store

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Country;
 use App\Models\GenericStatus;
 use Illuminate\Http\Request;
@@ -13,22 +14,24 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class CountryController extends Controller
+
+class BrandController extends Controller
 {
-     //GetModel
-     private function getModel(){
-        return new Country();
+    //GetModel
+    private function getModel(){
+        return new Brand();
     }
 
     //create
     public function create(){
         $params = [
              "title"       =>   "Create",
+             "countries"   => Country::all(),
              "statuses"    => GenericStatus::all(),
-             "form_url"    => route('admin.country.store')
+             "form_url"    => route('admin.brand.store')
 
         ];
-        return view('admin.country.create',$params);
+        return view('admin.brand.create',$params);
     }
 
     //store
@@ -37,7 +40,6 @@ class CountryController extends Controller
             $request->all(),
             [
                 'name' => 'required|min:2',
-                'short_name' => 'nullable|min:2',
                 'remarks' => 'nullable|min:4',
     
             ]
@@ -53,16 +55,17 @@ class CountryController extends Controller
                     
                     
                 }
-                else{
-                    $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
-                }
+                // else{
+                //     $data = $this->getModel()->find($request->id);
+                //     $data->updated_by = $request->user()->id;
+                // }
     
-                $data->name = $request->name;
-                $data->short_name = $request->short_name ?? null;
-                $data->remarks = $request->remarks ?? null;
-                $data->status_id = $request->status_id;
-                $data->save();
+               $data->name = $request->name;
+               $data->image = $this->uploadImage($request, 'image', $this->brand, null, null) ?? null;
+               $data->remarks = $request->remarks;
+               $data->country_id = $request->country_id;
+               $data->status_id = $request->status_id;
+               $data->save();
                 
                 DB::commit();
                 try{
@@ -75,7 +78,7 @@ class CountryController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             

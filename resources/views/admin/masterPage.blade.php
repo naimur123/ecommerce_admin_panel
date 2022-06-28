@@ -10,11 +10,13 @@
     <!-- Font Awesome -->
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
     {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}"> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/solid.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/light.css') }}"> --}}
     {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <title>Laravel Ecommerce</title>
     
 </head>
@@ -80,7 +82,7 @@
                         {{-- Categories --}}
                         <li>
                             <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fa fa-bandcamp text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Categories</span></a>
+                                <i class="fa-solid fa-arrows-to-dot text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Categories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="" class="nav-link px-2 text-white">Category List</a>
@@ -96,16 +98,16 @@
                         {{--Sub Categories --}}
                         <li>
                             <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-white">Sub Categories</span></a>
+                                <i class="fa-solid fa-arrows-to-eye text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Sub Categories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Sub-Category List</a>
+                                    <a href="#" class="nav-link px-2 text-white">Sub-Category List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2">Add SubCategory</a>
+                                    <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white">Add SubCategory</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Deleted Sub-Category</a>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Sub-Category</a>
                                 </li>
                             </ul>
                         </li>
@@ -113,16 +115,16 @@
                         {{-- Brands --}}
                         <li>
                             <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-white">Brands</span></a>
+                                <i class="fa-brands fa-42-group text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Brands</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Brand List</a>
+                                    <a href="#" class="nav-link px-2 text-white">Brand List</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Add Brand</a>
+                                    <a href="{{ route('admin.brand.create') }}" class="nav-link px-2 text-white">Add Brand</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Deleted Brand</a>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Brand</a>
                                 </li>
                             </ul>
                         </li>
@@ -130,16 +132,32 @@
                          {{-- Countries --}}
                          <li>
                             <a href="#submenu7" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-white">Countries</span></a>
+                                <i class="fa-solid fa-globe text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Countries</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Country List</a>
+                                    <a href="#" class="nav-link px-2 text-white">Country List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('admin.country.create') }}" class="nav-link px-2">Add Country</a>
+                                    <a href="{{ route('admin.country.create') }}" class="nav-link px-2 text-white">Add Country</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Deleted Countries</a>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Countries</a>
+                                </li>
+                            </ul>
+                        </li>
+                         {{-- Countries --}}
+                         <li>
+                            <a href="#submenu12" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="fa-solid fa-coins text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Currencies</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu12" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-2 text-white">Currency List</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.currency.create') }}" class="nav-link px-2 text-white">Add Currency</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Currency</a>
                                 </li>
                             </ul>
                         </li>
@@ -147,16 +165,16 @@
                          {{-- Units --}}
                          <li>
                             <a href="#submenu8" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-white">Units</span></a>
+                                <i class="fa-duotone fa-ball-pile"></i><span class="ms-1 d-none d-sm-inline text-white">Units</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu8" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Unit List</a>
+                                    <a href="#" class="nav-link px-2 text-white">Unit List</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Add Unit</a>
+                                    <a href="{{ route('admin.unit.create') }}" class="nav-link px-2 text-white">Add Unit</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Deleted Units</a>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Units</a>
                                 </li>
                             </ul>
                         </li>
@@ -164,7 +182,7 @@
                         {{-- Coupon Code --}}
                         <li>
                             <a href="#submenu9" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline text-white">Coupons</span></a>
+                                <i class="fa-solid fa-block-brick-fire"></i><span class="ms-1 d-none d-sm-inline text-white">Coupons</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu9" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="#" class="nav-link px-2">Counpon Code List</a>

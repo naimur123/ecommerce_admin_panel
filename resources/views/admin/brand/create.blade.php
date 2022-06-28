@@ -6,12 +6,12 @@
     <form class="row form-horizontal" action="{{ $form_url }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col-12 mt-10">
-            <h3>Country {{ $title ?? "" }}</h3>
+            <h3>Brand {{ $title ?? "" }}</h3>
             <input type="hidden" name="id" value="{{ $data->id ?? 0 }}">
             <hr/>
         </div>
 
-        <!-- Country Name -->
+        <!-- Brand Name -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
                 <label>Name <span class="text-danger">*</span></label>
@@ -21,16 +21,17 @@
                 @enderror
             </div>
         </div>
-        <!-- Short Name -->
+       
+        <!--Image -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
-            <div class="form-group">
-                <label>Short Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control " value="{{ old("short_name") ?? ($data->short_name ?? "")}} {{--  {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" id="first_name" value="{{ old("first_name") ?? ($data->first_name ?? "")}}--}}" name="short_name" required >
-                @error('short_name')
-                       <strong class="text-danger">{{ $message }}</strong>
-                @enderror
+            <label><b>Image</b></label><br>
+            <input type="file" name="image" value="{{ old("image") ?? ($data->image ?? "") }}">
+            <div class="my-2">
+            @error('image')
+            <strong class="text-danger">{{ $message }}</strong>
+            @enderror
             </div>
-        </div>
+         </div>
 
          <!-- Remarks -->
          <div class="col-12 col-sm-6 col-md-4 my-2">
@@ -40,6 +41,19 @@
                 @error('remarks')
                 <strong class="text-danger">{{ $message }}</strong>
          @enderror
+            </div>
+        </div>
+
+        <!--Set Country -->
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <div class="form-group">
+                <label>Country<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="country_id" required >
+                    <option value="">Select Country</option>
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}"  {{ old('country_id') && old('country_id') == $country->id ? 'selected' : (isset($data->country_id) && $data->country_id == $country->id ? "selected" : Null) }}> {{ $country->name }} </option>     
+                    @endforeach                           
+                </select>
             </div>
         </div>
 

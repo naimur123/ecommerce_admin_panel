@@ -23,5 +23,13 @@ class AdminSeeder extends Seeder
             "email_verified_at" => now(),
             "remember_token"    => Str::random(32),
         ]);
+        Admin::create([
+            "name"              => "Sagar",
+            "email"             => "sagar@admin.com",
+            "group_id"          => 1,
+            "password"          => bcrypt("admin@admin.com"),
+            "email_verified_at" => now(),
+            "remember_token"    => Str::random(32),
+        ]);
     }
 }

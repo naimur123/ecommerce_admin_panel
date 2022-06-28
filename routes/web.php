@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -8,7 +9,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GenericStatusController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,21 @@ Route::middleware(["admin"])->group(function(){
     //  Route::get('products',[ProductController::class, 'index'])->name('products');
      Route::get('/country/create',[CountryController::class, 'create'])->name('country.create');
      Route::post('/country/create',[CountryController::class, 'store'])->name('country.store');
+
+     // Currency
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/currency/create',[CurrencyController::class, 'create'])->name('currency.create');
+     Route::post('/currency/create',[CurrencyController::class, 'store'])->name('currency.store');
+
+     // Units
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/unit/create',[UnitController::class, 'create'])->name('unit.create');
+     Route::post('/unit/create',[UnitController::class, 'store'])->name('unit.store');
+
+     // Brands
+    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/brand/create',[BrandController::class, 'create'])->name('brand.create');
+     Route::post('/brand/create',[BrandController::class, 'store'])->name('brand.store');
 
     // Products
     Route::get('products',[ProductController::class, 'index'])->name('products');
