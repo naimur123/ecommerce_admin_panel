@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\UnitController;
 */
 
 // Route::get('/', function () {
-//     return view('admin.masterPage');
+//     return "Hello Word";
 // });
 
 // Auth::routes();
@@ -76,9 +76,12 @@ Route::middleware(["admin"])->group(function(){
      Route::post('/brand/create',[BrandController::class, 'store'])->name('brand.store');
 
     // Products
-    Route::get('products',[ProductController::class, 'index'])->name('products');
+    Route::get('/products',[ProductController::class, 'index'])->name('products');
     Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
     Route::post('/products/create',[ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/products/update',[ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
 
     });
 });

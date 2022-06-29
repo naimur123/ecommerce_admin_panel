@@ -34,7 +34,7 @@ class AdminController extends Controller
                 "password"  => ["required", "string", "min:4", "max:40"]
             ])->validate(); 
 
-            $admin = Admin::where("email", $request->email)->first();
+            $admin = Admin::where("email", $request->email)->first(); 
             if( !empty($admin) ){
                 if( Hash::check($request->password, $admin->password) ){
                     Session::put('email',$admin->email);

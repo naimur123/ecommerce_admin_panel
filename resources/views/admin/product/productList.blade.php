@@ -1,23 +1,25 @@
 @extends('admin.masterPage')
 @section('content')
+
 <div class="card-header">
     <div class="row">
-     <div class="col-9">
+     <div class="col-10">
       <h4>Product List</h4>
      </div>
-     <div class="col-3">
+     <div class="col-2">
       <a class="btn btn-primary" href="{{ route('admin.products.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
 </div>
 <br>
 <div class="table-responsive text-nowrap">
-    <table id="dtHorizontalExample" class="table table-striped table-hover table-bordered table-lg" cellspacing="4"
-    width="100%">
-    <thead>
-      <tr style="background-color: #0ac282">
-        <th >Name </th>
-        <th >Category Name</th>
+<table class="table table-striped table-bordered table-lg table-hover">
+    <thead class="table text-white" style="background-color: #0ac282">
+      <tr class="text-center">
+        <th scope="col">#</th>
+        {{-- <th>ID </th> --}}
+        <th class="text-base px-2.5 py-2.5">Name </th>
+        <th colspan="2">Category Name</th>
         <th >Brand Name</th>
         <th >Subcategory Name</th>
         <th >Code </th>
@@ -27,56 +29,47 @@
         <th >Discount Percentage</th>
         <th >Status</th>
         <th >Image</th>
+        {{-- <th>Create By</th> --}}
         <th >Create Date</th>
         <th >Modified Date</th>
         <th >Action</th>
       </tr>
     </thead>
     <tbody>
+        <?php $i = 1 ?>
+    @foreach ($product as $products )
       <tr>
-        <td>Tiger</td>
-        <td>Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-        <td>5421</td>
-        <td>t.nixon@datatables.net</td>
+        <th scope="row">{{ $i++ }}</th>
+       
+        {{-- <td>{{ $products->id }}</td> --}}
+        <td>{{ $products->name }}</td>
+        <td colspan="2">{{ $products->categories->name }}</td>
+        <td>{{ $products->brands->name }}</td>
+        <td>{{ $products->subcategory->name }}</td>
+        <td>{{ $products->code }}</td>
+        <td>{{ $products->quantity }}</td>
+        <td>{{ $products->price }}</td>
+        <td>{{ $products->discount_price }}</td>
+        <td>{{ $products->discount_percentage }}</td>
+        @if ($products->status_id == 1)
+        <td>Active</td>
+        @else
+        <td>Inactive</td> 
+        @endif
+        
+        <td><img src="{{ asset($products->image_one) }}" height="100px" width="100px"></td>
+        <td>{{ $products->createdate }}</td>
+        <td>{{ $products->modifieddate }}</td>
+        <td class="d-flex gap-2 mt-4">
+          <a href="{{route('admin.products.edit', $products->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          <a href="{{route('admin.products.delete', $products->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
+          
+        </td>
       </tr>
-      
+    @endforeach
     </tbody>
   </table>
 </div>
-{{-- <script>
-    $(document).ready(function () {
-    $('#dtHorizontalExample').DataTable({
-        "scrollX": true
-    });
-    $('.dataTables_length').addClass('bs-select');
-});
-</script> --}}
-{{-- <style>
-    .dtHorizontalExampleWrapper {
-  max-width: 600px;
-  margin: 0 auto;
-}
-#dtHorizontalExample th, td {
-  white-space: nowrap;
-}
 
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
- bottom: .5em;
-}
-</style> --}}
 
 @endsection

@@ -28,10 +28,10 @@
         <div class="col-12 col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Sub Category<span class="text-danger">*</span></label>
-                <select class="form-control select2" name="subcat_id" required >
+                <select class="form-control select2" name="subcategory_id" required >
                     <option value="">Select Sub Category</option>
                     @foreach($subs as $sub)
-                        <option value="{{ $sub->id }}" {{ old('subcat_id') && old('subcat_id') == $sub->id?'selected':(isset($data->subcat_id) && $data->subcat_id == $sub->id?"selected":Null) }}> {{ $sub->name }} </option>     
+                        <option value="{{ $sub->id }}" {{ old('subcategory_id') && old('subcategory_id') == $sub->id?'selected':(isset($data->subcategory_id) && $data->subcategory_id == $sub->id?"selected":Null) }}> {{ $sub->name }} </option>     
                     @endforeach                           
                 </select>
             </div>
