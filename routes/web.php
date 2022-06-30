@@ -46,9 +46,12 @@ Route::middleware(["admin"])->group(function(){
      Route::post('/status/create',[GenericStatusController::class, 'store'])->name('status.store');
 
      // Category
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/category',[CategoryController::class, 'index'])->name('category');
      Route::get('/category/create',[CategoryController::class, 'create'])->name('category.create');
      Route::post('/category/create',[CategoryController::class, 'store'])->name('category.store');
+     Route::get('/category/update/{id}',[CategoryController::class, 'edit'])->name('category.edit');
+     Route::post('/category/update',[CategoryController::class, 'store'])->name('category.store');
+     Route::post('/category/delete/{id}',[CategoryController::class, 'delete'])->name('category.delete');
 
      // SubCategory
     //  Route::get('products',[ProductController::class, 'index'])->name('products');

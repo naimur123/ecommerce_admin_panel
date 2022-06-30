@@ -23,7 +23,7 @@ class AdminMiddleware
             return $next($request);
         }
         else{
-            return back()->with('message','Unauthenticated');
+            return redirect()->route('admin.login')->with('message','Unauthenticated');
         }
        
     }

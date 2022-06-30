@@ -3,10 +3,10 @@
 
 <div class="card-header">
     <div class="row">
-     <div class="col-10">
+     <div class="col-8">
       <h4>Product List</h4>
      </div>
-     <div class="col-2">
+     <div class="col-4">
       <a class="btn btn-primary" href="{{ route('admin.products.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
@@ -18,10 +18,10 @@
       <tr class="text-center">
         <th scope="col">#</th>
         {{-- <th>ID </th> --}}
-        <th class="text-base px-2.5 py-2.5">Name </th>
-        <th colspan="2">Category Name</th>
-        <th >Brand Name</th>
+        <th>Name </th>
+        <th >Category Name</th>
         <th >Subcategory Name</th>
+        <th >Brand Name</th>
         <th >Code </th>
         <th >Quantity</th>
         <th >Price</th>
@@ -43,9 +43,9 @@
        
         {{-- <td>{{ $products->id }}</td> --}}
         <td>{{ $products->name }}</td>
-        <td colspan="2">{{ $products->categories->name }}</td>
-        <td>{{ $products->brands->name }}</td>
+        <td >{{ $products->categories->name }}</td>
         <td>{{ $products->subcategory->name }}</td>
+        <td>{{ $products->brands->name }}</td>
         <td>{{ $products->code }}</td>
         <td>{{ $products->quantity }}</td>
         <td>{{ $products->price }}</td>

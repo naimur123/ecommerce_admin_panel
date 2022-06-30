@@ -19,6 +19,18 @@ class CategoryController extends Controller
      private function getModel(){
         return new Category();
     }
+    //Get Datas
+    public function index(){
+        $categories = Category::all();
+        $params =[
+            
+            "categories" => $categories
+        ];
+
+        // print_r($products);
+
+        return view('admin.category.categoryList',$params);
+    }
     //create
     public function create(){
         $params = [
@@ -54,7 +66,7 @@ class CategoryController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
@@ -74,10 +86,25 @@ class CategoryController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return back();
+        return redirect()->route('admin.category');
+    }
+
+    //Catgeory edit
+    public function edit($id){
+        $product = Category::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.category.store'),
+            "categories" => Category::all(),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $product
+
+       ];
+       return view('admin.category.create',$params);
     }
 }

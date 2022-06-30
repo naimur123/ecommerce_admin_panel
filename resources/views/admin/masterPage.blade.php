@@ -85,7 +85,7 @@
                                 <i class="fa-solid fa-arrows-to-dot text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Categories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="" class="nav-link px-2 text-white">Category List</a>
+                                    <a href="{{ route('admin.category') }}" class="nav-link px-2 text-white">Category List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white">Add Category</a>
