@@ -41,9 +41,13 @@ Route::middleware(["admin"])->group(function(){
     Route::post('logout',[AdminController::class, 'logout'])->name('logout');
 
      // Generic Status
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('status',[GenericStatusController::class, 'index'])->name('status');
      Route::get('/status/create',[GenericStatusController::class, 'create'])->name('status.create');
      Route::post('/status/create',[GenericStatusController::class, 'store'])->name('status.store');
+     Route::get('/status/update/{id}',[GenericStatusController::class, 'edit'])->name('status.edit');
+     Route::post('/status/update',[GenericStatusController::class, 'store'])->name('status.store');
+     Route::get('/status/delete/{id}',[GenericStatusController::class, 'delete'])->name('status.delete');
+
 
      // Category
      Route::get('/category',[CategoryController::class, 'index'])->name('category');
@@ -51,32 +55,47 @@ Route::middleware(["admin"])->group(function(){
      Route::post('/category/create',[CategoryController::class, 'store'])->name('category.store');
      Route::get('/category/update/{id}',[CategoryController::class, 'edit'])->name('category.edit');
      Route::post('/category/update',[CategoryController::class, 'store'])->name('category.store');
-     Route::post('/category/delete/{id}',[CategoryController::class, 'delete'])->name('category.delete');
+     Route::get('/category/delete/{id}',[CategoryController::class, 'delete'])->name('category.delete');
 
      // SubCategory
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/subcategory',[SubCategoryController::class, 'index'])->name('subcategory');
      Route::get('/subcategory/create',[SubCategoryController::class, 'create'])->name('subcategory.create');
      Route::post('/subcategory/create',[SubCategoryController::class, 'store'])->name('subcategory.store');
+     Route::get('/subcategory/update/{id}',[SubCategoryController::class, 'edit'])->name('subcategory.edit');
+     Route::post('/subcategory/update',[SubCategoryController::class, 'store'])->name('subcategory.store');
+     Route::get('/subcategory/delete/{id}',[SubCategoryController::class, 'delete'])->name('subcategory.delete');
 
      // Country
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/country',[CountryController::class, 'index'])->name('country');
      Route::get('/country/create',[CountryController::class, 'create'])->name('country.create');
      Route::post('/country/create',[CountryController::class, 'store'])->name('country.store');
+     Route::get('/country/update/{id}',[CountryController::class, 'edit'])->name('country.edit');
+     Route::post('/country/update',[CountryController::class, 'store'])->name('country.store');
+     Route::get('/country/delete/{id}',[CountryController::class, 'delete'])->name('country.delete');
 
      // Currency
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/currency',[CurrencyController::class, 'index'])->name('currency');
      Route::get('/currency/create',[CurrencyController::class, 'create'])->name('currency.create');
      Route::post('/currency/create',[CurrencyController::class, 'store'])->name('currency.store');
+     Route::get('/currency/update/{id}',[CurrencyController::class, 'edit'])->name('currency.edit');
+     Route::post('/currency/update',[CurrencyController::class, 'store'])->name('currency.store');
+     Route::get('/currency/delete/{id}',[CurrencyController::class, 'delete'])->name('currency.delete');
 
      // Units
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('/unit',[UnitController::class, 'index'])->name('unit');
      Route::get('/unit/create',[UnitController::class, 'create'])->name('unit.create');
      Route::post('/unit/create',[UnitController::class, 'store'])->name('unit.store');
+     Route::get('/unit/update/{id}',[UnitController::class, 'edit'])->name('unit.edit');
+     Route::post('/unit/update',[UnitController::class, 'store'])->name('unit.store');
+     Route::get('/unit/delete/{id}',[UnitController::class, 'delete'])->name('unit.delete');
 
      // Brands
-    //  Route::get('products',[ProductController::class, 'index'])->name('products');
+     Route::get('brand',[BrandController::class, 'index'])->name('brand');
      Route::get('/brand/create',[BrandController::class, 'create'])->name('brand.create');
      Route::post('/brand/create',[BrandController::class, 'store'])->name('brand.store');
+     Route::get('/brand/update/{id}',[BrandController::class, 'edit'])->name('brand.edit');
+     Route::post('/brand/update',[BrandController::class, 'store'])->name('brand.store');
+     Route::get('/brand/delete/{id}',[BrandController::class, 'delete'])->name('brand.delete');
 
     // Products
     Route::get('/products',[ProductController::class, 'index'])->name('products');
@@ -85,6 +104,9 @@ Route::middleware(["admin"])->group(function(){
     Route::get('/products/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/update',[ProductController::class, 'store'])->name('products.store');
     Route::get('/products/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+    Route::get('/products/deletedList',[ProductController::class, 'archive'])->name('products.archive');
+    Route::get('/products/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
+    Route::get('/products/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
 
     });
 });

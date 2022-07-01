@@ -4,10 +4,10 @@
 <div class="card-header">
     <div class="row">
      <div class="col-10">
-      <h4>Category List</h4>
+      <h4>Unit List</h4>
      </div>
      <div class="col-2">
-      <a class="btn btn-primary" href="{{ route('admin.category.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
+      <a class="btn btn-primary" href="{{ route('admin.unit.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
 </div>
@@ -18,7 +18,7 @@
       <tr class="text-center">
         <th scope="col">#</th>
         <th>Name </th>
-        <th >Details</th>
+        <th>Short Name </th>
         <th >Remarks</th>
         <th >Status</th>
         <th >Created by</th>
@@ -30,24 +30,24 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($categories as $category)
+    @foreach ($units as $unit)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
-        <td>{{ $category->name }}</td>
-        <td>{{ $category->details }}</td>
-        <td>{{ $category->remarks }}</td>
-        @if ($category->status_id == 1)
+        <td>{{ $unit->name }}</td>
+        <td>{{ $unit->short_name }}</td>
+        <td>{{ $unit->remarks }}</td>
+        @if ($unit->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
         <td><button class="btn btn-warning">Inactive</button></td> 
         @endif
-        <td>{{ $category->createdBy->name ?? "" }}</td>
-        <td>{{ $category->updatedBy->name ?? ""}}</td>
-        <td>{{ $category->created_at }}</td>
-        <td>{{ $category->updated_at }}</td>
+        <td>{{ $unit->createdBy->name ?? "" }}</td>
+        <td>{{ $unit->updatedBy->name ?? ""}}</td>
+        <td>{{ $unit->created_at }}</td>
+        <td>{{ $unit->updated_at }}</td>
         <td class="d-flex gap-2">
-          <a href="{{route('admin.category.edit', $category->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
-          <a href="{{route('admin.category.delete', $category->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
+          <a href="{{route('admin.unit.edit', $unit->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          <a href="{{route('admin.unit.delete', $unit->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
           
         </td>
       </tr>

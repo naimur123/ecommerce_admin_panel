@@ -19,6 +19,17 @@ class GenericStatusController extends Controller
     private function getModel(){
         return new GenericStatus();
     }
+
+    //Get Datas
+    public function index(){
+        // $categories = Category::all();
+        $params =[
+            
+            "statuses" => GenericStatus::all()
+        ];
+        return view('admin.genericStatus.statusList',$params);
+    }
+
     //create
     public function create(){
         $params = [
@@ -52,11 +63,11 @@ class GenericStatusController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
-                $data->short_name = $request->short_name ?? "null";
+                $data->short_name = $request->short_name ?? null ;
                 $data->save();
                 
                 DB::commit();
@@ -74,6 +85,19 @@ class GenericStatusController extends Controller
             }
     
             
-        return back();
+        return redirect()->route('admin.status');
+    }
+
+     //Status edit
+     public function edit($id){
+        $status = GenericStatus::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.status.store'),
+            "data"       => $status
+
+       ];
+       return view('admin.genericStatus.create',$params);
     }
 }

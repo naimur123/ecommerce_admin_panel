@@ -43,6 +43,7 @@
             </div>
         </div>
 
+
         <!--Set Country -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
@@ -52,6 +53,19 @@
                     @foreach($countries as $country)
                         <option value="{{ $country->id }}"  {{ old('country_id') && old('country_id') == $country->id ? 'selected' : (isset($data->country_id) && $data->country_id == $country->id ? "selected" : Null) }}> {{ $country->name }} </option>     
                     @endforeach                           
+                </select>
+            </div>
+        </div>
+
+         <!--Set Currency -->
+         <div class="col-12 col-sm-6 col-md-4 my-2">
+            <div class="form-group">
+                <label>Currency Symbol<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="currency_symbol" required >
+                    <option value="">Select Symbol</option>
+                     @foreach($symbols as $symbol)
+                        <option value="{{ $symbol['symbol'] }}"  {{ old('currency_symbol') && old('currency_symbol') == $symbol['symbol'] ? 'selected' : (isset($data->currency_symbol) && $data->currency_symbol == $symbol['symbol'] ? "selected" : Null) }}> {{ $symbol['name'] }} = {{ $symbol['symbol'] }} </option>      
+                    @endforeach                            
                 </select>
             </div>
         </div>

@@ -20,6 +20,19 @@ class CountryController extends Controller
         return new Country();
     }
 
+    //Get Datas
+    public function index(){
+        // $categories = Category::all();
+        $params =[
+            
+            "countries" => Country::all()
+        ];
+
+        // print_r($products);
+
+        return view('admin.country.countryList',$params);
+    }
+
     //create
     public function create(){
         $params = [
@@ -55,7 +68,7 @@ class CountryController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
@@ -75,10 +88,24 @@ class CountryController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return back();
+        return redirect()->route('admin.country');
+    }
+
+     //Country edit
+     public function edit($id){
+        $country = Country::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.country.store'),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $country
+
+       ];
+       return view('admin.country.create',$params);
     }
 }

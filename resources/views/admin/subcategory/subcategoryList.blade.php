@@ -4,10 +4,10 @@
 <div class="card-header">
     <div class="row">
      <div class="col-10">
-      <h4>Category List</h4>
+      <h4>Subcategory List</h4>
      </div>
      <div class="col-2">
-      <a class="btn btn-primary" href="{{ route('admin.category.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
+      <a class="btn btn-primary" href="{{ route('admin.subcategory.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
 </div>
@@ -17,7 +17,9 @@
     <thead class="table text-white" style="background-color: #0ac282">
       <tr class="text-center">
         <th scope="col">#</th>
+        {{-- <th>ID </th> --}}
         <th>Name </th>
+        <th>Category Name</th>
         <th >Details</th>
         <th >Remarks</th>
         <th >Status</th>
@@ -30,24 +32,25 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($categories as $category)
+    @foreach ($subcategories as $subcategory)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
-        <td>{{ $category->name }}</td>
-        <td>{{ $category->details }}</td>
-        <td>{{ $category->remarks }}</td>
-        @if ($category->status_id == 1)
+        <td>{{ $subcategory->name }}</td>
+        <td >{{ $subcategory->categories->name }}</td>
+        <td>{{ $subcategory->details }}</td>
+        <td>{{ $subcategory->remarks }}</td>
+        @if ($subcategory->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
         <td><button class="btn btn-warning">Inactive</button></td> 
         @endif
-        <td>{{ $category->createdBy->name ?? "" }}</td>
-        <td>{{ $category->updatedBy->name ?? ""}}</td>
-        <td>{{ $category->created_at }}</td>
-        <td>{{ $category->updated_at }}</td>
+        <td>{{ $subcategory->createdBy->name ?? "" }}</td>
+        <td>{{ $subcategory->updatedBy->name ?? ""}}</td>
+        <td>{{ $subcategory->created_at }}</td>
+        <td>{{ $subcategory->updated_at }}</td>
         <td class="d-flex gap-2">
-          <a href="{{route('admin.category.edit', $category->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
-          <a href="{{route('admin.category.delete', $category->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
+          <a href="{{route('admin.subcategory.edit', $subcategory->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          <a href="{{route('admin.subcategory.delete', $subcategory->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
           
         </td>
       </tr>

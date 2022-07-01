@@ -19,6 +19,7 @@ class CategoryController extends Controller
      private function getModel(){
         return new Category();
     }
+
     //Get Datas
     public function index(){
         $categories = Category::all();
@@ -31,6 +32,7 @@ class CategoryController extends Controller
 
         return view('admin.category.categoryList',$params);
     }
+
     //create
     public function create(){
         $params = [
@@ -95,14 +97,14 @@ class CategoryController extends Controller
 
     //Catgeory edit
     public function edit($id){
-        $product = Category::find($id);
+        $category = Category::find($id);
 
         $params = [
             "title"      => "Edit",
             "form_url"   => route('admin.category.store'),
-            "categories" => Category::all(),
+            // "categories" => Category::all(),
             "statuses"   => GenericStatus::all(),
-            "data"       => $product
+            "data"       => $category
 
        ];
        return view('admin.category.create',$params);

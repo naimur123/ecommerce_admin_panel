@@ -15,13 +15,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/solid.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/light.css') }}"> --}}
     {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" /> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css">
     <title>Laravel Ecommerce</title>
     
 </head>
 <body>
-    
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color:#404E67">
@@ -41,7 +44,7 @@
                                     <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
                                 </li>
                             </ul> --}}
-                        </li>
+                         </li>
                         {{-- Order List  --}}
                         <li>
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
@@ -73,9 +76,10 @@
                                     
                                     <a href="{{ route('admin.products.create') }}" class="nav-link px-2 text-white">Add New Product</a>
                                 </li>
-                                {{-- <li>
-                                    <a href="#" class="nav-link px-2">Deleted Products</a>
-                                </li> --}}
+                                {{-- <i class="fas fa-trash-restore d-flex"></i> --}}
+                                <li>
+                                    <a href="{{ route('admin.products.archive') }}" class="nav-link px-2 text-white">Deleted Products</a>
+                                </li>
                             </ul>
                         </li>
 
@@ -101,7 +105,7 @@
                                 <i class="fa-solid fa-arrows-to-eye text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Sub Categories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Sub-Category List</a>
+                                    <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white">Sub-Category List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white">Add SubCategory</a>
@@ -118,7 +122,7 @@
                                 <i class="fa-brands fa-42-group text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Brands</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Brand List</a>
+                                    <a href="{{ route('admin.brand') }}" class="nav-link px-2 text-white">Brand List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.brand.create') }}" class="nav-link px-2 text-white">Add Brand</a>
@@ -135,7 +139,7 @@
                                 <i class="fa-solid fa-globe text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Countries</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Country List</a>
+                                    <a href="{{ route('admin.country') }}" class="nav-link px-2 text-white">Country List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.country.create') }}" class="nav-link px-2 text-white">Add Country</a>
@@ -151,7 +155,7 @@
                                 <i class="fa-solid fa-coins text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Currencies</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu12" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Currency List</a>
+                                    <a href="{{ route('admin.currency') }}" class="nav-link px-2 text-white">Currency List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.currency.create') }}" class="nav-link px-2 text-white">Add Currency</a>
@@ -168,7 +172,7 @@
                                 <i class="fa-duotone fa-ball-pile"></i><span class="ms-1 d-none d-sm-inline text-white">Units</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu8" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Unit List</a>
+                                    <a href="{{ route('admin.unit') }}" class="nav-link px-2 text-white">Unit List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.unit.create') }}" class="nav-link px-2 text-white">Add Unit</a>
@@ -219,7 +223,7 @@
                                 <i class="fa fa-cloud text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Generic Status</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu11" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2 text-white">Generic Status List</a>
+                                    <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white">Generic Status List</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.status.create') }}" class="nav-link px-2 text-white">Add Generic Status</a>

@@ -4,10 +4,10 @@
 <div class="card-header">
     <div class="row">
      <div class="col-10">
-      <h4>Category List</h4>
+      <h4>Country List</h4>
      </div>
      <div class="col-2">
-      <a class="btn btn-primary" href="{{ route('admin.category.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
+      <a class="btn btn-primary" href="{{ route('admin.country.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
 </div>
@@ -18,7 +18,7 @@
       <tr class="text-center">
         <th scope="col">#</th>
         <th>Name </th>
-        <th >Details</th>
+        <th>Short Name </th>
         <th >Remarks</th>
         <th >Status</th>
         <th >Created by</th>
@@ -30,24 +30,24 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($categories as $category)
+    @foreach ($countries as $country)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
-        <td>{{ $category->name }}</td>
-        <td>{{ $category->details }}</td>
-        <td>{{ $category->remarks }}</td>
-        @if ($category->status_id == 1)
+        <td>{{ $country->name }}</td>
+        <td>{{ $country->short_name }}</td>
+        <td>{{ $country->remarks }}</td>
+        @if ($country->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
         <td><button class="btn btn-warning">Inactive</button></td> 
         @endif
-        <td>{{ $category->createdBy->name ?? "" }}</td>
-        <td>{{ $category->updatedBy->name ?? ""}}</td>
-        <td>{{ $category->created_at }}</td>
-        <td>{{ $category->updated_at }}</td>
+        <td>{{ $country->createdBy->name ?? "" }}</td>
+        <td>{{ $country->updatedBy->name ?? ""}}</td>
+        <td>{{ $country->created_at }}</td>
+        <td>{{ $country->updated_at }}</td>
         <td class="d-flex gap-2">
-          <a href="{{route('admin.category.edit', $category->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
-          <a href="{{route('admin.category.delete', $category->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
+          <a href="{{route('admin.country.edit', $country->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          <a href="{{route('admin.country.delete', $country->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
           
         </td>
       </tr>

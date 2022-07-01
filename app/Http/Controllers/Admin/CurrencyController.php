@@ -21,12 +21,24 @@ class CurrencyController extends Controller
         return new Currency();
     }
 
+    //Get Datas
+    public function index(){
+        $params =[
+            
+            "currencies" => Currency::all()
+        ];
+
+        return view('admin.currency.currencyList',$params);
+    }
+  
     //create
     public function create(){
+      
         $params = [
              "title"       =>   "Create",
              "statuses"    => GenericStatus::all(),
              "countries"   => Country::all(),
+             "symbols"      => $this->symbol(),
              "form_url"    => route('admin.currency.store')
 
         ];
@@ -57,13 +69,14 @@ class CurrencyController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
                 $data->short_name = $request->short_name ?? null;
                 $data->remarks = $request->remarks ?? null;
                 $data->country_id = $request->country_id;
+                $data->currency_symbol = $request->currency_symbol ?? null;
                 $data->status_id = $request->status_id;
                 $data->save();
                 
@@ -78,10 +91,26 @@ class CurrencyController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return back();
+        return redirect()->route('admin.currency');
+    }
+
+    //Currency edit
+    public function edit($id){
+        $currency = Currency::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.currency.store'),
+            "statuses"   => GenericStatus::all(),
+            "countries"   => Country::all(),
+            "symbols"      => $this->symbol(),
+            "data"       => $currency
+
+       ];
+       return view('admin.currency.create',$params);
     }
 }

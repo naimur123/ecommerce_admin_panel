@@ -20,6 +20,20 @@ class SubCategoryController extends Controller
     private function getModel(){
         return new SubCategory();
     }
+
+     //Get Datas
+     public function index(){
+        // $categories = Category::all();
+        $params =[
+            
+            "subcategories" => SubCategory::all()
+        ];
+
+        // print_r($products);
+
+        return view('admin.subcategory.subcategoryList',$params);
+    }
+
     //create
     public function create(){
         $params = [
@@ -56,7 +70,7 @@ class SubCategoryController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
@@ -77,10 +91,26 @@ class SubCategoryController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return back();
+        return redirect()->route('admin.subcategory');
+    }
+
+    //SubCatgeory edit
+    public function edit($id){
+        $subcategory = SubCategory::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.subcategory.store'),
+            // "subcategories" => SubCategory::all(),
+            "categories" => Category::all(),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $subcategory
+
+       ];
+       return view('admin.subcategory.create',$params);
     }
 }

@@ -22,6 +22,16 @@ class BrandController extends Controller
         return new Brand();
     }
 
+    //Get Datas
+    public function index(){
+        $params =[
+            
+            "brands" => Brand::all()
+        ];
+
+        return view('admin.brand.brandList',$params);
+    }
+
     //create
     public function create(){
         $params = [
@@ -55,13 +65,13 @@ class BrandController extends Controller
                     
                     
                 }
-                // else{
-                //     $data = $this->getModel()->find($request->id);
-                //     $data->updated_by = $request->user()->id;
-                // }
+                else{
+                    $data = $this->getModel()->find($request->id);
+                    $data->updated_by = Session::get('admin');
+                }
     
                $data->name = $request->name;
-               $data->image = $this->uploadImage($request, 'image', $this->brand, null, null) ?? null;
+               $data->image = $this->uploadImage($request, 'image', $this->brand, null, null,$data->image) ?? null;
                $data->remarks = $request->remarks;
                $data->country_id = $request->country_id;
                $data->status_id = $request->status_id;
@@ -82,6 +92,21 @@ class BrandController extends Controller
             }
     
             
-        return back();
+        return redirect()->route('admin.brand');
+    }
+
+     //Catgeory edit
+     public function edit($id){
+        $brand = Brand::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.brand.store'),
+            "countries" => Country::all(),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $brand
+
+       ];
+       return view('admin.brand.create',$params);
     }
 }

@@ -20,6 +20,19 @@ class UnitController extends Controller
         return new Unit();
     }
 
+     //Get Datas
+     public function index(){
+        // $categories = Category::all();
+        $params =[
+            
+            "units" => Unit::all()
+        ];
+
+        // print_r($products);
+
+        return view('admin.unit.unitList',$params);
+    }
+
     //create
     public function create(){
         $params = [
@@ -55,7 +68,7 @@ class UnitController extends Controller
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = $request->user()->id;
+                    $data->updated_by = Session::get('admin');
                 }
     
                 $data->name = $request->name;
@@ -75,10 +88,24 @@ class UnitController extends Controller
             }catch(Exception $e){
                 DB::rollBack();
                 return back();
-                return back()->with("error", $this->getError($e))->withInput();
+                // return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return back();
+        return redirect()->route('admin.unit');
+    }
+
+    //Unit edit
+    public function edit($id){
+        $unit = Unit::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.unit.store'),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $unit
+
+       ];
+       return view('admin.unit.create',$params);
     }
 }

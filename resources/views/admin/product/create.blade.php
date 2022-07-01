@@ -72,15 +72,17 @@
         </div>
 
          <!-- Product Code -->
+         @if($title == "Edit")
          <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
                 <label>Product Code <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="code"  value="{{ old("code") ?? ($data->code ?? "")}}" required >
+                <input type="text" class="form-control" name="code"  value="{{ old("code") ?? ($data->code ?? "")}}" required readonly >
                 @error('code')
                 <strong class="text-danger">{{ $message }}</strong>
                 @enderror
             </div>
         </div>
+        @endif
         <!-- Product Quantity -->
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
@@ -143,6 +145,9 @@
         </div>
 
          <!--Image 1 -->
+         @if ($title == "Create")
+             &nbsp; &nbsp;
+         @endif
          <div class="col-12 col-sm-6 col-md-4 my-2">
             <label><b>Image One</b></label><br>
             <input type="file" name="image_one" value="{{ old("image_one") ?? ($data->image_one ?? "") }}">
