@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('details')->nullable();
             $table->text('remarks')->nullable();
-            $table->foreignId('category_id')->references('id')->on('categories')->nullable();
-            $table->foreignId('status_id')->references('id')->on('generic_statuses')->nullable();
+            $table->foreignId('category_id')->nullable()->references('id')->on('categories');
+            $table->foreignId('status_id')->nullable()->references('id')->on('generic_statuses');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

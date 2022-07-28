@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('remarks')->nullable();
-            $table->foreignId('status_id')->references('id')->on('generic_statuses')->nullable();
+            $table->foreignId('status_id')->nullable()->references('id')->on('generic_statuses');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

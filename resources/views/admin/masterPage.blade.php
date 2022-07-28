@@ -189,14 +189,14 @@
                                 <i class="fa-solid fa-block-brick-fire"></i><span class="ms-1 d-none d-sm-inline text-white">Coupons</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu9" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Counpon Code List</a>
+                                    <a href="{{ route('admin.coupon') }}" class="nav-link px-2 text-white">Counpon Code List</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Add Counpon Code</a>
+                                    <a href="{{ route('admin.coupon.create') }}" class="nav-link px-2 text-white">Add Counpon Code</a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-2">Deleted Coupon Codes</a>
-                                </li>
+                                {{-- <li>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Coupon Codes</a>
+                                </li> --}}
                             </ul>
                         </li>
 

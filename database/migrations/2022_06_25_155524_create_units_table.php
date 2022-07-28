@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->text('remarks')->nullable();
-            $table->foreignId('status_id')->references('id')->on('generic_statuses')->nullable();
+            $table->foreignId('status_id')->nullable()->references('id')->on('generic_statuses');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

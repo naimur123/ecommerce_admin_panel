@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GenericStatusController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
@@ -98,15 +99,30 @@ Route::middleware(["admin"])->group(function(){
      Route::get('/brand/delete/{id}',[BrandController::class, 'delete'])->name('brand.delete');
 
     // Products
-    Route::get('/products',[ProductController::class, 'index'])->name('products');
-    Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
-    Route::post('/products/create',[ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
-    Route::post('/products/update',[ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
-    Route::get('/products/deletedList',[ProductController::class, 'archive'])->name('products.archive');
-    Route::get('/products/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
-    Route::get('/products/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+    Route::prefix('products')->group(function(){
+        Route::get('',[ProductController::class, 'index'])->name('products');
+        Route::get('/create',[ProductController::class, 'create'])->name('products.create');
+        Route::post('/create',[ProductController::class, 'store'])->name('products.store');
+        Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
+        Route::post('/update',[ProductController::class, 'store'])->name('products.store');
+        Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+        Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
+        Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
+        Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+    });
+
+    // Coupon 
+    Route::prefix('coupon')->group(function(){
+        Route::get('',[CouponController::class, 'index'])->name('coupon');
+        Route::get('/create',[CouponController::class, 'create'])->name('coupon.create');
+        Route::post('/create',[CouponController::class, 'store'])->name('coupon.store');
+        // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
+        // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
+        // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+        // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
+        // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
+        // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+    });
 
     });
 });

@@ -13,16 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('name');
-            $table->string('short_name')->nullable();
-            $table->text('remarks')->nullable();
+        Schema::create('coupon_codes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->integer('value')->nullable();
+            $table->date('start_date')->nullable();
+            $table->time('start_time')->nullable();
+            $table->date('end_date')->nullable();
+            $table->time('end_time')->nullable();
             $table->foreignId('status_id')->nullable()->references('id')->on('generic_statuses');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('coupon_codes');
     }
 };
