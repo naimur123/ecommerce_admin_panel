@@ -206,13 +206,13 @@
                                 <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline  text-white">Sliders</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu10" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-2">Slider List</a>
+                                    <a href="{{ route('admin.slider') }}" class="nav-link px-2 text-white">Slider List</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Add New Slider</a>
+                                    <a href="{{ route('admin.slider.create') }}" class="nav-link px-2 text-white">Add New Slider</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-2">Deleted Sliders</a>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Sliders</a>
                                 </li>
                             </ul>
                         </li>

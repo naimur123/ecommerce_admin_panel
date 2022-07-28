@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
 
@@ -116,6 +117,19 @@ Route::middleware(["admin"])->group(function(){
         Route::get('',[CouponController::class, 'index'])->name('coupon');
         Route::get('/create',[CouponController::class, 'create'])->name('coupon.create');
         Route::post('/create',[CouponController::class, 'store'])->name('coupon.store');
+        // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
+        // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
+        // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+        // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
+        // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
+        // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+    });
+
+    // Slider 
+    Route::prefix('slider')->group(function(){
+        Route::get('',[SliderController::class, 'index'])->name('slider');
+        Route::get('/create',[SliderController::class, 'create'])->name('slider.create');
+        Route::post('/create',[SliderController::class, 'store'])->name('slider.store');
         // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
         // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
         // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');

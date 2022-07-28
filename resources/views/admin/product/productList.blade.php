@@ -38,7 +38,7 @@
     <tbody>
         <?php $i = 1 ?>
     @foreach ($product as $products )
-      <tr>
+      <tr class="text-center">
         <th>{{ $i++ }}</th>
         <td>{{ $products->name }}</td>
         <td>{{ $products->categories->name }}</td>

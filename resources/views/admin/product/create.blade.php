@@ -144,10 +144,12 @@
             </div>
         </div>
 
-         <!--Image 1 -->
+         
          @if ($title == "Create")
              &nbsp; &nbsp;
          @endif
+         
+         <!--Image 1 -->
          <div class="col-12 col-sm-6 col-md-4 my-2">
             <label><b>Image One</b></label><br>
             <input type="file" name="image_one" value="{{ old("image_one") ?? ($data->image_one ?? "") }}">
