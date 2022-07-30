@@ -45,6 +45,16 @@
                                 </li>
                             </ul> --}}
                          </li>
+
+                         {{-- Activity Log --}}
+                         <li>
+                            <a href="{{ route('admin.actvitylog') }}" class="text-white" style="text-decoration: none">
+                                Activity Log
+                            </a>
+                           
+                         </li>
+
+
                         {{-- Order List  --}}
                         <li>
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">

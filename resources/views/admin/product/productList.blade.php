@@ -43,7 +43,7 @@
         <td>{{ $products->name }}</td>
         <td>{{ $products->categories->name }}</td>
         <td>{{ $products->subcategory->name }}</td>
-        <td>{{ $products->brands->name }}</td>
+        <td>{{ $products->brands->name ?? "N/A" }}</td>
         <td>{{ $products->code }}</td>
         <td>{{ $products->quantity }}</td>
         <td>{{ $products->price }}</td>

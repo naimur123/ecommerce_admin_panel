@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\User\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,7 +140,16 @@ Route::middleware(["admin"])->group(function(){
         // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
     });
 
+    // Activity Log
+    Route::get('activity',[ActivityLogController::class,'index'])->name('actvitylog');
+
     });
 });
 
 // Route::get('/home', [HomeController::class, 'index']);
+
+// User Login With google
+Route::controller(LoginController::class)->group(function(){
+    Route::get('auth/google', 'redirectToGoogle');
+    Route::get('auth/callback', 'googleCallback');
+});
