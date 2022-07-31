@@ -17,15 +17,17 @@ class ActivityLogController extends Controller
 
      //Get Datas
      public function index(Request $request){
-        $activity = ActivityLog::orderBy("id","DESC")->paginate(15);
+        $activity = ActivityLog::orderBy("id","DESC")->paginate(20);
         // $activity = $activity->paginate(50);
         
         $params =[
             
             "activities" => $activity
         ];
+
         $admin = Session::get('admin');
         $this->saveActivity($request, "Activity Log viewed",$admin);
+
         return view('admin.activity.activityList',$params);
     }
 }

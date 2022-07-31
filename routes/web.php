@@ -42,7 +42,7 @@ Route::middleware(["admin"])->group(function(){
     Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::get('home',[AdminController::class, 'dashboard'])->name('home');
-    Route::post('logout',[AdminController::class, 'logout'])->name('logout');
+    Route::get('logout',[AdminController::class, 'logout'])->name('logout');
 
      // Generic Status
      Route::get('status',[GenericStatusController::class, 'index'])->name('status');

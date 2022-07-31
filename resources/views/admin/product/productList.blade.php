@@ -12,7 +12,7 @@
     </div>
 </div>
 <br>
-<div class="table-responsive text-nowrap">
+<div class="table-responsive text-nowrap" style="overflow: scoll">
 <table class="table table-striped table-bordered table-lg table-hover">
     <thead class="table text-white" style="background-color: #0ac282">
       <tr class="text-center">
