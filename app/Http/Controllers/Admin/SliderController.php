@@ -20,23 +20,27 @@ class SliderController extends Controller
     }
 
     //Get Datas
-    public function index(){
+    public function index(Request $request){
         $params =[
             "title" => "List",
             "sliders" => Slider::all()
         ];
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Slider list viewed",$admin);
 
         return view('admin.slider.sliderList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       => "Create",
              "form_url"    => route('admin.slider.store'),
              "statuses"     => GenericStatus::all()
 
         ];
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Slider create page opened",$admin);
         return view('admin.slider.create',$params);
     }
     //store product
@@ -56,6 +60,8 @@ class SliderController extends Controller
                     if(Session::has('admin')){
                         $data->created_by = Session::get('admin');
                     }
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New slider added",$admin);
                     
                 }
                 // else{

@@ -21,22 +21,29 @@ class GenericStatusController extends Controller
     }
 
     //Get Datas
-    public function index(){
-        // $categories = Category::all();
+    public function index(Request $request){
+        
         $params =[
             
             "statuses" => GenericStatus::all()
         ];
+
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Generic Status list viewed",$admin);
+
         return view('admin.genericStatus.statusList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       =>   "Create",
              "form_url"    => route('admin.status.store'),
 
         ];
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Create generic status page opened",$admin);
+
         return view('admin.genericStatus.create',$params);
     }
 
@@ -58,12 +65,18 @@ class GenericStatusController extends Controller
                     if(Session::has('admin')){
                         $data->created_by = Session::get('admin');
                     }
-                    
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New generic status added",$admin);
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
                     $data->updated_by = Session::get('admin');
+
+                    $message = "generic status edited";
+                    $msg = implode(' ', array($data->name, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
                 }
     
                 $data->name = $request->name;
@@ -89,7 +102,7 @@ class GenericStatusController extends Controller
     }
 
      //Status edit
-     public function edit($id){
+     public function edit(Request $request, $id){
         $status = GenericStatus::find($id);
 
         $params = [
@@ -98,6 +111,13 @@ class GenericStatusController extends Controller
             "data"       => $status
 
        ];
+
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($status->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
+
        return view('admin.genericStatus.create',$params);
     }
 }

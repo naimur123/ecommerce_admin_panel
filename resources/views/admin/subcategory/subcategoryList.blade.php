@@ -36,7 +36,7 @@
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $subcategory->name }}</td>
-        <td >{{ $subcategory->categories->name }}</td>
+        <td >{{ $subcategory->categories->name ?? "N/A" }}</td>
         <td>{{ $subcategory->details }}</td>
         <td>{{ $subcategory->remarks }}</td>
         @if ($subcategory->status_id == 1)

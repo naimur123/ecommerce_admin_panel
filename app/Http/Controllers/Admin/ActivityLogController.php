@@ -7,6 +7,7 @@ use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 class ActivityLogController extends Controller
 {
     //GetModel
@@ -16,9 +17,12 @@ class ActivityLogController extends Controller
 
      //Get Datas
      public function index(Request $request){
+        $activity = ActivityLog::orderBy("id","DESC")->paginate(15);
+        // $activity = $activity->paginate(50);
+        
         $params =[
             
-            "activities" => ActivityLog::all()
+            "activities" => $activity
         ];
         $admin = Session::get('admin');
         $this->saveActivity($request, "Activity Log viewed",$admin);

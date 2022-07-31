@@ -37,7 +37,7 @@
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $currency->name }}</td>
         <td>{{ $currency->short_name }}</td>
-        <td>{{ $currency->country->name }}</td>
+        <td>{{ $currency->country->name ?? "N/A" }}</td>
         <td>{{ $currency->currency_symbol }}</td>
         <td>{{ $currency->remarks }}</td>
         @if ($currency->status_id == 1)

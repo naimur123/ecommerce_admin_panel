@@ -33,7 +33,7 @@
     @foreach ($categories as $category)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
-        <td>{{ $category->name }}</td>
+        <td>{{ $category->name}}</td>
         <td>{{ $category->details }}</td>
         <td>{{ $category->remarks }}</td>
         @if ($category->status_id == 1)

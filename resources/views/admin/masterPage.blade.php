@@ -29,7 +29,7 @@
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color:#404E67">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <a href="{{ route('admin.home') }}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-5 d-none d-sm-inline">Laravel Ecommerce</span>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
@@ -104,25 +104,25 @@
                                 <li>
                                     <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white">Add Category</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Category</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         {{--Sub Categories --}}
                         <li>
                             <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fa-solid fa-arrows-to-eye text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Sub Categories</span></a>
+                                <i class="fa-solid fa-arrows-to-eye text-white"></i><span class="ms-1 d-none d-sm-inline text-white">Subcategories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white">Sub-Category List</a>
+                                    <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white">Subcategory List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white">Add SubCategory</a>
+                                    <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white">Add Subcategory</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Sub-Category</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -137,9 +137,9 @@
                                 <li>
                                     <a href="{{ route('admin.brand.create') }}" class="nav-link px-2 text-white">Add Brand</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Brand</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -154,9 +154,9 @@
                                 <li>
                                     <a href="{{ route('admin.country.create') }}" class="nav-link px-2 text-white">Add Country</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Countries</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                          {{-- Countries --}}
@@ -170,9 +170,9 @@
                                 <li>
                                     <a href="{{ route('admin.currency.create') }}" class="nav-link px-2 text-white">Add Currency</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Currency</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -187,9 +187,9 @@
                                 <li>
                                     <a href="{{ route('admin.unit.create') }}" class="nav-link px-2 text-white">Add Unit</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Units</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         
@@ -221,9 +221,9 @@
                                 <li>
                                     <a href="{{ route('admin.slider.create') }}" class="nav-link px-2 text-white">Add New Slider</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Sliders</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -238,9 +238,9 @@
                                 <li>
                                     <a href="{{ route('admin.status.create') }}" class="nav-link px-2 text-white">Add Generic Status</a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-2 text-white">Deleted Sliders</a>
-                                </li>
+                                {{-- <li>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Status</a>
+                                </li> --}}
                             </ul>
                         </li>
                         {{-- <li>

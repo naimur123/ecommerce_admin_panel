@@ -28,18 +28,21 @@ class ProductController extends Controller
     }
 
     //Get Datas
-    public function index(){
+    public function index(Request $request){
         $products = Product::all();
         $params =[
             "title" => "List",
             "product" => $products
         ];
 
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Product list viewed",$admin);
+
         return view('admin.product.productList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       => "Create",
              "form_url"    => route('admin.products.store'),
@@ -51,6 +54,9 @@ class ProductController extends Controller
              "statuses"     => GenericStatus::all()
 
         ];
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Create product page opened",$admin);
+
         return view('admin.product.create',$params);
     }
     //store product
@@ -77,11 +83,18 @@ class ProductController extends Controller
                         $data->code = Str::random(6);
                         $data->created_by = Session::get('admin');
                     }
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New product added",$admin);
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
                     $data->updated_by = Session::get('admin');
+
+                    $message = "product edited";
+                    $msg = implode(' ', array($data->name, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
                 }
     
                 $data->category_id = $request->category_id;
@@ -127,7 +140,7 @@ class ProductController extends Controller
     }
 
     //product edit
-    public function edit($id){
+    public function edit(Request $request, $id){
 
         $product = Product::find($id);
 
@@ -143,15 +156,27 @@ class ProductController extends Controller
             "data"       => $product
 
        ];
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($product->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
+
        return view('admin.product.create',$params);
     }
 
     //product Delete
-    public function delete($id){
+    public function delete(Request $request, $id){
 
         try{
-        $data = $this->getModel()->find($id);
-        $data->delete();
+         $data = $this->getModel()->find($id);
+         if(!empty($data)){
+            $data->delete();
+            $message = "product archived";
+            $msg = implode(' ', array($data->name, $message));
+            $admin = Session::get('admin');
+            $this->saveActivity($request, $msg, $admin);
+         }
          return back();
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
@@ -160,23 +185,26 @@ class ProductController extends Controller
     }
 
     //product archive list
-    public function archive(){
+    public function archive(Request $request){
 
         $products = $this->getModel()->onlyTrashed()->get();
         $params =[
             "title"  => "Deleted List",
             "product" => $products
         ];
-
+        $admin = Session::get('admin');
+        $this->saveActivity($request,"Product archive list viewed", $admin);
         return view('admin.product.productList',$params);
         
     }
     //product restore
-    public function restore($id){
+    public function restore(Request $request, $id){
 
         try{
-        $this->getModel()->onlyTrashed()->find($id)->restore();
-        return redirect()->route('admin.products');
+            $this->getModel()->onlyTrashed()->find($id)->restore();
+            $admin = Session::get('admin');
+            $this->saveActivity($request,"Product Restored", $admin);
+            return redirect()->route('admin.products');
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
         }
@@ -184,11 +212,18 @@ class ProductController extends Controller
         
     }
     //product permanent delete
-    public function parmenentDelete($id){
+    public function parmenentDelete(Request $request, $id){
 
         try{
           $product = $this->getModel()->onlyTrashed()->find($id);
-          $product->forceDelete();
+          if(!empty($product)){
+            $product->forceDelete();
+            $message = "product permanently deleted";
+            $msg = implode(' ', array($product->name, $message));
+            $admin = Session::get('admin');
+            $this->saveActivity($request, $msg, $admin);
+          }
+          
           return redirect()->route('admin.products.archive');
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();

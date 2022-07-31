@@ -21,26 +21,29 @@ class CountryController extends Controller
     }
 
     //Get Datas
-    public function index(){
+    public function index(Request $request){
         // $categories = Category::all();
         $params =[
             
             "countries" => Country::all()
         ];
 
-        // print_r($products);
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Country list viewed",$admin);
 
         return view('admin.country.countryList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       =>   "Create",
              "statuses"    => GenericStatus::all(),
              "form_url"    => route('admin.country.store')
 
         ];
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Create country page opened",$admin);
         return view('admin.country.create',$params);
     }
 
@@ -63,12 +66,19 @@ class CountryController extends Controller
                     if(Session::has('admin')){
                         $data->created_by = Session::get('admin');
                     }
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New country added",$admin);
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
                     $data->updated_by = Session::get('admin');
+
+                    $message = "country edited";
+                    $msg = implode(' ', array($data->name, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
                 }
     
                 $data->name = $request->name;
@@ -96,7 +106,7 @@ class CountryController extends Controller
     }
 
      //Country edit
-     public function edit($id){
+     public function edit(Request $request, $id){
         $country = Country::find($id);
 
         $params = [
@@ -106,6 +116,30 @@ class CountryController extends Controller
             "data"       => $country
 
        ];
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($country->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
        return view('admin.country.create',$params);
+    }
+    // Country delete
+    public function delete(Request $request, $id){
+
+        try{
+            $data = $this->getModel()->find($id);
+            if(!empty($data)){
+                $data->delete();
+                $message = "country deleted";
+                $msg = implode(' ', array($data->name, $message));
+                $admin = Session::get('admin');
+                $this->saveActivity($request, $msg, $admin);
+            }
+            
+            return back();
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
     }
 }

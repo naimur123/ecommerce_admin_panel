@@ -41,8 +41,8 @@
       <tr class="text-center">
         <th>{{ $i++ }}</th>
         <td>{{ $products->name }}</td>
-        <td>{{ $products->categories->name }}</td>
-        <td>{{ $products->subcategory->name }}</td>
+        <td>{{ $products->categories->name ?? "N/A" }}</td>
+        <td>{{ $products->subcategory->name ?? "N/A" }}</td>
         <td>{{ $products->brands->name ?? "N/A" }}</td>
         <td>{{ $products->code }}</td>
         <td>{{ $products->quantity }}</td>

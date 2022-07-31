@@ -31,9 +31,14 @@
         <td>{{ $activity->admin->name ?? "N/A" }}</td>
         <td>{{ $activity->created_at }}</td>
       </tr>
+      
     @endforeach
-    </tbody>
+    
   </table>
+  {{-- Pagination --}}
+  <div class="d-flex justify-content-center">
+    {!! $activities->links() !!}
+  </div>
 </div>
 
 

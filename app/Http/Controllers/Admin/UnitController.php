@@ -21,26 +21,31 @@ class UnitController extends Controller
     }
 
      //Get Datas
-     public function index(){
-        // $categories = Category::all();
+     public function index(Request $request){
         $params =[
             
             "units" => Unit::all()
         ];
 
-        // print_r($products);
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Unit list viewed",$admin);
+
 
         return view('admin.unit.unitList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       =>   "Create",
              "statuses"    => GenericStatus::all(),
              "form_url"    => route('admin.unit.store')
 
         ];
+
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Unit create page opened",$admin);
+
         return view('admin.unit.create',$params);
     }
 
@@ -63,12 +68,19 @@ class UnitController extends Controller
                     if(Session::has('admin')){
                         $data->created_by = Session::get('admin');
                     }
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New unit added",$admin);
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
                     $data->updated_by = Session::get('admin');
+
+                    $message = "unit edited";
+                    $msg = implode(' ', array($data->name, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
                 }
     
                 $data->name = $request->name;
@@ -96,7 +108,7 @@ class UnitController extends Controller
     }
 
     //Unit edit
-    public function edit($id){
+    public function edit(Request $request, $id){
         $unit = Unit::find($id);
 
         $params = [
@@ -106,6 +118,33 @@ class UnitController extends Controller
             "data"       => $unit
 
        ];
+
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($unit->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
+
        return view('admin.unit.create',$params);
+    }
+
+    //Unit delete
+    public function delete(Request $request, $id){
+
+        try{
+            $data = $this->getModel()->find($id);
+            if(!empty($data)){
+                $data->delete();
+                $message = "unit deleted";
+                $msg = implode(' ', array($data->name, $message));
+                $admin = Session::get('admin');
+                $this->saveActivity($request, $msg, $admin);
+            }
+            
+            return back();
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
     }
 }

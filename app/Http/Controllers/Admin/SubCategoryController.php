@@ -22,20 +22,21 @@ class SubCategoryController extends Controller
     }
 
      //Get Datas
-     public function index(){
+     public function index(Request $request){
         // $categories = Category::all();
         $params =[
             
             "subcategories" => SubCategory::all()
         ];
 
-        // print_r($products);
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Subcategory list viewed",$admin);
 
         return view('admin.subcategory.subcategoryList',$params);
     }
 
     //create
-    public function create(){
+    public function create(Request $request){
         $params = [
              "title"       =>   "Create",
              "categories"  => Category::all(),
@@ -43,6 +44,10 @@ class SubCategoryController extends Controller
              "form_url"    => route('admin.subcategory.store'),
 
         ];
+
+        $admin = Session::get('admin');
+        $this->saveActivity($request, "Subcategory create page opened",$admin);
+
         return view('admin.subcategory.create',$params);
     }
 
@@ -65,12 +70,19 @@ class SubCategoryController extends Controller
                     if(Session::has('admin')){
                         $data->created_by = Session::get('admin');
                     }
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, "New subcategory added",$admin);
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
                     $data->updated_by = Session::get('admin');
+
+                    $message = "subcategory edited";
+                    $msg = implode(' ', array($data->name, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
                 }
     
                 $data->name = $request->name;
@@ -99,7 +111,7 @@ class SubCategoryController extends Controller
     }
 
     //SubCatgeory edit
-    public function edit($id){
+    public function edit(Request $request, $id){
         $subcategory = SubCategory::find($id);
 
         $params = [
@@ -111,6 +123,33 @@ class SubCategoryController extends Controller
             "data"       => $subcategory
 
        ];
+
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($subcategory->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
+
        return view('admin.subcategory.create',$params);
+    }
+
+    //SubCategory delete
+    public function delete(Request $request, $id){
+
+        try{
+            $data = $this->getModel()->find($id);
+            if(!empty($data)){
+                $data->delete();
+                $message = "subcategory deleted";
+                $msg = implode(' ', array($data->name, $message));
+                $admin = Session::get('admin');
+                $this->saveActivity($request, $msg, $admin);
+            }
+            
+            return back();
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
     }
 }
