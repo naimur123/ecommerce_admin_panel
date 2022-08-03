@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Testing\Constraints\SoftDeletedInDatabase;
+
 
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     public function createdBy(){
         return $this->belongsTo(Admin::class, "created_by");
     }
