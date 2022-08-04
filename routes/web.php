@@ -148,12 +148,8 @@ Route::middleware(["admin"])->group(function(){
 
 // Route::get('/home', [HomeController::class, 'index']);
 
-// User Login With google
-Route::controller(LoginController::class)->group(function(){
-    Route::get('auth/google', 'redirectToGoogle');
-    Route::get('auth/callback', 'googleCallback');
-});
 
 
 // Client Side Routes
 require('web_client.php');
+

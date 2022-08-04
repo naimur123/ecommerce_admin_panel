@@ -15,11 +15,51 @@ class HomeController extends Controller
     public function index(){
         $params = [
             "categories" => Category::where('status_id',1)->get(),
-            "products" => Product::where('status_id',1)->get(),
+            "products" => Product::where('status_id',1)->paginate(20),
             "subcategories" => SubCategory::where('status_id',1)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
-            "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get(),
+            "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
         ];
-        return view('frontend.masterPage',$params);
+        return view('frontend.home.home',$params);
     }
+
+    // Cart Add
+    public function addTocart(Request $request, $id){
+        $product = Product::findOrFail($id);
+          
+        $cart = session()->get('cart', []);
+  
+        if(isset($cart[$id])) {
+            return redirect()->back()->with('alert', 'Product already added to the cart');
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image_one
+            ];
+        }
+          
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart');
+    }
+
+    // Cart details
+    public function cart(Request $request){
+
+        return view('frontend.cart.cart');
+    }
+
+    public function cartDelete(Request $request, $id){
+        if($id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$id])) {
+                unset($cart[$id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+            return redirect()->back();
+        }
+    }
+
 }

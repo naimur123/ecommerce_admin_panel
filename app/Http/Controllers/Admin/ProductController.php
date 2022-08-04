@@ -29,7 +29,7 @@ class ProductController extends Controller
 
     //Get Datas
     public function index(Request $request){
-        $products = Product::all();
+        $products = Product::paginate(10);
         $params =[
             "title" => "List",
             "product" => $products

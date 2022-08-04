@@ -12,7 +12,7 @@
     </div>
 </div>
 <br>
-<div class="table-responsive text-nowrap" style="overflow: scoll">
+<div class="table-responsive text-nowrap">
 <table class="table table-striped table-bordered table-lg table-hover">
     <thead class="table text-white" style="background-color: #0ac282">
       <tr class="text-center">
@@ -73,6 +73,10 @@
     @endforeach
     </tbody>
   </table>
+   {{-- Pagination --}}
+   <div class="d-flex justify-content-center">
+    {!! $product->links() !!}
+  </div>
 </div>
 
 

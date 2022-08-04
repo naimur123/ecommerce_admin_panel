@@ -55,12 +55,12 @@
       
     </nav>
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67">
+            <div class="col-m-4 col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67;">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     {{-- <a href="{{ route('admin.home') }}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-5 d-none d-sm-inline">Laravel Ecommerce</span>
                     </a> --}}
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-center align-items-sm-start" id="menu">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-center align-items-sm-start" id="menu" style="position:fixed;">
                         <li>
                             <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
                                 <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
@@ -299,7 +299,7 @@
                     @yield('content')
                 </div> --}}
             {{-- </div> --}}
-            <div class="col py-4" style="padding-top: 4.5rem !important;">
+            <div class="col-m-8 py-4" style="padding-top: 4.5rem !important;">
                 @yield('content')
             </div>
             
