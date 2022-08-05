@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Exists;
 use Laravel\Socialite\Facades\Socialite;
@@ -25,12 +26,14 @@ class LoginController extends Controller
             $data = New User();
             $data->name = $user->name;
             $data->email = $user->email;
+            $data->email_verified_at = Carbon::now();
             $data->phone = $user->phone ?? null;
             $data->password = bcrypt(123456);
             $data->social_id = $user->id;
             $data->save();
 
-            return redirect()->route('home');
+            return view('frontend.user.dashboard')->with('user', $data);
+            // return redirect()->route('user.dashboard')->with(['id'=>$user->id,'succes' => 'Alread Apply for this post']);
         }
     }
 
