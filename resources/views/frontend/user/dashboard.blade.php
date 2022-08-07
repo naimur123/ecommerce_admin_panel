@@ -11,6 +11,8 @@
     <p>Congrats Youre Loggedin</p>
     @else
      <p>Youre email is not verified</p>
+     {{-- <p>{{ $user->id }}</p> --}}
+     <p>To verify your email</p><a href="{{ route('email.verfiy', $user->id ) }}">Click here</a>
     @endif
     
 </body>

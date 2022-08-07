@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
@@ -13,10 +14,22 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 //     Route::get('auth/callback', 'googleCallback');
 // });
 
-Route::get('/register',[LoginController::class,'showRegisterform'])->name('user.register');
+
 Route::get('/register/google',[LoginController::class,'redirectToGoogle'])->name('register.google');
 Route::get('/register/google/signin',[LoginController::class,'googleSignin'])->name('register.google.signin');
-Route::get('/user/dashboard/{id}',[DashboardController::class,'index'])->name('user.dashboard');
+
+Route::get('/login',[LoginController::class,'index'])->name('user.showLoginform');
+Route::post('/login',[LoginController::class,'login'])->name('user.login');
+Route::get('/register',[LoginController::class,'showRegisterform'])->name('user.registerForm');
+Route::post('/register',[LoginController::class,'register'])->name('user.register');
+
+//Email verify
+Route::get('/email/verfiy/{id}',[LoginController::class,'verifyNotification'])->name('email.verfiy');
+Route::get('/email/verifiy/{token}',[LoginController::class,'verify']);
+
+
+
+// Route::get('/user/dashboard',[LoginController::class,'dashboard'])->name('user.dashboard');
 
 //Add to cart
 Route::get('/cart',[HomeController::class,'cart'])->name('cart');

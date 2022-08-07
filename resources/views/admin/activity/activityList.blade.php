@@ -16,6 +16,7 @@
       <tr class="text-center">
         <th scope="col">#</th>
         <th>Activity</th>
+        <th>MAC</th>
         <th>IP</th>
         <th>Admin Name</th>
         <th>Date</th>
@@ -27,6 +28,7 @@
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $activity->activity }}</td>
+        <td>{{ $activity->mac }}</td>
         <td>{{ $activity->ip }}</td>
         <td>{{ $activity->admin->name ?? "N/A" }}</td>
         <td>{{ $activity->created_at }}</td>

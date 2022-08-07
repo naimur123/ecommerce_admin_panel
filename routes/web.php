@@ -149,7 +149,6 @@ Route::middleware(["admin"])->group(function(){
 // Route::get('/home', [HomeController::class, 'index']);
 
 
-
 // Client Side Routes
 require('web_client.php');
 

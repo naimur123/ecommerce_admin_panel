@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="30">
 
     <!-- BootStrap Path -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
@@ -60,7 +60,7 @@
                     {{-- <a href="{{ route('admin.home') }}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-5 d-none d-sm-inline">Laravel Ecommerce</span>
                     </a> --}}
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-center align-items-sm-start" id="menu" style="position:fixed;">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-center align-items-sm-start" id="menu">
                         <li>
                             <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
                                 <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>

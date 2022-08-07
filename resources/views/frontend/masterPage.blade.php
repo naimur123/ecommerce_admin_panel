@@ -82,8 +82,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link text-dark fw-bolder" data-toggle="dropdown"><i class="bi bi-person-circle"></i> Account</a>
                         <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item"><i class="bi bi-key-fill"></i> Login</a>
-                            <a href="{{ route('user.register') }}" class="dropdown-item"><i class="bi bi-person-plus"></i> Register</a>
+                            <a href="{{ route('user.showLoginform') }}" class="dropdown-item"><i class="bi bi-key-fill"></i> Login</a>
+                            <a href="{{ route('user.registerForm') }}" class="dropdown-item"><i class="bi bi-person-plus"></i> Register</a>
                              
                         </div>
                     </div>
