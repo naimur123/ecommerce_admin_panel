@@ -35,21 +35,19 @@ return [
     //     'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     // ],
     
+    
     // 'google' => [
     //     'client_id' => env('GOOGLE_CLIENT_ID'),
     //     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-    //     'redirect' => 'http://kenakatalaravel.herokuapp.com/register/google/signin',
+    //     'redirect' => 'http://127.0.0.1:8000/register/google/signin',
     // ],
+
+    // for heroku
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://127.0.0.1:8000/register/google/signin',
+        'redirect' => 'https://kenakatalaravel.herokuapp.com/register/google/signin',
     ],
-    // 'heroku' => [
-    //     'client_id' => env('HEROKU_CLIENT_ID'),
-    //     'client_secret' => env('HEROKU_CLIENT_SECRET'),
-    //     'redirect' => 'http://kenakatalaravel.herokuapp.com/register/google/signin',
-    // ],
     // 'facebook' => [
     //     'client_id' => env('FACEBOOK_CLIENT_ID'),
     //     'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
