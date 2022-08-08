@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
 
-class EmailVerify extends Notification
+class EmailVerifys extends Notification
 {
     use Queueable;
     private $user;

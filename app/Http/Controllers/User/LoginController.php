@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\EmailVerifiy;
 use App\Models\EmailTemplate;
 use App\Models\User;
-use App\Notifications\EmailVerify;
+use App\Notifications\EmailVerifys;
 use App\Notifications\EmailVerifyNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -141,7 +141,7 @@ class LoginController extends Controller
             // $details['endtext'] = "Thanks";
             // $template = EmailTemplate::where("type","smptp")->get();
             // if($template){
-                $user->notify(new EmailVerify($user));
+                $user->notify(new EmailVerifys($user));
             // }
             return back()->with('message','Verification email sent successfully. Please check your email.');
           
