@@ -1,7 +1,8 @@
 @extends('admin.masterPage')
 @section('content')
-<div class="col-12 col-lg-12 mt-2 mb-2">
-<div class="card">
+
+<div class="col-10 col-lg-10 mt-2 mb-2">
+ <div class="card">
  <div class="card-body">
     <form class="row form-horizontal" action="{{ $form_url }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -92,7 +93,7 @@
         </div>
 
     </form>
+ </div>
 </div>
-</div>
-</div>
+
 @endsection

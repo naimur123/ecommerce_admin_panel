@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerifiy;
+use App\Models\EmailTemplate;
 use App\Models\User;
 use App\Notifications\EmailVerify;
 use App\Notifications\EmailVerifyNotification;
@@ -16,7 +17,9 @@ use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 // use Mail;
 class LoginController extends Controller
 {
@@ -41,8 +44,8 @@ class LoginController extends Controller
             $data->social_id = $user->id;
             $data->save();
 
-            return view('frontend.user.dashboard')->with('user', $data);
-            // return redirect()->route('user.dashboard')->with(['id'=>$user->id,'succes' => 'Alread Apply for this post']);
+            // return view('frontend.user.dashboard.dashboard')->with('user', $data);
+            // return redirect()->route('user.dashboard');
         }
     }
 
@@ -53,6 +56,17 @@ class LoginController extends Controller
     //     $user = Socialite::driver('facebook')->user();
     //     dd($user);
     // }
+    public function dashboard($id){
+       
+        $user = User::find($id);
+        $params = [
+            "id" => $user->id,
+            "email_verified_at" => $user->email_verified_at
+        ];
+        // dd($params);
+        return view('frontend.user.dashboard.dashboard',$params);
+    }
+
     public function showRegisterform(){
         return view('frontend.auth.register');
     }
@@ -73,7 +87,9 @@ class LoginController extends Controller
               $user = User::where("email", $request->email)->first(); 
               if( !empty($user) ){
                   if( Hash::check($request->password, $user->password) ){
-                      return view('frontend.user.dashboard')->with('user', $user);
+                      Session::put('user',$user->id);
+                      return Redirect::route('user.dashboard', $user->id);
+                    //   return view('frontend.user.dashboard')->with('user', $user);
                       
                   }else{
                       return back()->with('error',"Account doesnot match");
@@ -114,25 +130,34 @@ class LoginController extends Controller
         try{
             $user = User::find($id);
             
+            // $id = $user->id;
             // Mail::to($user->email)->send(new EmailVerifiy($user));
 
-            $details = array();
+            // $details = array();
 
-            $details['greeting'] = "Hello";
-            $details['body'] = "Please verify your email";
-            // $details['actionurl'] = "Check";
-            $details['endtext'] = "Thanks";
-            $user->notify(new EmailVerify($details));
-
-            
-
-           
-
-           
-
+            // $details['greeting'] = "Hello";
+            // $details['body'] = "Please verify your email";
+            // // $details['actionurl'] = "Check";
+            // $details['endtext'] = "Thanks";
+            // $template = EmailTemplate::where("type","smptp")->get();
+            // if($template){
+                $user->notify(new EmailVerify($user));
+            // }
+            return back()->with('message','Verification email sent successfully. Please check your email.');
           
         }catch(Exception $e){
             
+        }
+    }
+
+    public function verify(Request $request, $id){
+        $user = User::find($request->id);
+        if(!empty($user)){
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+
+            // return view('frontend.user.dashboard.dashboard')->with('user', $user);
+            return Redirect::route('user.dashboard', $user->id);
         }
     }
 

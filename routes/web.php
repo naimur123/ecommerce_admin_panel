@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
@@ -132,6 +133,19 @@ Route::middleware(["admin"])->group(function(){
         Route::get('',[SliderController::class, 'index'])->name('slider');
         Route::get('/create',[SliderController::class, 'create'])->name('slider.create');
         Route::post('/create',[SliderController::class, 'store'])->name('slider.store');
+        // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
+        // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
+        // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+        // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
+        // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
+        // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+    });
+
+    // Email 
+    Route::prefix('email')->group(function(){
+        // Route::get('',[SliderController::class, 'index'])->name('slider');
+        Route::get('/create',[EmailController::class, 'create'])->name('emailtemplate.create');
+        Route::post('/create',[EmailController::class, 'store'])->name('emailtemplate.store');
         // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
         // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
         // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');

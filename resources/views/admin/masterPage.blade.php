@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="30">
+    {{-- <meta http-equiv="refresh" content="30"> --}}
 
     <!-- BootStrap Path -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
@@ -56,11 +56,11 @@
     </nav>
         <div class="row flex-nowrap">
             <div class="col-m-4 col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     {{-- <a href="{{ route('admin.home') }}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-5 d-none d-sm-inline">Laravel Ecommerce</span>
                     </a> --}}
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-center align-items-sm-start" id="menu">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-sm-start" id="menu">
                         <li>
                             <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
                                 <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
@@ -259,6 +259,23 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.status.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Generic Status</a>
+                                </li>
+                                {{-- <li>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Status</a>
+                                </li> --}}
+                            </ul>
+                        </li>
+
+                         {{-- Email --}}
+                         <li>
+                            <a href="#submenu13" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="bi bi-envelope-exclamation-fill text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Email setup</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu13" data-bs-parent="#menu">
+                                {{-- <li class="w-100">
+                                    <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                </li> --}}
+                                <li>
+                                    <a href="{{ route('admin.emailtemplate.create') }}" class="nav-link px-2 text-white"><i class="bi bi-file-word"></i> Email tempalte</a>
                                 </li>
                                 {{-- <li>
                                     <a href="#" class="nav-link px-2 text-white">Deleted Status</a>

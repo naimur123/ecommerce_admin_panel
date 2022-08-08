@@ -25,11 +25,11 @@ Route::post('/register',[LoginController::class,'register'])->name('user.registe
 
 //Email verify
 Route::get('/email/verfiy/{id}',[LoginController::class,'verifyNotification'])->name('email.verfiy');
-Route::get('/email/verifiy/{token}',[LoginController::class,'verify']);
+Route::get('/email/verifiy/{token}/{id}',[LoginController::class,'verify'])->name('email.verified');
 
 
 
-// Route::get('/user/dashboard',[LoginController::class,'dashboard'])->name('user.dashboard');
+Route::get('/user/dashboard/{id}',[LoginController::class,'dashboard'])->name('user.dashboard');
 
 //Add to cart
 Route::get('/cart',[HomeController::class,'cart'])->name('cart');
