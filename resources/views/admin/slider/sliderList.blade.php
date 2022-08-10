@@ -38,7 +38,7 @@
         <th>{{ $i++ }}</th>
         <td>{{ $slider->title }}</td>
         <td>{{ $slider->description }}</td>
-        <td ><img src="{{ asset($slider->image) }}" height="100px" width="200px"></td>
+        <td ><img src="{{ asset('/storage/uploads/brands',$slider->image) }}" height="100px" width="200px"></td>
         @if ($slider->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
