@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\User\LoginController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,6 +160,7 @@ Route::middleware(["admin"])->group(function(){
 
     });
 });
+
 
 // Route::get('/home', [HomeController::class, 'index']);
 

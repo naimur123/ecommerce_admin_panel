@@ -6,6 +6,7 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/link',[HomeController::class,'link']);
 Route::get('/',[HomeController::class,'index'])->name('home');
 
 // User Login With google

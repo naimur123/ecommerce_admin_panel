@@ -9,7 +9,9 @@ use App\Models\Slider;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
@@ -71,6 +73,11 @@ class HomeController extends Controller
             session()->flash('success', 'Product removed successfully');
             return redirect()->back();
         }
+    }
+
+    public function link(){
+        Artisan::call('storage:link');
+        return "success";
     }
 
 }
