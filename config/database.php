@@ -88,10 +88,10 @@ return [
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
-            // 'charset' => 'utf8',
-            // 'prefix' => '',
+            'charset' => 'utf8',
+            'prefix' => '',
             // 'prefix_indexes' => true,
-            // 'schema' => 'public',
+            'schema' => 'public',
             // 'sslmode' => 'prefer',
         ],
 
