@@ -18,7 +18,7 @@ class GenericStatusSeeder extends Seeder
     {
         GenericStatus::create([
             "name"          => "Active",
-            "created_by"    => "sagar@admin.com",
+            "created_by"    =>  1,
             "created_at"    => Carbon::now()
         ]);
     }
