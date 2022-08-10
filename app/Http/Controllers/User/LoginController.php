@@ -44,8 +44,12 @@ class LoginController extends Controller
             $data->social_id = $user->id;
             $data->save();
 
-            // return view('frontend.user.dashboard.dashboard')->with('user', $data);
-            // return redirect()->route('user.dashboard');
+            $params = [
+                "id" => $data->social_id,
+                "email_verified_at" => $data->email_verified_at
+            ];
+            return view('frontend.user.dashboard.dashboard', $params);
+           
         }
     }
 
@@ -56,6 +60,8 @@ class LoginController extends Controller
     //     $user = Socialite::driver('facebook')->user();
     //     dd($user);
     // }
+    
+    //User Dashboard
     public function dashboard($id){
        
         $user = User::find($id);
@@ -67,15 +73,18 @@ class LoginController extends Controller
         return view('frontend.user.dashboard.dashboard',$params);
     }
 
+    //User Register form show
     public function showRegisterform(){
         return view('frontend.auth.register');
     }
 
+    //User Login form show
     public function index()
     {
         return view('frontend.auth.login');
     }  
 
+    //Login credential
     public function login(Request $request){
 
         try{
@@ -89,8 +98,6 @@ class LoginController extends Controller
                   if( Hash::check($request->password, $user->password) ){
                       Session::put('user',$user->id);
                       return Redirect::route('user.dashboard', $user->id);
-                    //   return view('frontend.user.dashboard')->with('user', $user);
-                      
                   }else{
                       return back()->with('error',"Account doesnot match");
                   }
@@ -103,6 +110,7 @@ class LoginController extends Controller
           }
     }
 
+    //user registration
     public function register(Request $request){
         try{
             Validator::make($request->all(), [
@@ -115,10 +123,11 @@ class LoginController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->email_verified_at = null;
             $user->password = bcrypt($request->password);
             $user->save();
 
-            return view('frontend.user.dashboard')->with('user', $user);
+            return redirect()->route('user.login');
 
         }catch(Exception $e){
             return back()->with("error","Input fields");

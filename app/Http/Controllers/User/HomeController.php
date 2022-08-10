@@ -9,17 +9,28 @@ use App\Models\Slider;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index(){
+       
+
+        $subcategory = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
+
+        $category = Category::whereNotIn('id', $subcategory)->take(3)->get();
+
+        // dd($category);
+
         $params = [
-            "categories" => Category::where('status_id',1)->get(),
+            // "categories" => Category::where('status_id',1)->get(),
+            "categories" => $category,
             "products" => Product::where('status_id',1)->paginate(20),
-            "subcategories" => SubCategory::where('status_id',1)->get(),
+            "subcategories" => SubCategory::where('status_id',1)->take(2)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
             "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
         ];
+        // dd($params);
         return view('frontend.home.home',$params);
     }
 

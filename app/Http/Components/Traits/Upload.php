@@ -2,6 +2,7 @@
 
 namespace App\Http\Components\Traits;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
@@ -10,10 +11,10 @@ trait Upload{
      * Define Directories
      */
     protected  $brand = "storage/uploads/brands/";
-    protected  $product = "storage/uploads/products";
-    protected  $slider = "storage/uploads/sliders";
-    protected  $logo_dir = "storage/uploads/logo";
-    protected  $others_dir = "storage/uploads/others";
+    protected  $product = "storage/uploads/products/";
+    protected  $slider = "storage/uploads/sliders/";
+    protected  $logo_dir = "storage/uploads/logo/";
+    protected  $others_dir = "storage/uploads/others/";
 
     /*
      * ---------------------------------------------
@@ -63,27 +64,56 @@ trait Upload{
         $this->RemoveFile($oldFile);
         
         ini_set('memory_limit', '1024M');
-        $image = $request->file($fileName);
-        $filename = $fileName.'_'.time().'.'.$image->getClientOriginalExtension();
-        $path = $dir.$filename;
-        if( empty($height) && empty($width)){
-            Image::make($image)->save($path);
+        $path_arr = [];
+
+        if(is_array($request->$fileName) ){
+            foreach($request->$fileName as $key => $file){
+                $image = $request->file($fileName)[$key];
+                $filename = $fileName.'_'.time().$key.'.'.$image->getClientOriginalExtension();
+                $path = $dir.$filename;
+
+                if( empty($height) && empty($width)){
+                    Image::make($image)->save($path);
+                }
+                elseif( empty($height) && !empty($width) ){
+                    Image::make($image)->resize($width,null,function($constant){
+                        $constant->aspectRatio();
+                    })->save($path);
+                }        
+                elseif( !empty($height) && empty($width) ){
+                    Image::make($image)->resize(null,$height,function($constant){
+                        $constant->aspectRatio();
+                    })->save($path);
+                }
+                else{
+                    Image::make($image)->resize($width,$height)->save($path);
+                }
+                $path_arr[] = $path;
+            }
+        }else{
+            $image = $request->file($fileName);
+            $filename = $fileName.'_'.time().'.'.$image->getClientOriginalExtension();
+            $path = $dir.$filename;
+           
+            if( empty($height) && empty($width)){
+                Image::make($image)->save($path);
+            }
+            elseif( empty($height) && !empty($width) ){
+                Image::make($image)->resize($width,null,function($constant){
+                    $constant->aspectRatio();
+                })->save($path);
+            }        
+            elseif( !empty($height) && empty($width) ){
+                Image::make($image)->resize(null,$height,function($constant){
+                    $constant->aspectRatio();
+                })->save($path);
+            }
+            else{
+                Image::make($image)->resize($width,$height)->save($path);
+            }
+            $path_arr   = $path;
         }
-        elseif( empty($height) && !empty($width) ){
-            Image::make($image)->resize($width,null,function($constant){
-                $constant->aspectRatio();
-            })->save($path);
-        }        
-        elseif( !empty($height) && empty($width) ){
-            Image::make($image)->resize(null,$height,function($constant){
-                $constant->aspectRatio();
-            })->save($path);
-        }
-        else{
-            Image::make($image)->resize($width,$height)->save($path);
-        }
-        
-        return $path;
+        return $path_arr;
     }
 
 
