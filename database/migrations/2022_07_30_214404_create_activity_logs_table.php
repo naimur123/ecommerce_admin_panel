@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("admin_id")->nullable();
+            $table->string("mac")->nullable();
             $table->string("ip");
             $table->string("activity");
             $table->string("effect_table")->nullable();
