@@ -16,4 +16,6 @@ class GenericStatus extends Model
     public function updatedBy(){
         return $this->belongsTo(Admin::class, "updated_by");
     }
+
+    protected $fillable = ['name','short_name','created_by','updated_by','created_at','updated_at'];
 }
