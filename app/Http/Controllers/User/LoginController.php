@@ -30,9 +30,8 @@ class LoginController extends Controller
 
         $user = Socialite::driver('google')->user();
         
-        $find = User::where('social_id', $user->id)->first();
+        $find = User::where('email', $user->email)->first();
 
-        try{
             if($find){
                 return redirect()->route('user.register')->with("alert","Account already exists");
             }
@@ -53,9 +52,7 @@ class LoginController extends Controller
                 return view('frontend.user.dashboard.dashboard', $params);
             
             }
-      }catch(Exception $e){
-
-      }
+      
     }
 
     // public function redirectToFb(){
@@ -141,7 +138,7 @@ class LoginController extends Controller
     }
 
     public function verifyNotification(Request $request, $id){
-        try{
+        
             $user = User::find($id);
             
             // $id = $user->id;
@@ -157,11 +154,9 @@ class LoginController extends Controller
             // if($template){
                 $user->notify(new EmailVerifys($user));
             // }
-            return back()->with('success','Verification email sent successfully. Please check your email.');
+            return back()->with("verified","Verification email sent successfully. Please check your email.");
           
-        }catch(Exception $e){
-            
-        }
+       
     }
 
     public function verify(Request $request, $id){
@@ -170,7 +165,6 @@ class LoginController extends Controller
             $user->email_verified_at = Carbon::now();
             $user->save();
 
-            // return view('frontend.user.dashboard.dashboard')->with('user', $user);
             return Redirect::route('user.dashboard', $user->id);
         }
     }
