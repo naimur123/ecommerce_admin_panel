@@ -3,7 +3,8 @@
     @if(session('success'))
     <div class="alert alert-success">
     {{ session('success') }}
-    </div> 
+    </div>
+    @endif 
     @if (!empty($email_verified_at))
     {{-- <p>Congrats Youre Loggedin</p> --}}
     @else
