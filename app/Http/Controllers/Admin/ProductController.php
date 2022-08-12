@@ -100,7 +100,7 @@ class ProductController extends Controller
                 $data->category_id = $request->category_id;
                 $data->subcategory_id  = $request->subcategory_id ;
                 $data->brand_id = $request->brand_id;
-                // $data->name = $request->name;
+                $data->name = $request->name;
                 $data->slug = $request->slug ?? null;
                 $data->quantity = $request->quantity;
                 $data->unit_id = $request->unit_id;
