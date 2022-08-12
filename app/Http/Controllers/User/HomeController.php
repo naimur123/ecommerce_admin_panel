@@ -43,7 +43,7 @@ class HomeController extends Controller
         $cart = session()->get('cart', []);
   
         if(isset($cart[$id])) {
-            return redirect()->back()->with('alert', 'Product already added to the cart');
+            return redirect()->back()->with('alert', 'Item already added to the cart');
         } else {
             $cart[$id] = [
                 "name" => $product->name,

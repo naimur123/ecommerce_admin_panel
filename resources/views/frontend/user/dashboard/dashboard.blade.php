@@ -4,8 +4,8 @@
     <div class="alert alert-success">
     {{ session('success') }}
     </div> 
-    {{-- @if (!empty($email_verified_at))
-    <p>Congrats Youre Loggedin</p> --}}
+    @if (!empty($email_verified_at))
+    {{-- <p>Congrats Youre Loggedin</p> --}}
     @else
      <p>Youre email is not verified</p>
      {{-- <p>{{ $user->id }}</p> --}}
