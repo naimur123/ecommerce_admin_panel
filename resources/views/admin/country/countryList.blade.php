@@ -30,7 +30,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($countries as $country)
+    @forelse ($countries as $country)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $country->name }}</td>
@@ -51,7 +51,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

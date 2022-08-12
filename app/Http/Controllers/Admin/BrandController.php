@@ -96,12 +96,11 @@ class BrandController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.brand');
+            return back()->with("success", $request->id == 0 ? "Brand Added Successfully" : "Brand Updated Successfully");
     }
 
      //Catgeory edit

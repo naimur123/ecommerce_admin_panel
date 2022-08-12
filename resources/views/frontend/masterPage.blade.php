@@ -30,6 +30,8 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="asset('frontend/css/style.css')" rel="stylesheet">
     <link href="asset('frontend/css/style.min.css')" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         var msg = '{{Session::get('alert')}}';
         var exist = '{{Session::has('alert')}}';
@@ -130,6 +132,7 @@
             @endif
           
             @yield('content')
+           
         </div>
     </div>
     <!-- Topbar End -->
@@ -182,6 +185,7 @@
     {{-- <script src="js/main.js"></script> --}}
     
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    {{-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> --}}
    
    
 </body>

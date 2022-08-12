@@ -31,7 +31,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($brands as $brand)
+    @forelse ($brands as $brand)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $brand->name }}</td>
@@ -53,7 +53,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

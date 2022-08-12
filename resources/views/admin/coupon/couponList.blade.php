@@ -33,7 +33,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($coupons as $coupon)
+    @forelse ($coupons as $coupon)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $coupon->name }}</td>
@@ -57,7 +57,11 @@
           
         </td> --}}
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

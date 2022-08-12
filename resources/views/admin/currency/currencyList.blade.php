@@ -32,7 +32,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($currencies as $currency)
+    @forelse ($currencies as $currency)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $currency->name }}</td>
@@ -55,7 +55,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

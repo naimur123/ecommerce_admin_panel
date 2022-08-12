@@ -97,12 +97,11 @@ class CategoryController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.category');
+            return back()->with("success", $request->id == 0 ? "Category Added Successfully" : "Category Updated Successfully");
     }
 
     //Catgeory edit

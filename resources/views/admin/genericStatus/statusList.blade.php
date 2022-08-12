@@ -28,7 +28,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($statuses as $status)
+    @forelse ($statuses as $status)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $status->name }}</td>
@@ -43,7 +43,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

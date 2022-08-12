@@ -97,12 +97,11 @@ class CountryController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.country');
+            return back()->with("success", $request->id == 0 ? "Country Added Successfully" : "Country Updated Successfully");
     }
 
      //Country edit

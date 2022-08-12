@@ -78,7 +78,7 @@ trait Message{
      */
     protected function getError($e = null){
         if( !empty($e) ){
-            return $e->getMessage() . ' On File ' . $e->getFile() . ' on line ' . $e->getLine();
+            return $e->getMessage();
         }
         return 'Something went wrong!';
     }

@@ -102,12 +102,11 @@ class SubCategoryController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.subcategory');
+            return back()->with("success", $request->id == 0 ? "Subcategory Added Successfully" : "Subcategory Updated Successfully");
     }
 
     //SubCatgeory edit

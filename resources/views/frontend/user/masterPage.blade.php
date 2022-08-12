@@ -33,7 +33,7 @@
          </div>  
         </div>
        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <a href="" class="text-white mx-4" style="text-decoration: none">Logout</a>
+        <a href="{{ route('user.logout') }}" class="text-white mx-4" style="text-decoration: none">Logout</a>
         {{-- <ul class="navbar-nav navbar-nav-right">
     
             <li class="nav-item dropdown">

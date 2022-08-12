@@ -3,6 +3,16 @@
 <div class="col-10 col-lg-10 mt-2 mb-2">
 <div class="card">
  <div class="card-body">
+    @if(session('success'))
+                <div class="alert alert-success">
+                  {{ session('success') }}
+                </div> 
+    @endif
+    @if(session('error'))
+                <div class="alert alert-danger">
+                  {{ session('error') }}
+                </div> 
+    @endif
     <form class="row form-horizontal" action="{{ $form_url }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col-12 mt-10">
@@ -53,7 +63,7 @@
         <div class="col-12 col-sm-6 col-md-4 my-2">
             <div class="form-group">
                 <label>Product Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control " value="{{ old("name") ?? ($data->name ?? "")}} {{--  {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" id="first_name" value="{{ old("first_name") ?? ($data->first_name ?? "")}}--}}" name="name" required >
+                <input type="text" class="form-control " value="{{ old("name") ?? ($data->name ?? "")}} {{--  {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" id="first_name" value="{{ old("first_name") ?? ($data->first_name ?? "")}}--}}" name="name">
                 @error('name')
                        <strong class="text-danger">{{ $message }}</strong>
                 @enderror

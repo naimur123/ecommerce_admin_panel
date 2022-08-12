@@ -103,12 +103,12 @@ class CurrencyController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.currency');
+            return back()->with("success", $request->id == 0 ? "Currency Added Successfully" : "Currency Updated Successfully");
     }
 
     //Currency edit

@@ -32,7 +32,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($subcategories as $subcategory)
+    @forelse ($subcategories as $subcategory)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $subcategory->name }}</td>
@@ -54,7 +54,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

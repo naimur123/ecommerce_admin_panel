@@ -33,12 +33,12 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($sliders as $slider )
+    @forelse ($sliders as $slider )
       <tr class="text-center">
         <th>{{ $i++ }}</th>
         <td>{{ $slider->title }}</td>
         <td>{{ $slider->description }}</td>
-        <td ><img src="{{ asset('/storage/uploads/brands',$slider->image) }}" height="100px" width="200px"></td>
+        <td ><img src="{{ asset($slider->image) }}" height="100px" width="200px"></td>
         @if ($slider->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
@@ -62,7 +62,11 @@
         <td>{{ $slider->created_at }}</td>
         <td>{{ $slider->updated_at }}</td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>

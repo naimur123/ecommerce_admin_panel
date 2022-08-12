@@ -15,7 +15,7 @@
 <div class="table-responsive text-nowrap">
 <table class="table table-striped table-bordered table-lg table-hover">
     <thead class="table text-white" style="background-color: #0ac282">
-      <tr class="text-center">
+      <tr class="text-center" colspan="12">
         <th>#</th>
         {{-- <th>ID </th> --}}
         <th>Name </th>
@@ -37,7 +37,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($product as $products )
+    @forelse($product as $products )
       <tr class="text-center">
         <th>{{ $i++ }}</th>
         <td>{{ $products->name }}</td>
@@ -70,7 +70,11 @@
         </td>
         @endif
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
    {{-- Pagination --}}

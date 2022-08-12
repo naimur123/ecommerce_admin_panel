@@ -26,6 +26,7 @@
                     </td>
                     <td data-th="Price">${{ $details['price'] }}</td>
                     <td data-th="Quantity">
+                        {{-- <input type="hidden" id="id" value="{{ $id }}"> --}}
                         <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity update-cart" />
                     </td>
                     <td data-th="Subtotal" class="text-center">${{ $details['price'] * $details['quantity'] }}</td>
@@ -34,18 +35,85 @@
                     </td>
                 </tr>
             @endforeach
+            @else
+            <tr>
+                <td colspan="7" style="text-align:center"><h3>Cart Empty</h3></td>
+            </tr> 
+
         @endif
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td>
+            <td colspan="2" class="text-left"><h3><strong>Total ${{ $total }}</strong></h3></td>
         </tr>
         <tr>
-            <td colspan="5" class="text-right">
-                <a href="" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+            <td colspan="4" class="text-right">
+                <a href="{{ route('home') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+            </td>
+            <td colspan="2" class="text-left">
+                
                 <button class="btn btn-success">Checkout</button>
             </td>
         </tr>
     </tfoot>
 </table>
+
+
+{{-- <script type="text/javascript">
+    $(document).ready(function (){
+    $("#quantity").change(function (e) {
+        e.preventDefault();
+        var id = document.getElementById("id").value;
+        var quantity = document.getElementById("quantity").value;
+        // console.log(id);
+
+        $.ajax({
+        url: '{{ route('cart.update') }}',
+        method: "post",
+        data: {
+            _token: '{{ csrf_token() }}', 
+            id: id, 
+            quantity: quantity
+        },
+        
+        success: function (response) {
+           window.location.reload();
+           console.log(data);
+        }
+        
+      });
+    });
+   });
+</script> --}}
+<script type="text/javascript">
+
+    $(".update-cart").change(function (e) {
+        e.preventDefault();
+  
+        var ele = $(this);
+  
+        $.ajax({
+            url: '{{ route('cart.update') }}',
+            method: "post",
+            data: {
+                _token: '{{ csrf_token() }}', 
+                id: ele.parents("tr").attr("data-id"), 
+                quantity: ele.parents("tr").find(".quantity").val()
+            },
+            success: function (response) {
+               window.location.reload();
+            }
+        });
+    });
+</script>
+
+
 @endsection
+
+
+
+
+
+
+
+

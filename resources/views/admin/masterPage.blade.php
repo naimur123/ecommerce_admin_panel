@@ -136,7 +136,7 @@
                             <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                                 <i class="bi bi-subtract"></i><span class="ms-2 d-none d-sm-inline text-white">Subcategories</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
-                                <li class="w-100">
+                                <li>
                                         <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Subcategory List</a>
                                 </li>
                                 <li>
@@ -325,6 +325,19 @@
  </div>
     
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('a').click(function() {
+                //store the id of the collapsible element
+                localStorage.setItem('collapse', $(this).attr('href'));
+            });
+
+            var collapse = localStorage.getItem('collapse'); 
+            if (collapse) {
+            $(collapse).collapse('show')
+            }
+        })
+    </script>
    
 </body>
 

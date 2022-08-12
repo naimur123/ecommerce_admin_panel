@@ -27,30 +27,35 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
     public function googleSignin(){
+
         $user = Socialite::driver('google')->user();
         
         $find = User::where('social_id', $user->id)->first();
 
-        if($find){
-            return redirect()->route('user.register')->with('alert','Account already exists');
-        }
-        else{
-            $data = New User();
-            $data->name = $user->name;
-            $data->email = $user->email;
-            $data->email_verified_at = Carbon::now();
-            $data->phone = $user->phone ?? null;
-            $data->password = bcrypt(123456);
-            $data->social_id = $user->id;
-            $data->save();
+        try{
+            if($find){
+                return redirect()->route('user.register')->with("alert","Account already exists");
+            }
+            else{
+                $data = New User();
+                $data->name = $user->name;
+                $data->email = $user->email;
+                $data->email_verified_at = Carbon::now();
+                $data->phone = $user->phone ?? null;
+                $data->password = bcrypt(123456);
+                $data->social_id = $user->id;
+                $data->save();
 
-            $params = [
-                "id" => $data->social_id,
-                "email_verified_at" => $data->email_verified_at
-            ];
-            return view('frontend.user.dashboard.dashboard', $params);
-           
-        }
+                $params = [
+                    "id" => $data->social_id,
+                    "email_verified_at" => $data->email_verified_at
+                ];
+                return view('frontend.user.dashboard.dashboard', $params);
+            
+            }
+      }catch(Exception $e){
+
+      }
     }
 
     // public function redirectToFb(){
@@ -102,11 +107,11 @@ class LoginController extends Controller
                       return back()->with('error',"Account doesnot match");
                   }
               }else{
-                  return back()->withErrors('error',"Not a admin");
+                  return back()->withErrors('error',"Not a user");
               }
   
           }catch(Exception $e){
-              return back()->with("error","Input fields");
+            return back()->with("error", "Not a user");
           }
     }
 
@@ -127,10 +132,10 @@ class LoginController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
 
-            return redirect()->route('user.login');
+            return redirect()->route('user.login')->with('success',"Account created successfully.Please login");
 
         }catch(Exception $e){
-            return back()->with("error","Input fields");
+            return back()->with("error", $this->getError($e))->withInput();
         }
         
     }
@@ -152,7 +157,7 @@ class LoginController extends Controller
             // if($template){
                 $user->notify(new EmailVerifys($user));
             // }
-            return back()->with('message','Verification email sent successfully. Please check your email.');
+            return back()->with('success','Verification email sent successfully. Please check your email.');
           
         }catch(Exception $e){
             
@@ -168,6 +173,10 @@ class LoginController extends Controller
             // return view('frontend.user.dashboard.dashboard')->with('user', $user);
             return Redirect::route('user.dashboard', $user->id);
         }
+    }
+
+    public function logout(){
+        return redirect()->route('user.login');
     }
 
 

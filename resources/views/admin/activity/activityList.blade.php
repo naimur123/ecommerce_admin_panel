@@ -24,7 +24,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($activities as $activity)
+    @forelse ($activities as $activity)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $activity->activity }}</td>
@@ -33,8 +33,11 @@
         <td>{{ $activity->admin->name ?? "N/A" }}</td>
         <td>{{ $activity->created_at }}</td>
       </tr>
-      
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     
   </table>
   {{-- Pagination --}}

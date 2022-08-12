@@ -86,11 +86,9 @@ class SliderController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
-    
-            // $this->saveActivity($request, "Add New Advisor", $data); 
-        return redirect()->route('admin.slider');
+        return back()->with("success", $request->id == 0 ? "Slider Added Successfully" : "Slider Updated Successfully");
     }
 
 }

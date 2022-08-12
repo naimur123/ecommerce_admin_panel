@@ -100,7 +100,7 @@ class ProductController extends Controller
                 $data->category_id = $request->category_id;
                 $data->subcategory_id  = $request->subcategory_id ;
                 $data->brand_id = $request->brand_id;
-                $data->name = $request->name;
+                // $data->name = $request->name;
                 $data->slug = $request->slug ?? null;
                 $data->quantity = $request->quantity;
                 $data->unit_id = $request->unit_id;
@@ -132,11 +132,11 @@ class ProductController extends Controller
                 }
             }catch(Exception $e){
                 DB::rollBack();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             // $this->saveActivity($request, "Add New Advisor", $data); 
-        return redirect()->route('admin.products');
+        return back()->with("success", $request->id == 0 ? "Product Added Successfully" : "Product Updated Successfully");
     }
 
     //product edit
@@ -187,7 +187,7 @@ class ProductController extends Controller
     //product archive list
     public function archive(Request $request){
 
-        $products = $this->getModel()->onlyTrashed()->get();
+        $products = $this->getModel()->onlyTrashed()->paginate(10);
         $params =[
             "title"  => "Deleted List",
             "product" => $products

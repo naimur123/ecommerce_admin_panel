@@ -27,7 +27,7 @@ class HomeController extends Controller
         $params = [
             // "categories" => Category::where('status_id',1)->get(),
             "categories" => $category,
-            "products" => Product::where('status_id',1)->paginate(20),
+            "products" => Product::where('status_id',1)->paginate(12),
             "subcategories" => SubCategory::where('status_id',1)->take(2)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
             "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
@@ -63,6 +63,17 @@ class HomeController extends Controller
         return view('frontend.cart.cart');
     }
 
+    // Cart item quantity update
+    public function cartUpdate(Request $request){
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+    
+    //Cart item delete
     public function cartDelete(Request $request, $id){
         if($id) {
             $cart = session()->get('cart');
@@ -75,9 +86,9 @@ class HomeController extends Controller
         }
     }
 
-    public function link(){
-        Artisan::call('storage:link');
-        return "success";
-    }
+    // public function link(){
+    //     Artisan::call('storage:link');
+    //     return "success";
+    // }
 
 }

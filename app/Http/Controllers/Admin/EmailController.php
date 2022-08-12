@@ -48,15 +48,14 @@ class EmailController extends Controller
                 $data->send_email = $request->send_email;
                 $data->save();
                 
-                return back();
+                return back()->with("success","Email Template Added Successfully");
                 
             }catch(Exception $e){
                 
-                return back();
-                // return back()->with("error", $this->getError($e))->withInput();
+                return back()->with("error", $this->getError($e))->withInput();
             }
     
             
-        return redirect()->route('admin.coupon');
+       
     }
 }

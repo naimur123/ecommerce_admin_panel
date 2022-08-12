@@ -30,7 +30,7 @@
     </thead>
     <tbody>
         <?php $i = 1 ?>
-    @foreach ($units as $unit)
+    @forelse ($units as $unit)
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $unit->name }}</td>
@@ -51,7 +51,11 @@
           
         </td>
       </tr>
-    @endforeach
+      @empty
+      <tr>
+        <td colspan="12" style="text-align:center"><h3>No data found</h3></td>
+      </tr> 
+    @endforelse
     </tbody>
   </table>
 </div>
