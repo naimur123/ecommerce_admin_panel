@@ -33,6 +33,9 @@ class Product extends Model
     public function unit(){
         return $this->belongsTo(Unit::class,'unit_id');
     }
+    public function status(){
+        return $this->belongsTo(GenericStatus::class,'status_id');
+    }
 
     // protected $fillable = [
     //     'name', 'quantity'

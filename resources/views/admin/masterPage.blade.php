@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Ecommerce</title>
     {{-- <meta http-equiv="refresh" content="30"> --}}
 
     <!-- BootStrap Path -->
@@ -16,7 +17,8 @@
     {{-- Bootstrap icons --}}
     <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff') }}">
     <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff2') }}">
-    <title>Laravel Ecommerce</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
     
 </head>
 <body>
@@ -325,19 +327,7 @@
  </div>
     
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('a').click(function() {
-                //store the id of the collapsible element
-                localStorage.setItem('collapse', $(this).attr('href'));
-            });
-
-            var collapse = localStorage.getItem('collapse'); 
-            if (collapse) {
-            $(collapse).collapse('show')
-            }
-        })
-    </script>
+    
    
 </body>
 

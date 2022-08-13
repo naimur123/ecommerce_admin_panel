@@ -114,6 +114,7 @@ Route::middleware(["admin"])->group(function(){
         Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
         Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
         Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+        Route::get('/search',[ProductController::class, 'search'])->name('products.search');
     });
 
     // Coupon 
@@ -134,9 +135,9 @@ Route::middleware(["admin"])->group(function(){
         Route::get('',[SliderController::class, 'index'])->name('slider');
         Route::get('/create',[SliderController::class, 'create'])->name('slider.create');
         Route::post('/create',[SliderController::class, 'store'])->name('slider.store');
-        // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
-        // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
-        // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
+        Route::get('/update/{id}',[SliderController::class, 'edit'])->name('slider.edit');
+        Route::post('/update',[SliderController::class, 'store'])->name('slider.store');
+        Route::get('/delete/{id}',[SliderController::class, 'delete'])->name('slider.delete');
         // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
         // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
         // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');

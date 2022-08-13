@@ -29,16 +29,35 @@ class ProductController extends Controller
 
     //Get Datas
     public function index(Request $request){
-        $products = Product::paginate(10);
-        $params =[
-            "title" => "List",
-            "product" => $products
-        ];
+        if( !empty($request->search) ){
+            $products = Product::where('name','LIKE','%'.$request->search."%")
+                            ->orWhere('slug','LIKE','%'.$request->search."%")
+                            ->orWhere('price','LIKE','%'.$request->search."%")
+                            ->orWhere('code','LIKE','%'.$request->search."%")
+                            ->orWhere('quantity','LIKE','%'.$request->search."%")
+                            ->get();  
+                            
+            $params =[
+                "title" => "Search List",
+                "product" => $products
+            ];
+            return view('admin.product.productList',$params);
+        }
+        else{
+            $product = Product::orderBy("id", "ASC");
+            $products = $product->paginate(5);
+            $params =[
+                "title" => "List",
+                "product" => $products
+            ];
+            return view('admin.product.productList',$params);
+        }
+       
 
         $admin = Session::get('admin');
         $this->saveActivity($request, "Product list viewed",$admin);
 
-        return view('admin.product.productList',$params);
+        
     }
 
     //create
@@ -230,6 +249,49 @@ class ProductController extends Controller
         }
         
         
+    }
+
+    //Product search
+    public function search(Request $request){
+        // if($request->ajax()){
+        //     $products = Product::where('name','LIKE','%'.$request->search."%")
+        //                 ->orWhere('slug','LIKE','%'.$request->search."%")
+        //                 ->orWhere('price','LIKE','%'.$request->search."%")
+        //                 ->orWhere('code','LIKE','%'.$request->search."%")
+        //                 ->orWhere('quantity','LIKE','%'.$request->search."%")
+        //                 ->get();             
+        // }
+
+        // $getall = "";
+        // if($products)
+        //     {
+        //     foreach ($products as $key => $product) {
+        //     $getall.='<tr>'.
+        //     '<td>'.$product->id.'</td>'.
+        //     '<td>'.$product->name.'</td>'.
+        //     '<td>'.$product->categories->name ?? "N/A" .'</td>'.
+        //     '<td>'.$product->code.'</td>'.
+        //     '<td>'.$product->quantity.'</td>'.
+        //     '<td>'.$product->price.'</td>'.
+            
+        //     // '<td>'.$product->discount_price ?? "N/A".'</td>'.
+        //     // '<td>'.$product->discount_percentage ?? "N/A".'</td>'.
+        //     // '<td>'. $product->status_id == 1 ? 'Active' : 'Inactive'   .'</td>'.
+        //     // '<td>'.$product->status->name.'</td>'.
+        //     // '<td>'.$product->image_one.'</td>'.
+        //     // '<td>'.$product->price.'</td>'.
+        //     // '<td>'.$product->price.'</td>'.
+        //     '</tr>';
+        //     }
+        //     return Response($getall);
+        // }
+
+        // $params =[
+        //     "title" => "Search List",
+        //     "product" => $products
+        // ];
+
+        // return view('admin.product.productList',$params);
     }
 
 }

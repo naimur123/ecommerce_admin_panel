@@ -1,6 +1,10 @@
 @extends('admin.masterPage')
 @section('content')
-
+       @if(session('success'))
+            <div class="alert alert-success">
+                  {{ session('success') }}
+            </div> 
+       @endif
 <div class="card-header">
     <div class="row">
      <div class="col-10">
@@ -27,8 +31,8 @@
         <th >Updated Date</th>
         {{-- @if($title == "Deleted List")
         <th>Deleted Date</th>
-        @endif
-        <th >Action</th> --}}
+        @endif --}}
+        <th >Action</th>
       </tr>
     </thead>
     <tbody>
@@ -50,17 +54,16 @@
           <a href="{{route('admin.sliders.restore', $sliders->id )}}" class="btn btn-sm btn-danger" title="Restore" > <span class="fas fa-redo fa-lg"></span>Restore</a> 
           <a href="{{route('admin.sliders.pdelete', $sliders->id )}}" class="btn btn-sm btn-danger" title="Permanent Delete" > <span class="fa fa-trash fa-lg"></span>Permanent Delete</a> 
         </td>
-        @else
-        <td class="d-flex gap-2 mt-4">
-          <a href="{{route('admin.sliders.edit', $sliders->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span>Edit </a> 
-          <a href="{{route('admin.sliders.delete', $sliders->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> Delete</a> 
-          
-        </td>
-        @endif --}}
+        @else--}}
         <td>{{ $slider->createdBy->name ?? "" }}</td>
         <td>{{ $slider->updatedBy->name ?? ""}}</td>
         <td>{{ $slider->created_at }}</td>
         <td>{{ $slider->updated_at }}</td>
+        <td class="d-flex gap-2 mt-4">
+          <a href="{{route('admin.slider.edit', $slider->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span>Edit </a> 
+          <a href="{{route('admin.slider.delete', $slider->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> Delete</a> 
+          
+        </td>
       </tr>
       @empty
       <tr>

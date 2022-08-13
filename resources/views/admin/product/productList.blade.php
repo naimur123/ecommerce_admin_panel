@@ -10,7 +10,23 @@
       <a class="btn btn-primary" href="{{ route('admin.products.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
     </div>
+    <div class="row mt-2">
+      <div class="col-8">
+        <form class="row dt-responsive table-responsive">
+          <div class="col-sm-6 col-md-4">
+              <div class="input-group mb-3">
+                {{-- @csrf --}}
+                  <input type="text" name="search" class="form-control" value="{{ request()->input('search') }}" placeholder="Search here" >
+                  <div class="input-group-append mb-2">
+                      <button type="submit" class="btn btn-info btn-sm">Search</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+      </div>
+    </div>
 </div>
+
 <br>
 <div class="table-responsive text-nowrap">
 <table class="table table-striped table-bordered table-lg table-hover">
@@ -47,8 +63,8 @@
         <td>{{ $products->code }}</td>
         <td>{{ $products->quantity }}</td>
         <td>{{ $products->price }}</td>
-        <td>{{ $products->discount_price }}</td>
-        <td>{{ $products->discount_percentage }}</td>
+        <td>{{ $products->discount_price ?? "N/A" }}</td>
+        <td>{{ $products->discount_percentage ?? "N/A" }}</td>
         @if ($products->status_id == 1)
         <td><button class="btn btn-success">Active</button></td>
         @else
@@ -78,10 +94,36 @@
     </tbody>
   </table>
    {{-- Pagination --}}
+   @if($title == "List")
    <div class="d-flex justify-content-center">
     {!! $product->links() !!}
-  </div>
+   </div>
+   @else
+   
+   @endif
 </div>
+
+{{-- <script type="text/javascript">
+      $('#search').on('keyup',function(){
+          $value= $(this).val();
+          console.log($value);
+          $.ajax({
+            url: '{{ URL::to('admin/products/search') }}',
+            type: "get",
+            data: {
+                'search': $value
+            },
+          success:function(data){
+              $('tbody').html(data);
+          }
+    });
+  });
+
+</script>
+
+<script type="text/javascript">
+  $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script> --}}
 
 
 @endsection

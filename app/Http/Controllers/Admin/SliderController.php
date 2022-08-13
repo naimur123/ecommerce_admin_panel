@@ -63,11 +63,17 @@ class SliderController extends Controller
                     $admin = Session::get('admin');
                     $this->saveActivity($request, "New slider added",$admin);
                     
+                    
                 }
-                // else{
-                //     $data = $this->getModel()->find($request->id);
-                //     $data->updated_by = Session::get('admin');
-                // }
+                else{
+                    $data = $this->getModel()->find($request->id);
+                    $data->updated_by = Session::get('admin');
+
+                    $message = "slider edited";
+                    $msg = implode(' ', array($data->title, $message));
+                    $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg, $admin);
+                }
     
                 $data->title = $request->title ?? null;
                 $data->description = $request->description ?? null;
@@ -89,6 +95,47 @@ class SliderController extends Controller
                 return back()->with("error", $this->getError($e))->withInput();
             }
         return back()->with("success", $request->id == 0 ? "Slider Added Successfully" : "Slider Updated Successfully");
+    }
+
+     //slider edit
+     public function edit(Request $request, $id){
+
+        $slider = Slider::find($id);
+
+        $params = [
+            "title"      => "Edit",
+            "form_url"   => route('admin.slider.store'),
+            "statuses"   => GenericStatus::all(),
+            "data"       => $slider
+
+       ];
+       //Activity message
+       $message = "edit page opened";
+       $msg = implode(' ', array($slider->name, $message));
+       $admin = Session::get('admin');
+       $this->saveActivity($request, $msg, $admin);
+
+       return view('admin.slider.create',$params);
+    }
+
+     //product Delete
+     public function delete(Request $request, $id){
+
+        try{
+         $data = $this->getModel()->find($id);
+         if(!empty($data)){
+            $data->delete();
+            $message = "slider archived";
+            $msg = implode(' ', array($data->name, $message));
+            $admin = Session::get('admin');
+            $this->saveActivity($request, $msg, $admin);
+            return back()->with('success',"Slider archived");
+         }
+         
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
     }
 
 }
