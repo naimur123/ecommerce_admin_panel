@@ -24,7 +24,7 @@
     <nav class="navbar col-lg-12 col-12 fixed-top d-flex flex-row" style="background-color:#404E67">
         <div class="navbar-brand-wrapper d-flex justify-content-center">
          <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a href="" class="d-flex align-items-center px-4 pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <a href="{{ route('home') }}" class="d-flex align-items-center px-4 pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <span class="fs-5 d-none d-sm-inline">KenaKata</span>
           </a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

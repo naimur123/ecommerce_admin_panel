@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ShippingAddress;
 use App\Models\Slider;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Carbon\Carbon;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -90,5 +93,37 @@ class HomeController extends Controller
     //     Artisan::call('storage:link');
     //     return "success";
     // }
+    public function checkout(){
+        if(Session::has('user')){
+            $user = Session::get('user');
+            // $cart = session()->get('cart');
+            // $total = 0;
+            // foreach ($cart as $item) {
+            //     $total += $item['price'] * $item['quantity'];
+            // }
+            // dd($user);
+            // $address = ShippingAddress::where('user_id',$user)->select('id','area_name')->get();
+            // if(!empty($address)){
+
+
+            // }
+            $getall = ShippingAddress::all();
+            if(empty($getall)){
+                $params=[
+                    "user" => $user,
+                    "form_url"=> route('address.store')
+                ];
+                return view('frontend.user.address', $params);
+            }
+            else{
+                return Redirect::route('pay.cash');
+            }
+            
+        }
+        else{
+            echo "Please Login";
+        }
+       
+    }
 
 }

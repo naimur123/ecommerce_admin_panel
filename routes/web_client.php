@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\OrderController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/link',[HomeController::class,'link']);
@@ -39,3 +40,9 @@ Route::get('/cart',[HomeController::class,'cart'])->name('cart');
 Route::get('/addTocart/{id}',[HomeController::class,'addTocart'])->name('addtocart');
 Route::post('/update/cart',[HomeController::class,'cartUpdate'])->name('cart.update');
 Route::get('/cart/delete/{id}',[HomeController::class,'cartDelete'])->name('cart.delete');
+Route::get('/cart/checkout',[HomeController::class,'checkout'])->name('cart.checkout');
+
+//Order Controller
+Route::post('/user/address',[OrderController::class,'storeAddress'])->name('address.store');
+Route::get('/pay/cash',[OrderController::class,'cashview'])->name('pay.cash');
+Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.store');

@@ -52,7 +52,8 @@
             </td>
             <td colspan="2" class="text-left">
                 
-                <button class="btn btn-success">Checkout</button>
+                <a href="{{ route('cart.checkout') }}" class="btn btn-success"  role="button">Checkout</a>
+                
             </td>
         </tr>
     </tfoot>
@@ -66,7 +67,6 @@
         var id = document.getElementById("id").value;
         var quantity = document.getElementById("quantity").value;
         // console.log(id);
-
         $.ajax({
         url: '{{ route('cart.update') }}',
         method: "post",

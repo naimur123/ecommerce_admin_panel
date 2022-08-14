@@ -30,11 +30,16 @@ class ProductController extends Controller
     //Get Datas
     public function index(Request $request){
         if( !empty($request->search) ){
-            $products = Product::where('name','LIKE','%'.$request->search."%")
-                            ->orWhere('slug','LIKE','%'.$request->search."%")
-                            ->orWhere('price','LIKE','%'.$request->search."%")
-                            ->orWhere('code','LIKE','%'.$request->search."%")
-                            ->orWhere('quantity','LIKE','%'.$request->search."%")
+            $search = $request->search;
+            $products = Product::where('name','LIKE','%'.$search."%")
+                            ->orWhere('slug','LIKE','%'.$search."%")
+                            ->orWhere('price','LIKE','%'.$search."%")
+                            ->orWhere('code','LIKE','%'.$search."%")
+                            ->orWhere('quantity','LIKE','%'.$search."%")
+                            // ->leftjoin('categories', 'product.category_id', '=', 'categories_id') 
+                            // ->select('categories.name')
+                            // ->distinct()
+                            // ->where('name', 'like', '%' .$search. '%')
                             ->get();  
                             
             $params =[

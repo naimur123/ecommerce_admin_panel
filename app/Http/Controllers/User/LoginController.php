@@ -83,7 +83,14 @@ class LoginController extends Controller
     //User Login form show
     public function index()
     {
+        if(Session::has('user')){
+            $user = Session::get('user');
+            return Redirect::route('user.dashboard', $user);
+       }
+       else{
         return view('frontend.auth.login');
+       }
+       
     }  
 
     //Login credential
@@ -95,17 +102,18 @@ class LoginController extends Controller
                   "password"  => ["required", "string", "min:4", "max:40"]
               ])->validate(); 
   
-              $user = User::where("email", $request->email)->first(); 
-              if( !empty($user) ){
-                  if( Hash::check($request->password, $user->password) ){
-                      Session::put('user',$user->id);
-                      return Redirect::route('user.dashboard', $user->id);
-                  }else{
-                      return back()->with('error',"Account doesnot match");
-                  }
-              }else{
-                  return back()->withErrors('error',"Not a user");
-              }
+                $user = User::where("email", $request->email)->first(); 
+                if( !empty($user) ){
+                    if( Hash::check($request->password, $user->password) ){
+                        Session::put('user',$user->id);
+                        return Redirect::route('user.dashboard', $user->id);
+                    }else{
+                        return back()->with('error',"Account doesnot match");
+                    }
+                }else{
+                    return back()->withErrors('error',"Not a user");
+                }
+            
   
           }catch(Exception $e){
             return back()->with("error", "Not a user");
@@ -170,6 +178,8 @@ class LoginController extends Controller
     }
 
     public function logout(){
+        
+        Session::flush('user');
         return redirect()->route('user.login');
     }
 

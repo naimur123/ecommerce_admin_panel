@@ -17,4 +17,5 @@ class User extends Model
     // public function sendEmailVerificationNotification(){
     //     $this->notify(new EmailVerifyNotification($this));
     // }
+    
 }

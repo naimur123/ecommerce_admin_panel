@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('activity_logs', function (Blueprint $table) {
+        Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("admin_id")->nullable();
-            $table->string("ip");
-            $table->string("activity");
-            $table->string("effect_table")->nullable();
-            $table->unsignedBigInteger("effect_data_id")->nullable();
+            $table->foreignId('user_id')->nullable()->references('id')->on('users');
+            $table->string('area_name')->nullable();
+            $table->integer('for_later')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_logs');
+        Schema::dropIfExists('shipping_addresses');
     }
 };
