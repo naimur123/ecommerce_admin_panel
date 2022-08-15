@@ -55,9 +55,9 @@ class CouponController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
+                    // if(Session::has('admin')){
+                        $data->created_by = $request->user()->id;
+                    // }
                     
                     
                 }

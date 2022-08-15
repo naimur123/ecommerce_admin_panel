@@ -28,8 +28,8 @@ class BrandController extends Controller
             
             "brands" => Brand::all()
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Barnd list viewed",$admin);
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, "Barnd list viewed");
         return view('admin.brand.brandList',$params);
     }
 
@@ -42,8 +42,8 @@ class BrandController extends Controller
              "form_url"    => route('admin.brand.store')
 
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Create brand page opened",$admin);
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, "Create brand page opened");
         return view('admin.brand.create',$params);
     }
 
@@ -62,21 +62,20 @@ class BrandController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
+                    $data->created_by = $request->user()->id;
+                  
                     
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New brand added",$admin);
+                    // $admin = Session::get('admin');
+                    $this->saveActivity($request, "New brand added");
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                    // $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                $data->name = $request->name;
@@ -120,8 +119,8 @@ class BrandController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($brand->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+    //    $admin = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.brand.create',$params);
     }
@@ -135,8 +134,8 @@ class BrandController extends Controller
                 $data->delete();
                 $message = "deleted";
                 $msg = implode(' ', array($data->name, $message));
-                $admin = Session::get('admin');
-                $this->saveActivity($request, $msg, $admin);
+                // $admin = Session::get('admin');
+                $this->saveActivity($request, $msg);
             }
             
             return back();

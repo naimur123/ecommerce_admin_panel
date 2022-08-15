@@ -28,8 +28,8 @@ class CurrencyController extends Controller
             "currencies" => Currency::all()
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Currency list viewed",$admin);
+        // = Session::get('admin');
+        $this->saveActivity($request, "Currency list viewed",);
 
         return view('admin.currency.currencyList',$params);
     }
@@ -46,8 +46,8 @@ class CurrencyController extends Controller
 
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Create currency page opened",$admin);
+        // = Session::get('admin');
+        $this->saveActivity($request, "Create currency page opened",);
 
         return view('admin.currency.create',$params);
     }
@@ -68,21 +68,21 @@ class CurrencyController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New currency added",$admin);
+                    // if(Session::has('admin')){
+                        $data->created_by = $request->user()->id;
+                    // }
+                    // = Session::get('admin');
+                    $this->saveActivity($request, "New currency added",);
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "currency edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                    // = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->name = $request->name;
@@ -128,8 +128,8 @@ class CurrencyController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($currency->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+       // = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.currency.create',$params);
     }
@@ -143,8 +143,8 @@ class CurrencyController extends Controller
                 $data->delete();
                 $message = "currency deleted";
                 $msg = implode(' ', array($data->name, $message));
-                $admin = Session::get('admin');
-                $this->saveActivity($request, $msg, $admin);
+                // = Session::get('admin');
+                $this->saveActivity($request, $msg);
             }
             
             return back();

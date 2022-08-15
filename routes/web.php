@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -37,14 +38,16 @@ use Illuminate\Support\Facades\Artisan;
 // Auth::routes();
 
 // Route::get('/admin/login',[HomeController::class, 'showloginform'])->name('admin.login');
-Route::get('/admin/login',[AdminController::class, 'showloginform']);
-Route::post('/admin/login',[AdminController::class, 'login'])->name('admin.login');
-Route::middleware(["admin"])->group(function(){
+Route::get('/admin/login',[AuthLoginController::class, 'showloginform']);
+Route::post('/admin/login',[AuthLoginController::class, 'login'])->name('admin.login');
+// Route::get('/admin/login',[AdminController::class, 'showloginform']);
+// Route::post('/admin/login',[AdminController::class, 'login'])->name('admin.login');
+Route::middleware(["auth:admin"])->group(function(){
 
     Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::get('home',[AdminController::class, 'dashboard'])->name('home');
-    Route::get('logout',[AdminController::class, 'logout'])->name('logout');
+    Route::get('logout',[AuthLoginController::class, 'logout'])->name('logout');
 
      // Generic Status
      Route::get('status',[GenericStatusController::class, 'index'])->name('status');

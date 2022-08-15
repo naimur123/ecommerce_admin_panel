@@ -25,8 +25,8 @@ class ActivityLogController extends Controller
             "activities" => $activity
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Activity Log viewed",$admin);
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, "Activity Log viewed");
 
         return view('admin.activity.activityList',$params);
     }

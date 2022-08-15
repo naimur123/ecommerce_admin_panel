@@ -25,8 +25,8 @@ class SliderController extends Controller
             "title" => "List",
             "sliders" => Slider::all()
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Slider list viewed",$admin);
+       // $admin = Session::get('admin');
+        $this->saveActivity($request, "Slider list viewed");
 
         return view('admin.slider.sliderList',$params);
     }
@@ -39,8 +39,8 @@ class SliderController extends Controller
              "statuses"     => GenericStatus::all()
 
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Slider create page opened",$admin);
+       // $admin = Session::get('admin');
+        $this->saveActivity($request, "Slider create page opened");
         return view('admin.slider.create',$params);
     }
     //store product
@@ -57,22 +57,22 @@ class SliderController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New slider added",$admin);
+                    // if(Session::has('admin')){
+                    $data->created_by = $request->user()->id;
+                    // }
+                   // $admin = Session::get('admin');
+                    $this->saveActivity($request, "New slider added");
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "slider edited";
                     $msg = implode(' ', array($data->title, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                   // $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->title = $request->title ?? null;
@@ -112,8 +112,8 @@ class SliderController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($slider->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+      // $admin = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.slider.create',$params);
     }
@@ -127,8 +127,8 @@ class SliderController extends Controller
             $data->delete();
             $message = "slider archived";
             $msg = implode(' ', array($data->name, $message));
-            $admin = Session::get('admin');
-            $this->saveActivity($request, $msg, $admin);
+           // $admin = Session::get('admin');
+            $this->saveActivity($request, $msg);
             return back()->with('success',"Slider archived");
          }
          

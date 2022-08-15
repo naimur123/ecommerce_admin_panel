@@ -29,8 +29,8 @@ class CategoryController extends Controller
         ];
 
         
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Category list viewed",$admin);
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, "Category list viewed");
         return view('admin.category.categoryList',$params);
     }
 
@@ -42,8 +42,9 @@ class CategoryController extends Controller
              "form_url"    => route('admin.category.store'),
 
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Create category page opened",$admin);
+
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, "Create category page opened");
         return view('admin.category.create',$params);
     }
 
@@ -63,22 +64,22 @@ class CategoryController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
+                    // if(Session::has('admin')){
+                        $data->created_by = $request->user()->id;
 
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New category added",$admin);
+                    // }
+                    // $admin = Session::get('admin');
+                    $this->saveActivity($request, "New category added");
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "category edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                    // $admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->name = $request->name;
@@ -120,8 +121,8 @@ class CategoryController extends Controller
         //Activity message
         $message = "edit page opened";
         $msg = implode(' ', array($category->name, $message));
-        $admin = Session::get('admin');
-        $this->saveActivity($request, $msg, $admin);
+        // $admin = Session::get('admin');
+        $this->saveActivity($request, $msg);
 
         return view('admin.category.create',$params);
     }
@@ -135,8 +136,8 @@ class CategoryController extends Controller
                 $data->delete();
                 $message = "deleted";
                 $msg = implode(' ', array($data->name, $message));
-                $admin = Session::get('admin');
-                $this->saveActivity($request, $msg, $admin);
+                // $admin = Session::get('admin');
+                $this->saveActivity($request, $msg);
             }
             
             return back();

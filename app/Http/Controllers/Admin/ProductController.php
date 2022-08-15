@@ -59,8 +59,8 @@ class ProductController extends Controller
         }
        
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Product list viewed",$admin);
+       //$admin = Session::get('admin');
+        $this->saveActivity($request, "Product list viewed");
 
         
     }
@@ -78,8 +78,8 @@ class ProductController extends Controller
              "statuses"     => GenericStatus::all()
 
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Create product page opened",$admin);
+       //$admin = Session::get('admin');
+        $this->saveActivity($request, "Create product page opened");
 
         return view('admin.product.create',$params);
     }
@@ -103,22 +103,22 @@ class ProductController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
+                    // if(Session::has('admin')){
                         $data->code = Str::random(6);
-                        $data->created_by = Session::get('admin');
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New product added",$admin);
+                        $data->created_by = $request->user()->id;
+                    // }
+                   //$admin = Session::get('admin');
+                    $this->saveActivity($request, "New product added");
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "product edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                   //$admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->category_id = $request->category_id;
@@ -183,8 +183,8 @@ class ProductController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($product->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+      //$admin = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.product.create',$params);
     }
@@ -198,8 +198,8 @@ class ProductController extends Controller
             $data->delete();
             $message = "product archived";
             $msg = implode(' ', array($data->name, $message));
-            $admin = Session::get('admin');
-            $this->saveActivity($request, $msg, $admin);
+           //$admin = Session::get('admin');
+            $this->saveActivity($request, $msg);
          }
          return back();
         }catch(Exception $e){
@@ -216,8 +216,8 @@ class ProductController extends Controller
             "title"  => "Deleted List",
             "product" => $products
         ];
-        $admin = Session::get('admin');
-        $this->saveActivity($request,"Product archive list viewed", $admin);
+       //$admin = Session::get('admin');
+        $this->saveActivity($request,"Product archive list viewed");
         return view('admin.product.productList',$params);
         
     }
@@ -226,8 +226,8 @@ class ProductController extends Controller
 
         try{
             $this->getModel()->onlyTrashed()->find($id)->restore();
-            $admin = Session::get('admin');
-            $this->saveActivity($request,"Product Restored", $admin);
+           //$admin = Session::get('admin');
+            $this->saveActivity($request,"Product Restored");
             return redirect()->route('admin.products');
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
@@ -244,8 +244,8 @@ class ProductController extends Controller
             $product->forceDelete();
             $message = "product permanently deleted";
             $msg = implode(' ', array($product->name, $message));
-            $admin = Session::get('admin');
-            $this->saveActivity($request, $msg, $admin);
+           //$admin = Session::get('admin');
+            $this->saveActivity($request, $msg);
           }
           
           return redirect()->route('admin.products.archive');

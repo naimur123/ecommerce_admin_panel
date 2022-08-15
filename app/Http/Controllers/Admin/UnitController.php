@@ -27,8 +27,8 @@ class UnitController extends Controller
             "units" => Unit::all()
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Unit list viewed",$admin);
+        //$admin = Session::get('admin');
+        $this->saveActivity($request, "Unit list viewed");
 
 
         return view('admin.unit.unitList',$params);
@@ -43,8 +43,8 @@ class UnitController extends Controller
 
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Unit create page opened",$admin);
+        //$admin = Session::get('admin');
+        $this->saveActivity($request, "Unit create page opened");
 
         return view('admin.unit.create',$params);
     }
@@ -65,22 +65,22 @@ class UnitController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New unit added",$admin);
+                    // if(Session::has('admin')){
+                        $data->created_by = $request->user()->id;
+                    // }
+                    //$admin = Session::get('admin');
+                    $this->saveActivity($request, "New unit added");
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "unit edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                    //$admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->name = $request->name;
@@ -121,8 +121,8 @@ class UnitController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($unit->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+       //$admin = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.unit.create',$params);
     }
@@ -136,8 +136,8 @@ class UnitController extends Controller
                 $data->delete();
                 $message = "unit deleted";
                 $msg = implode(' ', array($data->name, $message));
-                $admin = Session::get('admin');
-                $this->saveActivity($request, $msg, $admin);
+                //$admin = Session::get('admin');
+                $this->saveActivity($request, $msg);
             }
             
             return back();

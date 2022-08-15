@@ -10,13 +10,19 @@ trait ActivityLog{
     /**
      * Add Admin Activity Log
      */
-    protected function saveActivity($request, $activity,$admin){
+    // protected function saveActivity($request, $activity,$admin){
+    protected function saveActivity($request, $activity){
         try{
             
+            $admin = $request->user("admin");
             $activity_log = new AppActivityLog();
             $name = "";
-            $admin = Admin::find($admin);
-            if(!empty($admin)){
+            // $admin = Admin::find($admin);
+            // if(!empty($admin)){
+            //     $name = $admin->name;
+            //     $activity_log->admin_id = $admin->id;
+            // }
+            if(isset($admin) && $admin->getTable() == "admins"){
                 $name = $admin->name;
                 $activity_log->admin_id = $admin->id;
             }

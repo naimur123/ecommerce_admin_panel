@@ -29,8 +29,8 @@ class SubCategoryController extends Controller
             "subcategories" => SubCategory::all()
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Subcategory list viewed",$admin);
+        //$admin = Session::get('admin');
+        $this->saveActivity($request, "Subcategory list viewed");
 
         return view('admin.subcategory.subcategoryList',$params);
     }
@@ -45,8 +45,8 @@ class SubCategoryController extends Controller
 
         ];
 
-        $admin = Session::get('admin');
-        $this->saveActivity($request, "Subcategory create page opened",$admin);
+        //$admin = Session::get('admin');
+        $this->saveActivity($request, "Subcategory create page opened");
 
         return view('admin.subcategory.create',$params);
     }
@@ -67,22 +67,22 @@ class SubCategoryController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    if(Session::has('admin')){
-                        $data->created_by = Session::get('admin');
-                    }
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, "New subcategory added",$admin);
+                    // if(Session::has('admin')){
+                        $data->created_by = $request->user()->id;
+                    // }
+                    //$admin = Session::get('admin');
+                    $this->saveActivity($request, "New subcategory added");
                     
                     
                 }
                 else{
                     $data = $this->getModel()->find($request->id);
-                    $data->updated_by = Session::get('admin');
+                    $data->updated_by = $request->user()->id;
 
                     $message = "subcategory edited";
                     $msg = implode(' ', array($data->name, $message));
-                    $admin = Session::get('admin');
-                    $this->saveActivity($request, $msg, $admin);
+                    //$admin = Session::get('admin');
+                    $this->saveActivity($request, $msg);
                 }
     
                 $data->name = $request->name;
@@ -126,8 +126,8 @@ class SubCategoryController extends Controller
        //Activity message
        $message = "edit page opened";
        $msg = implode(' ', array($subcategory->name, $message));
-       $admin = Session::get('admin');
-       $this->saveActivity($request, $msg, $admin);
+       //$admin = Session::get('admin');
+       $this->saveActivity($request, $msg);
 
        return view('admin.subcategory.create',$params);
     }
@@ -141,8 +141,8 @@ class SubCategoryController extends Controller
                 $data->delete();
                 $message = "subcategory deleted";
                 $msg = implode(' ', array($data->name, $message));
-                $admin = Session::get('admin');
-                $this->saveActivity($request, $msg, $admin);
+                //$admin = Session::get('admin');
+                $this->saveActivity($request, $msg);
             }
             
             return back();
