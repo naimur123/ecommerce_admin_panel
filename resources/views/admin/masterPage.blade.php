@@ -249,7 +249,7 @@
                                     <a href="#" class="nav-link px-2 text-white">Deleted Sliders</a>
                                 </li> --}}
                             </ul>
-                        </li>
+                         </li>
 
                          {{-- Status --}}
                          <li>
@@ -268,20 +268,20 @@
                             </ul>
                         </li>
 
-                         {{-- Email --}}
+                         {{-- Customer --}}
                          <li>
-                            <a href="#submenu13" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="bi bi-envelope-exclamation-fill text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Email setup</span></a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu13" data-bs-parent="#menu">
+                            <a href="#submenu14" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="bi bi-people fa-lg text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Customer</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu14" data-bs-parent="#menu">
                                 {{-- <li class="w-100">
                                     <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
                                 </li> --}}
                                 <li>
-                                    <a href="{{ route('admin.emailtemplate.create') }}" class="nav-link px-2 text-white"><i class="bi bi-file-word"></i> Email tempalte</a>
+                                    <a href="{{ route('admin.customer') }}" class="nav-link px-2 text-white"><i class="bi bi-person-lines-fill"></i> Customer list</a>
                                 </li>
-                                {{-- <li>
-                                    <a href="#" class="nav-link px-2 text-white">Deleted Status</a>
-                                </li> --}}
+                                <li>
+                                    <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
+                                </li>
                             </ul>
                         </li>
                         {{-- <li>
@@ -296,11 +296,7 @@
                                 </li>
                             </ul>
                         </li> --}}
-                        
-                        <li>
-                            <a href="#" class="nav-link px-0 align-middle text-white">
-                                <i class="bi-people fa-lg"></i> <span class="ms-1 d-none d-sm-inline  text-white">Customers</span> </a>
-                        </li>
+                      
                         {{-- <li>
                             <form method="POST" action="{{ route('admin.logout') }}">
                                 @csrf

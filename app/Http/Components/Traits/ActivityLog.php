@@ -28,8 +28,8 @@ trait ActivityLog{
             }
             $activity_log->mac = exec('getmac');
             $activity_log->ip = $request->ip();
-            $activity = trim($activity, "open");
-            $activity = trim($activity, "Open");
+            // $activity = trim($activity, "open");
+            // $activity = trim($activity, "Open");
             $activity = ucfirst(strtolower($activity));
             $activity_log->activity = $activity . ' by ' . $name;
             

@@ -26,10 +26,8 @@ class OrderController extends Controller
                 return Redirect::route('pay.cash');
             }
             else{
-    
+                return Redirect::route('easy.checkout');
             }
-      
-       
        
     }
     public function cashview(){
@@ -55,7 +53,7 @@ class OrderController extends Controller
             "subtotal" => $subtotal,
             "shipping_cost" => $shipping_cost,
             "total" => $total,
-            "form_url" => route('pay.cash.store')
+            // "form_url" => route('pay.cash.store')
         ];
         return view('frontend.user.cash',$params);
     }
@@ -76,6 +74,34 @@ class OrderController extends Controller
 
         session()->flush('cart');
 
+    }
+
+    public function onlineview(){
+
+        $user = Session::get('user');
+        $shipping = ShippingAddress::where('user_id',$user)->select('id','area_name')->get();
+        if(session()->has('cart')){
+            $cart = session()->get('cart');
+            $subtotal = 0;
+            foreach ($cart as $item) {
+                $subtotal += $item['price'] * $item['quantity'];
+            }
+        }
+        $shipping_cost = 50;
+        $total = $subtotal + $shipping_cost;
+        // foreach($shipping as $address){
+        //     dd($address->id);
+        // }
+        $params = [
+
+            "user" => $user,
+            "shipping" => $shipping,
+            "subtotal" => $subtotal,
+            "shipping_cost" => $shipping_cost,
+            "total" => $total,
+            // "form_url" => route('pay.online.store')
+        ];
+        return view('frontend.user.online',$params);
     }
    
 }

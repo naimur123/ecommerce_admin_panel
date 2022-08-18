@@ -107,17 +107,17 @@ class HomeController extends Controller
 
 
             // }
-            $getall = ShippingAddress::all();
-            if(empty($getall)){
+            // $getuser = ShippingAddress::where('user_id',$user)->get();
+            // if(empty($getuser)){
                 $params=[
                     "user" => $user,
                     "form_url"=> route('address.store')
                 ];
                 return view('frontend.user.address', $params);
-            }
-            else{
-                return Redirect::route('pay.cash');
-            }
+            // }
+            // else{
+            //     return Redirect::route('pay.cash');
+            // }
             
         }
         else{

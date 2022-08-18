@@ -111,12 +111,15 @@ class LoginController extends Controller
                         return back()->with('error',"Account doesnot match");
                     }
                 }else{
-                    return back()->withErrors('error',"Not a user");
+                    
+                        return back()->with('error',"Not a user");
+                    
                 }
             
   
           }catch(Exception $e){
-            return back()->with("error", "Not a user");
+               
+                return back()->with('error',"Not a user");
           }
     }
 
@@ -180,6 +183,7 @@ class LoginController extends Controller
     public function logout(){
         
         Session::flush('user');
+        session()->flush('cart');
         return redirect()->route('user.login');
     }
 
