@@ -18,9 +18,8 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <a href=""> Total Advisors</a>
+            <a href="">Customer</a>
         </div>
     </div>
-</div>
-
+ </div>
 @endsection

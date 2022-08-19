@@ -48,7 +48,7 @@ class LoginController extends Controller
     }
 
     // Show Login Form
-    public function showloginform(){
+    public function showloginform(Request $request){
         if( Auth::guard('admin')->check() ){
             return redirect($this->redirectTo);
         }
@@ -76,7 +76,10 @@ class LoginController extends Controller
     }
 
     // After Login Dashboard
-    public function dashboard(){
+    public function dashboard(Request $request){
+        // $roles = $request->user()->getPermissionsViaRoles()->toArray();
+        // dd($roles);
+        // $name = $request->user()->name;
         return view('admin.dashboard.home');
     }
    

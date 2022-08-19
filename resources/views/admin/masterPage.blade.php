@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css">
     {{-- <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     {{-- Bootstrap icons --}}
-    <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff2') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff2') }}"> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     
     
@@ -55,6 +55,9 @@
         </button> --}}
       </div>
       
+      
+      
+      
     </nav>
         <div class="row flex-nowrap">
             <div class="col-m-4 col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67;">
@@ -63,12 +66,17 @@
                         <span class="fs-5 d-none d-sm-inline">Laravel Ecommerce</span>
                     </a> --}}
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-sm-start" id="menu">
-                        <li>
-                            <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
-                                <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
-                            </a>
-                           
-                        </li>
+                        {{-- @foreach($roles as $id=> $access)
+                          @if ($access['name'] == "dashboard.view")
+                                         --}}
+                                <li>
+                                    <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
+                                        <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
+                                    </a>
+                                
+                                </li>
+                           {{-- @endif
+                        @endforeach --}}
 
                          {{-- Activity Log --}}
                          <li>
@@ -268,6 +276,23 @@
                             </ul>
                         </li>
 
+                        {{-- Email --}}
+                        <li>
+                            <a href="#submenu13" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="bi bi-envelope-exclamation-fill text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Email setup</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu13" data-bs-parent="#menu">
+                                {{-- <li class="w-100">
+                                    <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                </li> --}}
+                                <li>
+                                    <a href="{{ route('admin.emailtemplate.create') }}" class="nav-link px-2 text-white"><i class="bi bi-file-word"></i> Email tempalte</a>
+                                </li>
+                                {{-- <li>
+                                    <a href="#" class="nav-link px-2 text-white">Deleted Status</a>
+                                </li> --}}
+                            </ul>
+                        </li>
+
                          {{-- Customer --}}
                          <li>
                             <a href="#submenu14" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
@@ -316,6 +341,7 @@
             {{-- </div> --}}
             <div class="col-m-8 py-4" style="padding-top: 4.5rem !important;">
                 @yield('content')
+               
             </div>
             
         </div>

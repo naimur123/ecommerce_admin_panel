@@ -47,7 +47,7 @@ Route::middleware(["auth:admin"])->group(function(){
 
     Route::prefix('admin')->name('admin.')->group(function(){
 
-    Route::get('home',[AdminController::class, 'dashboard'])->name('home');
+    Route::get('home',[AuthLoginController::class, 'dashboard'])->name('home');
     Route::get('logout',[AuthLoginController::class, 'logout'])->name('logout');
 
      // Generic Status
@@ -205,13 +205,17 @@ Route::middleware(["auth:admin"])->group(function(){
         Route::get('/deletedList',[CustomerController::class, 'archive'])->name('customer.archive');
         Route::get('/restore/{id}',[CustomerController::class, 'restore'])->name('customer.restore');
         Route::get('/permanentDelete/{id}',[CustomerController::class, 'parmenentDelete'])->name('customer.pdelete');
+
     });
+
+    Route::get('test',[EmailController::class,'test']);
 
     });
 });
 
 
 // Route::get('/home', [HomeController::class, 'index']);
+Route::get('test',[EmailController::class,'test']);
 
 
 // Client Side Routes
