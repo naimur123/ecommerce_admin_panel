@@ -80,7 +80,7 @@ class LoginController extends Controller
         // $roles = $request->user()->getPermissionsViaRoles()->toArray();
         // dd($roles);
         // $name = $request->user()->name;
-        return view('admin.dashboard.home');
+        return view('admin.dashboard.index');
     }
    
 }

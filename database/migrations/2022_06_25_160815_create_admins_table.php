@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->foreignId('group_id')->references('id')->on('groups')->nullable();
+            // $table->foreignId('group_id')->references('id')->on('groups')->nullable();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->nullable();

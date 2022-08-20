@@ -79,13 +79,16 @@
                         @endforeach --}}
 
                          {{-- Activity Log --}}
+                         @if(auth()->user()->can('activitylog.view'))
+                         {{-- @hasanyrole('admin') --}}
                          <li>
                             <a href="{{ route('admin.actvitylog') }}" class="nav-link px-0 align-middle text-white" style="text-decoration: none">
                                 <i class="bi bi-person-workspace "></i><span class="ms-2 d-none d-sm-inline text-white">Activity Log</span>
                             </a>
                            
                          </li>
-
+                         {{-- @endhasanyrole --}}
+                        @endif
 
                         {{-- Order List  --}}
                         <li>
@@ -341,7 +344,7 @@
             {{-- </div> --}}
             <div class="col-m-8 py-4" style="padding-top: 4.5rem !important;">
                 @yield('content')
-               
+               {{-- {{ auth()->user() }} --}}
             </div>
             
         </div>
