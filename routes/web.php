@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Admin\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
@@ -50,10 +51,17 @@ Route::middleware(["auth:admin"])->group(function(){
     Route::get('home',[AuthLoginController::class, 'dashboard'])->name('home');
     Route::get('logout',[AuthLoginController::class, 'logout'])->name('logout');
 
+    Route::prefix('admin')->group(function(){
+
+        Route::get('',[AdminAdminController::class,'index'])->name('admin');
+        Route::get('/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
+        Route::post('/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
+    });
+
      // Generic Status
     Route::prefix('status')->group(function(){
 
-        Route::get('status',[GenericStatusController::class, 'index'])->name('status');
+        Route::get('',[GenericStatusController::class, 'index'])->name('status');
         Route::get('/create',[GenericStatusController::class, 'create'])->name('status.create');
         Route::post('/create',[GenericStatusController::class, 'store'])->name('status.store');
         Route::get('/update/{id}',[GenericStatusController::class, 'edit'])->name('status.edit');

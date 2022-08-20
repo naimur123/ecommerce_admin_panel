@@ -311,6 +311,23 @@
                                     <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
                                 </li>
                             </ul>
+                         </li>
+
+                         {{-- Admin --}}
+                          <li>
+                            <a href="#submenu15" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="bi bi-person-circle fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Admin</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu15" data-bs-parent="#menu">
+                                {{-- <li class="w-100">
+                                    <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                </li> --}}
+                                <li>
+                                    <a href="{{ route('admin.admin') }}" class="nav-link px-2 text-white"><i class="bi bi-person-lines-fill"></i> Admin list</a>
+                                </li>
+                                {{-- <li>
+                                    <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
+                                </li> --}}
+                            </ul>
                         </li>
                         {{-- <li>
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">

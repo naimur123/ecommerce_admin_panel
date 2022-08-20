@@ -26,7 +26,6 @@ trait ActivityLog{
                 $name = $admin->name;
                 $activity_log->admin_id = $admin->id;
             }
-            $activity_log->mac = exec('getmac');
             $activity_log->ip = $request->ip();
             // $activity = trim($activity, "open");
             // $activity = trim($activity, "Open");
