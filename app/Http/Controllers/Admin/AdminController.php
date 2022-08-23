@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use Exception;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -51,5 +52,25 @@ class AdminController extends Controller
 
         return view('admin.permission.create',$params);
        
+    }
+
+    public function permissionStore(Request $request){
+
+        try{
+            $admin = Admin::find($request->admin);
+            // dd($admin);
+            $role = $admin->assignRole($request->name);
+            // dd($request->name);
+            $permissions = $request->input('permissions');
+            if (!empty($permissions)) {
+                $role->givePermissionTo($permissions);
+            }
+    
+            return back()->with('success',"Permission added");
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
+
     }
 }

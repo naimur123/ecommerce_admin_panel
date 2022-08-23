@@ -46,9 +46,12 @@
         <td>{{ $unit->created_at }}</td>
         <td>{{ $unit->updated_at }}</td>
         <td class="d-flex gap-2">
+          @if(auth()->user()->can('Unit edit'))
           <a href="{{route('admin.unit.edit', $unit->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          @endif
+          @if(auth()->user()->can('Unit delete'))
           <a href="{{route('admin.unit.delete', $unit->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
-          
+          @endif
         </td>
       </tr>
       @empty

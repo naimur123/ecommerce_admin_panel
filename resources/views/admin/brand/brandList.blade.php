@@ -6,9 +6,11 @@
      <div class="col-10">
       <h4>Brand List</h4>
      </div>
+     @if(auth()->user()->can('Brand create'))
      <div class="col-2">
       <a class="btn btn-primary" href="{{ route('admin.brand.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
+     @endif
     </div>
 </div>
 <br>
@@ -48,9 +50,14 @@
         <td>{{ $brand->updated_at }}</td>
         <td><img src="{{ asset($brand->image) }}" height="100px" width="100px"></td>
         <td class="d-flex gap-2 mt-4">
+          @if(auth()->user()->can('Brand edit'))
           <a href="{{route('admin.brand.edit', $brand->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          @endif
+
+          @if(auth()->user()->can('Brand delete'))
           <a href="{{route('admin.brand.delete', $brand->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
-          
+          @endif
+
         </td>
       </tr>
       @empty

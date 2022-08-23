@@ -6,9 +6,11 @@
      <div class="col-10">
       <h4>Coupon List</h4>
      </div>
+     @if(auth()->user()->can('Coupon create'))
      <div class="col-2">
       <a class="btn btn-primary" href="{{ route('admin.coupon.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
+     @endif
     </div>
 </div>
 <br>

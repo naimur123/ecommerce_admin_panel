@@ -1,6 +1,16 @@
 @extends('admin.masterPage')
 @section('content')
 <div class="col-10 col-lg-10 mt-2 mb-2">
+    @if(session('success'))
+                <div class="alert alert-success">
+                  {{ session('success') }}
+                </div> 
+    @endif
+    @if(session('error'))
+                <div class="alert alert-danger">
+                  {{ session('error') }}
+                </div> 
+    @endif
     <div class="card">
     <div class="card-body">
        @if(session('success'))
@@ -17,6 +27,7 @@
            @csrf
            <div class="col-7">
              <h3 class="text-danger">Permission Access for {{ $admin->name ?? ""}}</h3>
+             <input type="hidden" name="admin" value="{{ $admin->id }}">
            </div>
            <div class="col-12 mt-2 ml-3">
             @foreach ($roles as $role)
@@ -37,7 +48,7 @@
                             <h2>{{$groupname}}</h2>
                         <hr>
                         @foreach ($accesses as $permission)
-                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->name }}">
+                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}">
                             <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{ $permission->name }}</label>
                             <hr>
                         @endforeach

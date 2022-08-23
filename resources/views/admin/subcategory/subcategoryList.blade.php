@@ -49,9 +49,12 @@
         <td>{{ $subcategory->created_at }}</td>
         <td>{{ $subcategory->updated_at }}</td>
         <td class="d-flex gap-2">
+          @if(auth()->user()->can('Subcategory edit'))
           <a href="{{route('admin.subcategory.edit', $subcategory->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          @endif
+          @if(auth()->user()->can('Subcategory delete'))
           <a href="{{route('admin.subcategory.delete', $subcategory->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
-          
+          @endif
         </td>
       </tr>
       @empty

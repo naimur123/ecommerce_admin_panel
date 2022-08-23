@@ -6,9 +6,11 @@
      <div class="col-10">
       <h4>Status List</h4>
      </div>
+     @if(auth()->user()->can('Status create'))
      <div class="col-2">
       <a class="btn btn-primary" href="{{ route('admin.status.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
+     @endif
     </div>
 </div>
 <br>
@@ -38,9 +40,12 @@
         <td>{{ $status->created_at }}</td>
         <td>{{ $status->updated_at }}</td>
         <td class="d-flex gap-2">
+          @if(auth()->user()->can('Status edit'))
           <a href="{{route('admin.status.edit', $status->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          @endif
+          @if(auth()->user()->can('Status delete'))
           <a href="{{route('admin.status.delete', $status->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
-          
+          @endif
         </td>
       </tr>
       @empty

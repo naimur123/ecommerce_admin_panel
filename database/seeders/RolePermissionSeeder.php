@@ -26,165 +26,175 @@ class RolePermissionSeeder extends Seeder
          // Permission List as array
          $permissions = [
             [
-                'group_name' => 'dashboard',
+                'group_name' => 'Dashboard',
                 'permissions' => [
-                    'dashboard.view',
+                    'Dashboard view',
                 ]
             ],
             [
-                'group_name' => 'admin',
+                'group_name' => 'Admin',
                 'permissions' => [
                     // admin Permissions
-                    'admin.create',
-                    'admin.view',
-                    'admin.edit',
-                    'admin.delete',
+                    'Admin create',
+                    'Admin view',
+                    'Admin edit',
+                    'Admin delete',
                 ]
             ],
             [
-                'group_name' => 'customer',
+                'group_name' => 'Customer',
                 'permissions' => [
                     //customer Permissions
-                    'customer.create',
-                    'customer.view',
-                    'customer.edit',
-                    'customer.delete',
+                    'Customer create',
+                    'Customer view',
+                    'Customer edit',
+                    'Customer delete',
                 ]
             ],
             [
-                'group_name' => 'product',
+                'group_name' => 'Order',
+                'permissions' => [
+                    //customer Permissions
+                    'Order create',
+                    'Order view',
+                    'Order edit',
+                    'Order delete',
+                ]
+            ],
+            [
+                'group_name' => 'Product',
                 'permissions' => [
                     //product Permissions
-                    'product.create',
-                    'product.view',
-                    'product.edit',
-                    'product.delete',
+                    'Product create',
+                    'Product view',
+                    'Product edit',
+                    'Product delete',
                 ]
             ],
             [
-                'group_name' => 'category',
+                'group_name' => 'Category',
                 'permissions' => [
                     //category Permissions
-                    'category.create',
-                    'category.view',
-                    'category.edit',
-                    'category.delete',
+                    'Category create',
+                    'Category view',
+                    'Category edit',
+                    'Category delete',
                 ]
             ],
             [
-                'group_name' => 'subcategory',
+                'group_name' => 'Subcategory',
                 'permissions' => [
                     //subcategory Permissions
-                    'subcategory.create',
-                    'subcategory.view',
-                    'subcategory.edit',
-                    'subcategory.delete',
+                    'Subcategory create',
+                    'Subcategory view',
+                    'Subcategory edit',
+                    'Subcategory delete',
                 ]
             ],
             [
-                'group_name' => 'brand',
+                'group_name' => 'Brand',
                 'permissions' => [
                     //brand Permissions
-                    'brand.create',
-                    'brand.view',
-                    'brand.edit',
-                    'brand.delete',
+                    'Brand create',
+                    'Brand view',
+                    'Brand edit',
+                    'Brand delete',
                 ]
             ],
             [
-                'group_name' => 'country',
+                'group_name' => 'Country',
                 'permissions' => [
                     //country permissions
-                    'country.create',
-                    'country.view',
-                    'country.edit',
-                    'country.delete',
+                    'Country create',
+                    'Country view',
+                    'Country edit',
+                    'Country delete',
                 ]
             ],
             [
-                'group_name' => 'currency',
+                'group_name' => 'Currency ',
                 'permissions' => [
-                    //currency permissions
-                    'currency.create',
-                    'currency.view',
-                    'currency.edit',
-                    'currency.delete',
+                    //Currency  permissions
+                    'Currency create',
+                    'Currency view',
+                    'Currency edit',
+                    'Currency delete',
                 ]
             ],
             [
-                'group_name' => 'unit',
+                'group_name' => 'Unit',
                 'permissions' => [
                     //unit permissions
-                    'unit.create',
-                    'unit.view',
-                    'unit.edit',
-                    'unit.delete',
+                    'Unit create',
+                    'Unit view',
+                    'Unit edit',
+                    'Unit delete',
                 ]
             ],
             [
-                'group_name' => 'coupon',
+                'group_name' => 'Coupon',
                 'permissions' => [
                     //coupon permissions
-                    'coupon.create',
-                    'coupon.view',
-                    'coupon.edit',
-                    'coupon.delete',
+                    'Coupon create',
+                    'Coupon view',
+                    'Coupon edit',
+                    'Coupon delete',
                 ]
             ],
             [
-                'group_name' => 'slider',
+                'group_name' => 'Slider',
                 'permissions' => [
                     //slider Permissions
-                    'slider.create',
-                    'slider.view',
-                    'slider.edit',
-                    'slider.delete',
+                    'Slider create',
+                    'Slider view',
+                    'Slider edit',
+                    'Slider delete',
                 ]
             ],
             [
-                'group_name' => 'status',
+                'group_name' => 'Status',
                 'permissions' => [
                     //status Permissions
-                    'status.create',
-                    'status.view',
-                    'status.edit',
-                    'status.delete',
+                    'Status create',
+                    'Status view',
+                    'Status edit',
+                    'Status delete',
                 ]
             ],
             [
-                'group_name' => 'emailsetup',
+                'group_name' => 'Emailsetup',
                 'permissions' => [
-                    //emailsetup Permissions
-                    'emailsetup.create',
-                    'emailsetup.view',
-                    'emailsetup.edit',
-                    'emailsetup.delete',
+                    //Emailsetup Permissions
+                    'Emailsetup create',
+                    'Emailsetup view',
+                    'Emailsetup edit',
+                    'Emailsetup delete',
                 ]
             ],
             [
-                'group_name' => 'activitylog',
+                'group_name' => 'Activitylog',
                 'permissions' => [
-                    //activitylog Permissions
-                    'activitylog.view',
-                    'activitylog.delete',
+                    //Activitylog Permissions
+                    'Activitylog view',
+                    'Activitylog delete',
                 ]
             ],
             [
-                'group_name' => 'website',
+                'group_name' => 'Website',
                 'permissions' => [
-                    //activitylog Permissions
-                    'website.view',
-                    'website.edit',
+                    //Website Permissions
+                    'Website view',
+                    'Website edit',
                 ]
             ],
             [
-                'group_name' => 'permission',
+                'group_name' => 'Permission',
                 'permissions' => [
-                    //activitylog Permissions
-                    'permission.view',
-                    'permission.create',
-                    'permission.edit',
-                    'permission.delete'
+                    //Activitylog Permissions
+                    'Permission view',
+                    'Permission create',
+                    'Permission edit',
+                    'Permission delete'
                 ]
             ],
         ];
@@ -208,18 +218,18 @@ class RolePermissionSeeder extends Seeder
             "email_verified_at" => now(),
             "remember_token"    => Str::random(32),
         ]);
-        $user2 =  Admin::create([
-            "name"              => "Admin",
-            "email"             => "admin1@admin.com",
-            "password"          => bcrypt("admin1@admin.com"),
-            "email_verified_at" => now(),
-            "remember_token"    => Str::random(32),
-        ]);
+        // $user2 =  Admin::create([
+        //     "name"              => "Admin",
+        //     "email"             => "admin1@admin.com",
+        //     "password"          => bcrypt("admin1@admin.com"),
+        //     "email_verified_at" => now(),
+        //     "remember_token"    => Str::random(32),
+        // ]);
         // $name = Role::where('name',"superadmin")->get();
            
         $user->assignRole($roleSuperAdmin);
-        $user2->assignRole($roleAdmin);
-        $user2->givePermissionTo(10);
+        // $user2->assignRole($roleAdmin);
+        // $user2->givePermissionTo(10);
         
     
 

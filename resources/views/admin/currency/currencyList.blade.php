@@ -6,9 +6,11 @@
      <div class="col-9">
       <h4>Currency List</h4>
      </div>
+     @if(auth()->user()->can('Currency create'))
      <div class="col-3">
       <a class="btn btn-primary" href="{{ route('admin.currency.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
+     @endif
     </div>
 </div>
 <br>
@@ -50,9 +52,12 @@
         <td>{{ $currency->created_at }}</td>
         <td>{{ $currency->updated_at }}</td>
         <td class="d-flex gap-2">
+          @if(auth()->user()->can('Currency edit'))
           <a href="{{route('admin.currency.edit', $currency->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          @endif
+          @if(auth()->user()->can('Currency delete'))
           <a href="{{route('admin.currency.delete', $currency->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
-          
+          @endif
         </td>
       </tr>
       @empty

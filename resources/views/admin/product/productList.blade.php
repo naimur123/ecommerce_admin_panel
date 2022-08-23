@@ -6,9 +6,11 @@
      <div class="col-8">
       <h4>Product {{ $title ?? "" }}</h4>
      </div>
+     @if(auth()->user()->can('Product create'))
      <div class="col-4">
       <a class="btn btn-primary" href="{{ route('admin.products.create') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div>
+     @endif
     </div>
     <div class="row mt-2">
       <div class="col-8">
@@ -80,9 +82,12 @@
         </td>
         @else
         <td class="d-flex gap-2 mt-4">
+          @if(auth()->user()->can('Product edit'))
           <a href="{{route('admin.products.edit', $products->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span>Edit </a> 
+          @endif
+          @if(auth()->user()->can('Product delete'))
           <a href="{{route('admin.products.delete', $products->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> Delete</a> 
-          
+          @endif
         </td>
         @endif
       </tr>

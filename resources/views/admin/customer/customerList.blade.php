@@ -11,9 +11,11 @@
      <div class="col-8">
       <h4>Customer {{ $title ?? "" }}</h4>
      </div>
+     {{-- @if(auth()->user()->can('Customer create')) --}}
      {{-- <div class="col-4">
       <a class="btn btn-primary" href="" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div> --}}
+     {{-- @endif --}}
     </div>
     <div class="row mt-2">
       <div class="col-8">
@@ -71,9 +73,12 @@
             </td>
         @else
             <td class="d-flex gap-2 mt-4">
-            <a href="{{route('admin.customer.edit', $user->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span>Edit </a> 
+            @if(auth()->user()->can('Customer edit'))
+            <a href="{{route('admin.customer.edit', $user->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span>Edit </a>
+            @endif
+            @if(auth()->user()->can('Customer delete')) 
             <a href="{{route('admin.customer.delete', $user->id )}}" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> Delete</a> 
-            
+            @endif
             </td>
         @endif
       </tr>
