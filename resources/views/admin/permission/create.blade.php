@@ -31,7 +31,7 @@
            </div>
            <div class="col-12 mt-2 ml-3">
             @foreach ($roles as $role)
-                <input type="checkbox" class="form-check-input" name="name" value="{{ $role->name }}">
+                <input type="checkbox" class="form-check-input" name="name" value="{{ $role->name }}" >
                     <label class="form-check-label" for="{{ $role->id }}">{{ $role->name }}</label>
                 <hr>
             @endforeach
@@ -48,9 +48,11 @@
                             <h2>{{$groupname}}</h2>
                         <hr>
                         @foreach ($accesses as $permission)
-                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}">
+                          {{-- @foreach ($hasPermissions as $hasPermission) --}}
+                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}" @if(old($permission->id)== $permission->id) checked @endif>
                             <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{ $permission->name }}</label>
                             <hr>
+                          {{-- @endforeach --}}
                         @endforeach
                         @php
                             $index++;
@@ -62,6 +64,11 @@
             <br>
             </div>
 
+            <div>
+              {{-- @foreach ($hasPermissions as $hasPermission) --}}
+                {{-- {{ $hasPermissions }} --}}
+              {{-- @endforeach --}}
+            </div>
          
            <!--submit -->
            <div class="col-12 text-right py-2">

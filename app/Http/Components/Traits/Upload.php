@@ -13,6 +13,7 @@ trait Upload{
     protected  $brand = "storage/uploads/brands/";
     protected  $product = "storage/uploads/products/";
     protected  $slider = "storage/uploads/sliders/";
+    protected  $admin = "storage/uploads/admins/";
     protected  $user = "storage/uploads/users/";
     protected  $logo_dir = "storage/uploads/logo/";
     protected  $others_dir = "storage/uploads/others/";

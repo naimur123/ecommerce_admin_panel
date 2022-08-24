@@ -54,6 +54,8 @@ Route::middleware(["auth:admin"])->group(function(){
     Route::prefix('admin')->group(function(){
 
         Route::get('',[AdminAdminController::class,'index'])->name('admin');
+        Route::get('/create',[AdminAdminController::class,'create'])->name('admin.create');
+        Route::post('/create',[AdminAdminController::class,'store'])->name('admin.store');
         Route::get('/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
         Route::post('/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
     });
@@ -215,6 +217,8 @@ Route::middleware(["auth:admin"])->group(function(){
         Route::get('/permanentDelete/{id}',[CustomerController::class, 'parmenentDelete'])->name('customer.pdelete');
 
     });
+
+    
 
     Route::get('test',[EmailController::class,'test']);
 

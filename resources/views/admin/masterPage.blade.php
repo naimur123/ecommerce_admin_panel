@@ -391,6 +391,12 @@
                                     <a href="{{ route('admin.admin') }}" class="nav-link px-2 text-white"><i class="bi bi-person-lines-fill"></i> Admin list</a>
                                 </li>
                                 @endif
+
+                                @if(auth()->user()->can('Admin create'))
+                                <li>
+                                    <a href="{{ route('admin.admin.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add new admin</a>
+                                </li>
+                                @endif
                                 {{-- <li>
                                     <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
                                 </li> --}}
