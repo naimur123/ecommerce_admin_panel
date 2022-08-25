@@ -82,6 +82,7 @@ Route::middleware(["auth:admin"])->group(function(){
         Route::get('/update/{id}',[CategoryController::class, 'edit'])->name('category.edit');
         Route::post('/update',[CategoryController::class, 'store'])->name('category.store');
         Route::get('/delete/{id}',[CategoryController::class, 'delete'])->name('category.delete');
+        Route::get('/getSubcategory', [CategoryController::class, 'getSubcategory'])->name('category.subcategory');
 
     });
 
@@ -94,6 +95,7 @@ Route::middleware(["auth:admin"])->group(function(){
         Route::get('/update/{id}',[SubCategoryController::class, 'edit'])->name('subcategory.edit');
         Route::post('/update',[SubCategoryController::class, 'store'])->name('subcategory.store');
         Route::get('/delete/{id}',[SubCategoryController::class, 'delete'])->name('subcategory.delete');
+       
 
     });
 

@@ -21,9 +21,9 @@ class HomeController extends Controller
     public function index(){
        
 
-        $subcategory = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
+        $category_id = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
 
-        $category = Category::whereNotIn('id', $subcategory)->take(3)->get();
+        $category = Category::whereNotIn('id', $category_id)->take(3)->get();
 
         // dd($category);
 
@@ -31,7 +31,7 @@ class HomeController extends Controller
             // "categories" => Category::where('status_id',1)->get(),
             "categories" => $category,
             "products" => Product::where('status_id',1)->paginate(12),
-            "subcategories" => SubCategory::where('status_id',1)->take(2)->get(),
+            "subcategories" => SubCategory::where('status_id',1)->take(5)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
             "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
         ];

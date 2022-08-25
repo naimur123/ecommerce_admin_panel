@@ -12,14 +12,23 @@
             <nav class="show navbar navbar-vertical navbar-light align-items-start p-2  border border-danger border-top-0 border-bottom-2" {{-- id="navbar-vertical" --}}>
                 <div class="navbar-nav w-100 overflow-hidden mx-2" style="height: 400px;">
                     <div class="nav-item dropdown">
-                            @foreach ($subcategories as $subcategory)
-                              
-                                    <a href="#" class="nav-link text-dark fw-bold">{{ $subcategory->categories->name }}<i class="fa fa-angle-down float-right mt-1"></i></a>
-                                        <div {{-- class="dropdown-menu bg-secondary border-2 rounded-0 w-100 m-0" --}} class="bg-secondary border-2">
-                                            <a href="" class="dropdown-item">{{ $subcategory->name }}</a>
-                                        </div>
-                                        <hr>
+                        @php
+                             $index = 1;
+                        @endphp
+                            {{-- @foreach ($subcategories as $subcategory) --}}
+                            @foreach($subcategories->groupBy('category_id') as $category => $subcategorys)
+                                <a href="#" class="nav-link text-dark fw-bold">{{ App\Models\Category::find($category)->name }}<i class="fa fa-angle-down float-right mt-1"></i></a>
+                                  @foreach ($subcategorys as $subcategory)
+                                    <div {{-- class="dropdown-menu bg-secondary border-2 rounded-0 w-100 m-0" --}} class="bg-secondary border-2">
+                                        <a href="" class="dropdown-item">{{ $subcategory->name }}</a>
+                                    </div>
+                                   @endforeach
+                                        
+                                <hr>
                             @endforeach
+                        @php
+                            $index++;
+                        @endphp
                             @foreach ($categories as $category)
                                     <a href="#" class="nav-link text-dark fw-bold" {{-- data-toggle="dropdown" --}}>{{ $category->name }}</a>
                                     <hr>

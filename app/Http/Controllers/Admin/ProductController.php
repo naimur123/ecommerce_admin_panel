@@ -122,7 +122,7 @@ class ProductController extends Controller
                 }
     
                 $data->category_id = $request->category_id;
-                $data->subcategory_id  = $request->subcategory_id ;
+                $data->subcategory_id  = $request->subcategory_id ?? null;
                 $data->brand_id = $request->brand_id;
                 $data->name = $request->name;
                 $data->slug = $request->slug ?? null;
@@ -168,11 +168,21 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
+        $getcategory_id = Category::where('id',$product->category_id)->pluck('id')->toArray();
+        // print_r($getcategory_id);
+        $subcategory = SubCategory::where('category_id',$getcategory_id)->get();
+        // if(empty($subcategory)){
+        //     $subcategory = SubCategory::all();
+        // }
+        // else{
+        //     $subcategory = $getsubcategory;
+        // }
+
         $params = [
             "title"      => "Edit",
             "form_url"   => route('admin.products.store'),
             "categories" => Category::all(),
-            "subs"       => SubCategory::all(),
+            "subs"       => $subcategory,
             "brands"     => Brand::all(),
             "units"      => Unit::all(),
             "currencies" => Currency::all(),

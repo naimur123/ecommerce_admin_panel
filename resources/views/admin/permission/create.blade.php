@@ -1,16 +1,6 @@
 @extends('admin.masterPage')
 @section('content')
 <div class="col-10 col-lg-10 mt-2 mb-2">
-    @if(session('success'))
-                <div class="alert alert-success">
-                  {{ session('success') }}
-                </div> 
-    @endif
-    @if(session('error'))
-                <div class="alert alert-danger">
-                  {{ session('error') }}
-                </div> 
-    @endif
     <div class="card">
     <div class="card-body">
        @if(session('success'))
@@ -31,8 +21,10 @@
            </div>
            <div class="col-12 mt-2 ml-3">
             @foreach ($roles as $role)
-                <input type="checkbox" class="form-check-input" name="name" value="{{ $role->name }}" >
-                    <label class="form-check-label" for="{{ $role->id }}">{{ $role->name }}</label>
+                <input type="checkbox" class="form-check-input" name="name" value="{{ $role->name }}" @if($admin->hasAnyRole($role->name))
+                checked
+                @endif >
+                    <label class="form-check-label" for="{{ $role->id }}">{{ ucfirst(trans($role->name)) }}</label>
                 <hr>
             @endforeach
            </div>
@@ -49,7 +41,9 @@
                         <hr>
                         @foreach ($accesses as $permission)
                           {{-- @foreach ($hasPermissions as $hasPermission) --}}
-                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}" @if(old($permission->id)== $permission->id) checked @endif>
+                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}" {{-- @if(old($permission->id)== $permission->id) checked @endif --}}@if($admin->can($permission->name))
+                            checked
+                            @endif>
                             <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{ $permission->name }}</label>
                             <hr>
                           {{-- @endforeach --}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\GenericStatus;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -145,5 +146,17 @@ class CategoryController extends Controller
             return back()->with("error", $this->getError($e))->withInput();
         }
         
+    }
+
+    public function getSubcategory(Request $request){
+        $subcategory = SubCategory::where('category_id',$request->category_id)->get();
+        if (count($subcategory) > 0) {
+            return response()->json($subcategory);
+            // dd($subcategory);
+            
+        }
+        else{
+            return 0;
+        }
     }
 }

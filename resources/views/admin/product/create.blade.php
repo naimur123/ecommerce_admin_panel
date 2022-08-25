@@ -24,7 +24,7 @@
          <div class="col-12 col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Category<span class="text-danger">*</span></label>
-                <select class="form-control select2" name="category_id" required >
+                <select class="form-control select2" name="category_id" id="category" required >
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
                        {{-- <optionvalue="$category->id"name="$category->id"ory-"old('profession_id')&&old('profession_id')==$item->id?'selected':(isset($data->profession_id)&&$data->profession_id==$item->id?"selected":Null)> {{ $category->name }} </option>  --}}   
@@ -38,11 +38,17 @@
         <div class="col-12 col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Sub Category<span class="text-danger">*</span></label>
-                <select class="form-control select2" name="subcategory_id" required >
+                <select class="form-control select2" name="subcategory_id" id="subcat" required >
+                    @if($title == "Create")
                     <option value="">Select Sub Category</option>
-                    @foreach($subs as $sub)
-                        <option value="{{ $sub->id }}" {{ old('subcategory_id') && old('subcategory_id') == $sub->id?'selected':(isset($data->subcategory_id) && $data->subcategory_id == $sub->id?"selected":Null) }}> {{ $sub->name }} </option>     
-                    @endforeach                           
+                    @endif
+                    @if($title == "Edit")
+                    @forelse($subs as $sub)
+                        <option value="{{ $sub->id }}" {{ old('subcategory_id') && old('subcategory_id') == $sub->id?'selected':(isset($data->subcategory_id) && $data->subcategory_id == $sub->id?"selected":Null) }}> {{ $sub->name }} </option> 
+                    @empty
+                        <option> N/A </option> 
+                    @endforelse                           
+                    @endif
                 </select>
             </div>
         </div>
@@ -238,4 +244,29 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+            $('#category').on('change', function () {
+                var categoryId = this.value;
+                $('#subcat').html('');
+                $.ajax({
+                    url: '{{ route('admin.category.subcategory') }}?category_id='+categoryId,
+                    type: 'get',
+                    success: function (res) {
+                        if(res == 0){
+                            $('#subcat').prop('disabled', 'disabled');
+                        }
+                        else{
+                            $.each(res, function (key, value) {
+                            $('#subcat').append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                        }
+                        
+                        
+                    }
+                });
+            });
+        })
+</script>
 @endsection

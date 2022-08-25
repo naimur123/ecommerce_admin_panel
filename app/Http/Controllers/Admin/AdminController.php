@@ -102,14 +102,15 @@ class AdminController extends Controller
     //get permissions
     public function permission(Request $request){
 
-        $role = Role::all();
+        $role = Role::where('guard_name','admin')->get();
         $permission = Permission::all();
         // $permission = Permission::orderBy('group_name')->get();
         // dd($permission);
         $admin = Admin::find($request->id);
 
+
         // $permission = $admin->permissions;
-        // dd($hasPermission);
+        // dd($admin->getRoleNames());
         // $admin->getPermissionsViaRoles()->toArray();
         // dd($admin);
         $params= [
