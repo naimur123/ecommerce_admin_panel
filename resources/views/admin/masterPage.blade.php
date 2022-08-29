@@ -55,10 +55,8 @@
         </button> --}}
       </div>
       
-      
-      
-      
     </nav>
+    
         <div class="row flex-nowrap">
             <div class="col-m-4 col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67;">
                 <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -381,8 +379,9 @@
                          @hasanyrole('superadmin|admin')
                           <li>
                             <a href="#submenu15" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="bi bi-person-circle fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Admin</span></a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu15" data-bs-parent="#menu">
+                                <i class="bi bi-person-circle fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Admin</span>
+                            </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu15" data-bs-parent="#menu" onclick="active">
                                 {{-- <li class="w-100">
                                     <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
                                 </li> --}}
@@ -397,6 +396,27 @@
                                     <a href="{{ route('admin.admin.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add new admin</a>
                                 </li>
                                 @endif
+                                {{-- <li>
+                                    <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
+                                </li> --}}
+                            </ul>
+                        </li>
+                        @endhasanyrole
+
+                        @hasanyrole('superadmin|admin')
+                          <li>
+                            <a href="#submenu16" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="bi bi-globe fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Website</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu16" data-bs-parent="#menu">
+                                {{-- <li class="w-100">
+                                    <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                </li> --}}
+                                @if(auth()->user()->can('Website view'))
+                                <li>
+                                    <a href="{{ route('admin.admin') }}" class="nav-link px-2 text-white"><i class="bi bi-gear-fill"></i> Settings</a>
+                                </li>
+                                @endif
+
                                 {{-- <li>
                                     <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
                                 </li> --}}
@@ -443,6 +463,16 @@
  </div>
     
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript">
+    //  $('li a').click(function(e) {
+    //     // var $this = $(this);
+    //     // e.preventDefault();
+    //     // $('a').removeClass('active');
+    //     // $(this).addClass('active');
+    //     $(this).parent().toggleClass('active')
+    // });
+  
+    </script>
     {{-- <script>
         $(".nav-link").click(function(){
             return true;

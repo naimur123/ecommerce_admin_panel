@@ -103,6 +103,7 @@ class AdminController extends Controller
     public function permission(Request $request){
 
         $role = Role::where('guard_name','admin')->get();
+        // dd($role);
         $permission = Permission::all();
         // $permission = Permission::orderBy('group_name')->get();
         // dd($permission);
@@ -131,11 +132,19 @@ class AdminController extends Controller
         try{
             $admin = Admin::find($request->admin);
             // dd($admin);
+            // dd($admin->getAllPermissions());
             $role = $admin->assignRole($request->name);
             // dd($request->name);
             $permissions = $request->input('permissions');
+            // dd($permissions);
+           
             if (!empty($permissions)) {
-                $role->givePermissionTo($permissions);
+                // $admin->revokePermissionTo($permissions);
+                // $role->givePermissionTo($permissions);
+                $role->syncPermissions($permissions);
+            }
+            else{
+                return back()->with('error',"At least one permission needed");
             }
     
             return back()->with('success',"Permission added");
