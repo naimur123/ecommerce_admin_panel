@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\User\LoginController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -50,6 +51,9 @@ Route::middleware(["auth:admin"])->group(function(){
 
     Route::get('home',[AuthLoginController::class, 'dashboard'])->name('home');
     Route::get('logout',[AuthLoginController::class, 'logout'])->name('logout');
+
+    Route::get('website/setting',[WebsiteSettingsController::class, 'create'])->name('website.create');
+    Route::post('website/setting',[WebsiteSettingsController::class, 'store'])->name('website.store');
 
     Route::prefix('admin')->group(function(){
 
