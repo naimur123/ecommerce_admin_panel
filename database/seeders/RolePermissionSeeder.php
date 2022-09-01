@@ -218,20 +218,6 @@ class RolePermissionSeeder extends Seeder
             "email_verified_at" => now(),
             "remember_token"    => Str::random(32),
         ]);
-        // $user2 =  Admin::create([
-        //     "name"              => "Admin",
-        //     "email"             => "admin1@admin.com",
-        //     "password"          => bcrypt("admin1@admin.com"),
-        //     "email_verified_at" => now(),
-        //     "remember_token"    => Str::random(32),
-        // ]);
-        // $name = Role::where('name',"superadmin")->get();
-           
         $user->assignRole($roleSuperAdmin);
-        // $user2->assignRole($roleAdmin);
-        // $user2->givePermissionTo(10);
-        
-    
-
     }
 }
