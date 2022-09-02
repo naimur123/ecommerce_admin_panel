@@ -55,14 +55,16 @@ Route::middleware(["auth:admin"])->group(function(){
     Route::get('website/setting',[WebsiteSettingsController::class, 'create'])->name('website.create');
     Route::post('website/setting',[WebsiteSettingsController::class, 'store'])->name('website.store');
 
-    Route::prefix('admin')->group(function(){
-
+    // Route::prefix('admin')->group(function(){
+    //    Admin
         Route::get('',[AdminAdminController::class,'index'])->name('admin');
         Route::get('/create',[AdminAdminController::class,'create'])->name('admin.create');
+        Route::get('/edit/{id}',[AdminAdminController::class,'edit'])->name('admin.edit');
+        Route::post('/edit',[AdminAdminController::class,'store'])->name('admin.store');
         Route::post('/create',[AdminAdminController::class,'store'])->name('admin.store');
         Route::get('/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
         Route::post('/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
-    });
+    // });
 
      // Generic Status
     Route::prefix('status')->group(function(){

@@ -18,16 +18,9 @@
     {{-- <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff') }}">
     <link rel="stylesheet" href="{{ asset('fonts/vendor/bootstrap-icons/bootstrap-icons.woff2') }}"> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-        //   $(".btn1").click(function(){
-        //     $("p").fadeOut();
-        //   });
-          $(".dropbtn").click(function(){
-            $("li").fadeIn();
-          });
-        });
-    </script>
+   
+    {{-- Custom Css --}}
+    <link rel="stylesheet" href="{{ asset('custom/app.css') }}">
     
     
 </head>
@@ -129,7 +122,7 @@
                                    <i class="bi bi-list-columns-reverse"></i><span class="ms-2 d-none d-sm-inline text-white mx-2">Products</span>
                                </a>
                                
-                               <ul class="collapse show nav flex-column ms-1" id="submenu3">
+                               <ul class="collapse nav flex-column ms-1" id="submenu3">
                                    @if(auth()->user()->can('Product view'))
                                    <li class="w-100">
                                        <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white "><i class="bi bi-diagram-2"></i> Product List</a>
@@ -503,13 +496,6 @@
        
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-     $(".collapse").click(function(){
-        $('.collapse').collapse({
-            toggle: false
-            })
-    })
-    </script>
    
    </body>
 

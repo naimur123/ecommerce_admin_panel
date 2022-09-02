@@ -38,7 +38,7 @@
         <td>{{ $admin->bio ?? "N/A" }}</td>
         <td><img src="{{ asset($admin->image) }}" height="100px" width="100px"></td>
         <td class="d-flex gap-2 ml-2 mt-4">
-          <a href="" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
+          <a href="{{ route('admin.admin.edit', $admin->id ) }}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
           <a href="" class="btn btn-sm btn-danger" title="Delete" > <span class="fa fa-trash fa-lg"></span> </a> 
           <a href="{{ route('admin.permisssion', $admin->id ) }}" class="btn btn-sm btn-danger" title="Permission" > <span class="fa fa-key fa-lg"></span> </a> 
           

@@ -43,7 +43,6 @@ class AdminController extends Controller
              "form_url"    => route('admin.admin.store')
 
         ];
-        // $admin = Session::get('admin');
         $this->saveActivity($request, "Create admin page opened");
         return view('admin.admin.create',$params);
     }
@@ -99,6 +98,22 @@ class AdminController extends Controller
             
             return back()->with("success", $request->id == 0 ? "Admin Added Successfully" : "Admin Updated Successfully");
     }
+
+    // Admin edit
+    public function edit(Request $request){
+
+        $admin = Admin::find($request->id);
+
+        $params = [
+             "title"       =>   "Edit",
+             "form_url"    => route('admin.admin.store'),
+             "data"        => $admin
+
+        ];
+        $this->saveActivity($request, "Edit admin page opened");
+        return view('admin.admin.create',$params);
+    }
+
     //get permissions
     public function permission(Request $request){
 

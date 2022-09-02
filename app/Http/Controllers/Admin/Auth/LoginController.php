@@ -80,7 +80,11 @@ class LoginController extends Controller
         // $roles = $request->user()->getPermissionsViaRoles()->toArray();
         // dd($roles);
         // $name = $request->user()->name;
-        return view('admin.dashboard.index');
+        $params =[
+
+            "user" => User::all()->count(),
+        ];
+        return view('admin.dashboard.home',$params);
     }
    
 }
