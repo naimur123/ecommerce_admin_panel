@@ -223,6 +223,8 @@ Route::middleware(["auth:admin"])->group(function(){
         Route::get('/deletedList',[CustomerController::class, 'archive'])->name('customer.archive');
         Route::get('/restore/{id}',[CustomerController::class, 'restore'])->name('customer.restore');
         Route::get('/permanentDelete/{id}',[CustomerController::class, 'parmenentDelete'])->name('customer.pdelete');
+        Route::get('/customerlistpdf',[CustomerController::class,'pdf'])->name('customer.pdf');
+        Route::get('/customerlistexcel',[CustomerController::class,'excel'])->name('customer.excel');
 
     });
 

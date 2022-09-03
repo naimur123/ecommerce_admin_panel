@@ -23,8 +23,9 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->string('social_id')->nullable();
             $table->rememberToken();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 

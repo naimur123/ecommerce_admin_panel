@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CustomerList;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Auth\Events\Registered;
+use Maatwebsite\Excel\Facades\Excel;
+// use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerController extends Controller
 {
@@ -162,6 +166,26 @@ class CustomerController extends Controller
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
         }
+    }
+
+    // pdf download
+    public function pdf(Request $request){
+        @ini_set('max_execution_time',300);
+        @ini_set('memory_limit',"512M");
+        $users = User::all();
+        // $params =[
+        //     'title' => 'List',
+        //     'date' => date('m/d/Y'),
+        //     'users' => $users
+        // ];
+        $pdf = PDF::loadView('admin.customer.customerpdf', ['users' => $users]);
+        return $pdf->download('Customerlist.pdf');
+        // return view('admin.customer.customerpdf')->with('users',$users);
+    }
+
+    // Excel
+    public function excel(Request $request){
+        return Excel::download(new CustomerList, 'Customer.xlsx');
     }
 
 }

@@ -16,6 +16,9 @@
       <a class="btn btn-primary" href="" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Create new</a>
      </div> --}}
      {{-- @endif --}}
+     <div class="col-4">
+      <a class="btn btn-primary" href="{{ route('admin.customer.excel') }}" role="button" style="background-color: #01a9ac; border-color:#01a9ac">Download</a>
+     </div>
     </div>
     <div class="row mt-2">
       <div class="col-8">
