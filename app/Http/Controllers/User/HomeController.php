@@ -89,39 +89,30 @@ class HomeController extends Controller
         }
     }
 
-    // public function link(){
-    //     Artisan::call('storage:link');
-    //     return "success";
-    // }
+    //Checkout
     public function checkout(){
         if(Session::has('user')){
             $user = Session::get('user');
-            // $cart = session()->get('cart');
-            // $total = 0;
-            // foreach ($cart as $item) {
-            //     $total += $item['price'] * $item['quantity'];
-            // }
-            // dd($user);
-            // $address = ShippingAddress::where('user_id',$user)->select('id','area_name')->get();
-            // if(!empty($address)){
-
-
-            // }
-            // $getuser = ShippingAddress::where('user_id',$user)->get();
-            // if(empty($getuser)){
+                if(session()->has('cart')){
+                    $cart = session()->get('cart');
+                    $subtotal = 0;
+                    foreach ($cart as $item) {
+                        $subtotal += $item['price'] * $item['quantity'];
+                    }
+                }
+                $shipping_cost = 50;
+                $total = $subtotal + $shipping_cost;
                 $params=[
                     "user" => $user,
-                    "form_url"=> route('address.store')
+                    "subtotal" => $subtotal,
+                    "shipping_cost" => $shipping_cost,
+                    "total" => $total,
                 ];
-                return view('frontend.user.address', $params);
-            // }
-            // else{
-            //     return Redirect::route('pay.cash');
-            // }
+                return view('frontend.user.order', $params);
             
         }
         else{
-            echo "Please Login";
+            return redirect()->route('user.login');
         }
        
     }

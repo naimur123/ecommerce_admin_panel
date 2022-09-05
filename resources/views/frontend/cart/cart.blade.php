@@ -52,11 +52,11 @@
             </td>
             @if(!empty(session('cart')))
                 
-            <td colspan="2" class="text-left">
-                
-                <a href="{{ route('cart.checkout') }}" class="btn btn-success"  role="button">Checkout</a>
-                
-            </td>
+                <td colspan="2" class="text-left">
+                    
+                    <a href="{{ route('cart.checkout') }}" class="btn btn-success"  role="button">Checkout</a>
+                    
+                </td>
             @endif
         </tr>
     </tfoot>

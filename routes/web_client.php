@@ -44,8 +44,7 @@ Route::get('/cart/delete/{id}',[HomeController::class,'cartDelete'])->name('cart
 Route::get('/cart/checkout',[HomeController::class,'checkout'])->name('cart.checkout');
 
 //Order Controller
-Route::post('/user/address',[OrderController::class,'storeAddress'])->name('address.store');
-Route::get('/pay/cash',[OrderController::class,'cashview'])->name('pay.cash');
+Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
 Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.store');
 // Route::get('/pay/online',[OrderController::class,'onlineview'])->name('pay.online');
 // Route::post('/pay/online',[OrderController::class,'onlinestore'])->name('pay.online.store');

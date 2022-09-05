@@ -81,6 +81,13 @@
                         <i class="bi bi-heart fa-sm py-2"></i> Wish List
                     </a>
                     
+                    @if (session()->has('user'))
+                    <?php 
+                      $user = session()->get('user');
+                      $user = App\Models\User::find($user);
+                    ?>
+                    <a href="{{ route('user.dashboard',$user) }}"></i>{{ $user->name }}</a>
+                    @else
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link text-dark fw-bolder" data-toggle="dropdown"><i class="bi bi-person-circle"></i> Account</a>
                         <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
@@ -89,6 +96,7 @@
                              
                         </div>
                     </div>
+                    @endif
                    
                 </div>
                 
@@ -194,7 +202,7 @@
     {{-- <script src="js/main.js"></script> --}}
     
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    {{-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> --}}
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
    
    
 </body>
