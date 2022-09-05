@@ -72,7 +72,7 @@ class LoginController extends Controller
      * After Logout the redirect location
      */
     protected function loggedOut(){
-        return redirect($this->logout);
+        return redirect($this->logout) ?: redirect()->back();
     }
 
     // After Login Dashboard
@@ -80,11 +80,19 @@ class LoginController extends Controller
         // $roles = $request->user()->getPermissionsViaRoles()->toArray();
         // dd($roles);
         // $name = $request->user()->name;
-        $params =[
+        if($request->user() == null){
+           echo "empty";
+        }
+        else{
+            $params =[
 
-            "user" => User::all()->count(),
-        ];
-        return view('admin.dashboard.home',$params);
+                "user" => User::all()->count(),
+            ];
+            return view('admin.dashboard.home',$params);
+
+        }
+       
+        
     }
    
 }

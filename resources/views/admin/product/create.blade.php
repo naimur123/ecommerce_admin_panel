@@ -254,9 +254,10 @@
                     type: 'get',
                     success: function (res) {
                         if(res == 0){
-                            $('#subcat').prop('disabled', 'disabled');
+                            $('#subcat').prop('disabled', true);
                         }
                         else{
+                            $('#subcat').prop('disabled', false);
                             $.each(res, function (key, value) {
                             $('#subcat').append('<option value="' + value
                                 .id + '">' + value.name + '</option>');

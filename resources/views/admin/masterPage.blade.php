@@ -6,6 +6,9 @@
     <title>{{ $system->application_name }}</title>
     {{-- <meta http-equiv="refresh" content="30"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
     <!-- BootStrap Path -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">

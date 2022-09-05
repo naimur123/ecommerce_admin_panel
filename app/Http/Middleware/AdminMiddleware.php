@@ -17,14 +17,17 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $session = Session::get('email');
-        if(!empty($session)){
+        // $session = Session::get('email');
+        // if(!empty($session)){
            
-            return $next($request);
-        }
-        else{
-            return redirect()->route('admin.login')->with('message','Unauthenticated');
-        }
-       
+        //     return $next($request);
+        // }
+        // else{
+        //     return redirect()->route('admin.login')->with('message','Unauthenticated');
+        // }
+        $response = $next($request);
+        return $response->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')
+            ->header('Pragma','no-cache')
+            ->header('Expires','Sun, 02 Jan 1990 00:00:00 GMT');
     }
 }

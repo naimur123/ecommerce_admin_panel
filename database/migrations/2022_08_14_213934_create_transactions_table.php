@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->foreignId('order_id')->nullable()->references('id')->on('orders');
-            $table->string('amount')->nullable();
-            $table->string('status')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('transactions', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('user_id')->nullable()->references('id')->on('users');
+        //     $table->foreignId('order_id')->nullable()->references('id')->on('orders');
+        //     $table->string('amount')->nullable();
+        //     $table->string('status')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

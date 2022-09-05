@@ -174,14 +174,6 @@
         </div>
     </div>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2019 Company Name</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-    </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -195,20 +187,11 @@
 
 
 <!-- If you want to use the popup integration, -->
-<script>
-    var obj = {};
-    obj.cus_name = $('#customer_name').val();
-    obj.cus_phone = $('#mobile').val();
-    obj.cus_email = $('#email').val();
-    obj.cus_addr1 = $('#address').val();
-    obj.amount = $('#total_amount').val();
-
-    $('#sslczPayBtn').prop('postdata', obj);
-
+<script type="text/javascript">
     (function (window, document) {
         var loader = function () {
             var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
             tag.parentNode.insertBefore(script, tag);
         };
 
