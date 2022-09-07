@@ -45,6 +45,7 @@ class ProductController extends Controller
             $params =[
                 "title" => "Search List",
                 "product" => $products
+                
             ];
             return view('admin.product.productList',$params);
         }
@@ -53,7 +54,8 @@ class ProductController extends Controller
             $products = $product->paginate(5);
             $params =[
                 "title" => "List",
-                "product" => $products
+                "product" => $products,
+                "nav"     => "product"
             ];
             return view('admin.product.productList',$params);
         }

@@ -6,75 +6,56 @@
     <title>{{ $system->application_name }}</title>
     {{-- <meta http-equiv="refresh" content="30"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-   
 
     <!-- BootStrap Path -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css">
    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
    
     {{-- Custom Css --}}
     <link rel="stylesheet" href="{{ asset('custom/app.css') }}">
     
-    
 </head>
 <body>
-    <div class="container-fluid">
-       <nav class="navbar col-lg-12 col-12 fixed-top d-flex flex-row" style="background-color:#404E67">
-           <div class="col-10 navbar-brand-wrapper d-flex justify-content-center">
-            <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-             <a href="{{ route('admin.home') }}" class="d-flex align-items-center px-4 pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-               <span class="fs-5 d-none d-sm-inline">{{ $system->title_name }}</span>
-             </a>
-             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-               <span class="mdi mdi-sort-variant"></span>
-             </button>
-            </div>  
-           </div>
-          <div class="col-2">
-           
-                            
-                <img src="{{ asset(Auth::user()->image) }}" class="rounded-circle" alt="Image" style="height: 30px; width:30px">
-                <span class="text-white">{{ Auth::user()->name }}</span>
-                <span class="mx-2"><a href="{{ route('admin.logout') }} " class= "text-decoration-none text-white">| Logout</a></span>
-                       
-
-           
-          </div>
-
-          {{-- <div class="navbar-container container-fluid">
+ <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <nav class="navbar navbar-expand-lg fixed-top" style="background-color:#404E67">
+                <a class="navbar-brand text-white px-2" href="#">{{ $system->title_name }}</a>
+                <i class="bi bi-toggles2 text-white" data-bs-toggle="collapse" data-bs-target="#navbarGeneral" aria-controls="navbarGeneral" aria-expanded="false" aria-label="Toggle navigation"></i>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <img src="{{ asset(Auth::user()->image) }}" class="rounded-circle" alt="Image" style="height: 30px; width:30px">
+                    </li>
+                    <li class="dropdown is-dropdown-submenu-parent collapsed">
+                        <a class="colapse nav-link text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                         <a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
                         
-            <ul class="nav-right"> 
-                <li class="user-profile header-notification">
-                    <div class="dropdown-primary dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown">                                        
-                                <img src="{{ asset(Auth::user()->image) }}" class="img-radius" alt="Image" style="height: 10px; width:10px">
-                            <span>{{Auth::guard('admin')->user()->name}}</span>
                         </div>
-                        <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
-                                <a href="{{ route('admin.logout') }} "><i class="feather icon-log-out"></i> Logout</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                </li>
-            </ul>
-          </div> --}}
+                    </li>
+                    
+                </ul>
+                </div>
+            </nav>
          
-       </nav>
-       
-           <div class="row flex-nowrap">
-               <div class="col-m-4 col-md-3 col-xl-2 px-sm-2 px-0 py-4" style="background-color:#404E67;">
-                   <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                       <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-4 align-items-sm-start" id="menu">
-                           @if(auth()->user()->can('Dashboard view'))
+        </div>
+
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2" style="background-color:#404E67; margin-top: 55px;" id="navbarGeneral">
+                {{-- <button class="navbar-toggler" > --}}
+                {{-- </button> --}}
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+                        @if(auth()->user()->can('Dashboard view'))
                            <li>
                                <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
                                    <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
@@ -117,7 +98,7 @@
                             {{-- Products --}}
                            {{-- @hasanyrole('superadmin|admin')  --}}
                            @if(auth()->user()->hasAnyPermission('Product view','Product create','Product edit','Product delete'))
-                            <li>
+                            <li class="{{ isset($nav) && $nav == 'product' ? 'active' : null }}">
                                <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                                    <i class="bi bi-list-columns-reverse"></i><span class="ms-2 d-none d-sm-inline text-white mx-2">Products</span>
                                </a>
@@ -125,7 +106,7 @@
                                <ul class="collapse nav flex-column ms-1" id="submenu3">
                                    @if(auth()->user()->can('Product view'))
                                    <li class="w-100">
-                                       <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white "><i class="bi bi-diagram-2"></i> Product List</a>
+                                       <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Product List</a>
                                    </li>
                                    @endif
    
@@ -454,49 +435,28 @@
                                </ul>
                            </li>
                            
-                           
-                           {{-- <li>
-                               <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                   <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
-                               <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                                   <li class="w-100">
-                                       <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                                   </li>
-                                   <li>
-                                       <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                                   </li>
-                               </ul>
-                           </li> --}}
-                         
-                           {{-- <li>
-                               <form method="POST" action="{{ route('admin.logout') }}">
-                                   @csrf
-                                   <button type="submit" class="btn btn-warning">Logout</button>
-                               </form>
-                                   
-                           </li> --}}
-                       </ul>
-                       <hr>
-                       
-                   </div>
-               </div>
-               {{-- <div class="navbar navbar-expand-lg navbar-light bg-light"> --}}
-                   {{-- <div class="col py-8">
-                       @yield('content')
-                   </div> --}}
-               {{-- </div> --}}
-               <div class="col-m-8 py-4" style="padding-top: 4.5rem !important;">
-                   @yield('content')
-                  {{-- {{ auth()->user() }} --}}
-               </div>
-               
-           </div>
-           
-    </div>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-m-8" style="margin-top: 62px !important;">
+                @yield('content')
+            </div>
+        </div>
+
+        
+          
+
+
+       
+      
+ </div>
+    
        
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
    
-   </body>
+</body>
 
 </html>
