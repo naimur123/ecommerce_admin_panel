@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('picture')->nullable();
             $table->string('social_id')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

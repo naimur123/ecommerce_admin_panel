@@ -106,6 +106,8 @@ class LoginController extends Controller
                 if( !empty($user) ){
                     if( Hash::check($request->password, $user->password) ){
                         Session::put('user',$user->id);
+                        $user->last_login = Carbon::now();
+                        $user->save();
                         return Redirect::route('user.dashboard', $user->id);
                     }else{
                         return back()->with('error',"Account doesnot match");
