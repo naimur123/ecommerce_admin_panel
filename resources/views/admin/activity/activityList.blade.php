@@ -1,6 +1,9 @@
 @extends('admin.masterPage')
 @section('content')
 
+
+
+
 <div class="card-header">
     <div class="row">
      <div class="col-10">

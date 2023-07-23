@@ -18,10 +18,25 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
+     // Get Table Column List
+    private function getColumns(){
+        $columns = ["name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status","image","action"];
+        return $columns;
+    }
+
+    // Get DataTable Column List
+    private function getDataTableColumns(){
+        $columns = ["name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status_id","image_one","action"];
+        return $columns;
+    }
+
     //GetModel
     private function getModel(){
         return new Product();
@@ -29,36 +44,54 @@ class ProductController extends Controller
 
     //Get Datas
     public function index(Request $request){
-        if( !empty($request->search) ){
-            $search = $request->search;
-            $products = Product::where('name','LIKE','%'.$search."%")
-                            ->orWhere('slug','LIKE','%'.$search."%")
-                            ->orWhere('price','LIKE','%'.$search."%")
-                            ->orWhere('code','LIKE','%'.$search."%")
-                            ->orWhere('quantity','LIKE','%'.$search."%")
-                            // ->leftjoin('categories', 'product.category_id', '=', 'categories_id') 
-                            // ->select('categories.name')
-                            // ->distinct()
-                            // ->where('name', 'like', '%' .$search. '%')
-                            ->get();  
+
+        if( $request->ajax() )
+        {
+        
+            return $this->getDataTable($request);
+        }
+        $params = [
+            'nav'               => 'product',
+            'subNav'            => 'product.list',
+            "pageTitle"         => "Product List",
+            'tableColumns'      => $this->getColumns(),
+            'dataTableColumns'  => $this->getDataTableColumns(),
+            "dataTableUrl"      => URL::current(),
+            'tableStyleClass'   => 'bg-success',
+           
+        ];
+        return view('admin.product.table', $params);
+
+        // if( !empty($request->search) ){
+        //     $search = $request->search;
+        //     $products = Product::where('name','LIKE','%'.$search."%")
+        //                     ->orWhere('slug','LIKE','%'.$search."%")
+        //                     ->orWhere('price','LIKE','%'.$search."%")
+        //                     ->orWhere('code','LIKE','%'.$search."%")
+        //                     ->orWhere('quantity','LIKE','%'.$search."%")
+        //                     // ->leftjoin('categories', 'product.category_id', '=', 'categories_id') 
+        //                     // ->select('categories.name')
+        //                     // ->distinct()
+        //                     // ->where('name', 'like', '%' .$search. '%')
+        //                     ->get();  
                             
-            $params =[
-                "title" => "Search List",
-                "product" => $products
+        //     $params =[
+        //         "title" => "Search List",
+        //         "product" => $products
                 
-            ];
-            return view('admin.product.productList',$params);
-        }
-        else{
-            $product = Product::orderBy("id", "ASC");
-            $products = $product->paginate(5);
-            $params =[
-                "title" => "List",
-                "product" => $products,
-                "nav"     => "product"
-            ];
-            return view('admin.product.productList',$params);
-        }
+        //     ];
+        //     return view('admin.product.productList',$params);
+        // }
+        // else{
+        //     $product = Product::orderBy("id", "ASC");
+        //     $products = $product->paginate(5);
+        //     $params =[
+        //         "title" => "List",
+        //         "product" => $products,
+        //         "nav"     => "product"
+        //     ];
+        //     return view('admin.product.productList',$params);
+        // }
        
 
        //$admin = Session::get('admin');
@@ -87,6 +120,7 @@ class ProductController extends Controller
     }
     //store product
     public function store(Request $request){
+        // dd($image_one);
         $validator = Validator::make(
             $request->all(),
             [
@@ -136,13 +170,17 @@ class ProductController extends Controller
                 $data->discount_price = $request->discount_price ?? 0;
                 $data->discount_percentage = $request->discount_percentage ?? 0;
                 $data->currency_id = $request->currency_id;
-                $data->image_one = $this->uploadImage($request, 'image_one', $this->product,null,null,$data->image_one);
+                if($request->has('image_one')){
+                    $image_one = $request->file('image_one');
+                    $data->image_one = $this->uploadImage($image_one,$this->product);
+                }
                 if($request->has('image_two')){
-                    $data->image_two =  $this->uploadImage($request, 'image_two', $this->product,null,null);
+                    $image_two = $request->file('image_two');
+                    $data->image_two = $this->uploadImage($image_two,$this->product);
                 }
                 if($request->has('image_three')){
-                    $data->image_three = $this->uploadImage($request, 'image_three', $this->product,null,null);
-
+                    $image_three = $request->file('image_three');
+                    $data->image_three = $this->uploadImage($image_three,$this->product);
                 }
                
                 $data->status_id = $request->status_id;
@@ -268,47 +306,28 @@ class ProductController extends Controller
         
     }
 
-    //Product search
-    public function search(Request $request){
-        // if($request->ajax()){
-        //     $products = Product::where('name','LIKE','%'.$request->search."%")
-        //                 ->orWhere('slug','LIKE','%'.$request->search."%")
-        //                 ->orWhere('price','LIKE','%'.$request->search."%")
-        //                 ->orWhere('code','LIKE','%'.$request->search."%")
-        //                 ->orWhere('quantity','LIKE','%'.$request->search."%")
-        //                 ->get();             
-        // }
+   protected function getDataTable(Request $request){
+      if ($request->ajax()){
+         $data = Product::with('categories','subcategory','brands','status')->get();
+         return DataTables::of($data)->addIndexColumn()
+                // ->addColumn('index', function(){ return ++$this->index; })
+                ->addColumn('category_name', function($row){ return $row->categories->name; })
+                ->addColumn('subcategory_name', function($row){ return $row->subcategory->name ?? "N/A"; })
+                ->addColumn('brand_name', function($row){ return $row->brands->name ?? "N/A"; })
+                ->addColumn('status_id', function($row){ return $row->status->name ?? "N/A"; })
+                ->addColumn('image_one', function ($row) {
+                    $imagePath = asset('storage/'.$row->image_one);
+                    $image = '<img src="'.$imagePath.'" height="100px" width="100px">';
+                    return $image;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'.route('admin.products.edit', $row->id).'" class="btn btn-primary btn-sm">Edit</a>';
+                    return $btn;
+                })
+                ->rawColumns(['image_one','action'])
+                ->make(true);
+      }
 
-        // $getall = "";
-        // if($products)
-        //     {
-        //     foreach ($products as $key => $product) {
-        //     $getall.='<tr>'.
-        //     '<td>'.$product->id.'</td>'.
-        //     '<td>'.$product->name.'</td>'.
-        //     '<td>'.$product->categories->name ?? "N/A" .'</td>'.
-        //     '<td>'.$product->code.'</td>'.
-        //     '<td>'.$product->quantity.'</td>'.
-        //     '<td>'.$product->price.'</td>'.
-            
-        //     // '<td>'.$product->discount_price ?? "N/A".'</td>'.
-        //     // '<td>'.$product->discount_percentage ?? "N/A".'</td>'.
-        //     // '<td>'. $product->status_id == 1 ? 'Active' : 'Inactive'   .'</td>'.
-        //     // '<td>'.$product->status->name.'</td>'.
-        //     // '<td>'.$product->image_one.'</td>'.
-        //     // '<td>'.$product->price.'</td>'.
-        //     // '<td>'.$product->price.'</td>'.
-        //     '</tr>';
-        //     }
-        //     return Response($getall);
-        // }
-
-        // $params =[
-        //     "title" => "Search List",
-        //     "product" => $products
-        // ];
-
-        // return view('admin.product.productList',$params);
-    }
+   }
 
 }

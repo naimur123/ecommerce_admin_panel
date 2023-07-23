@@ -1,6 +1,7 @@
 @extends('admin.masterPage')
 @section('content')
-<div class="col-10 col-lg-10 mt-2 mb-2">
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-12 mt-2 mb-2">
     <div class="card">
     <div class="card-body">
        @if(session('success'))
@@ -50,81 +51,50 @@
               </div>
            </div>
          
-         
-           {{-- <div class="col-12 mt-2 ml-3">
-               
-                    <div class="form-check">
-                      
-                        @php
-                             $index = 1;
-                        @endphp
-                        @foreach($permissions->groupBy('group_name') as $groupname => $accesses)
-                            <h2>{{$groupname}}</h2>
-                        <hr>
-                        @foreach ($accesses as $permission)
-                            <input type="checkbox" class="form-check-input" name="permissions[]" id="checkPermission{{ $permission->id }}" value="{{ $permission->id }}" @if($admin->can($permission->name))
-                            checked
-                            @endif>
-                            <label class="form-check-label" for="checkPermission{{ $permission->id }}">{{ $permission->name }}</label>
-                            <hr>
-                        @endforeach
-                        @php
-                            $index++;
-                        @endphp
-                        @endforeach
-                    </div>
-               
-            
-               <br>
-          </div> --}}
-                @php
-                    $index = 1;
-                @endphp
-                @foreach($permissions->groupBy('group_name') as $groupname => $accesses)
-                <div class="col-sm-3 my-2">
-                  <div class="card">
-                    <div class="card-body">
-                       <h2 class="card-title">{{$groupname}}</h2>
-                   @foreach ($accesses as $permission)
-                      <input type="checkbox" class="form-check-input" name="permissions[]" id="{{ $permission->id }}" value="{{ $permission->id }}" @if($admin->can($permission->name)) checked @endif>
-                      <label class="form-check-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
-                      <br>
-                   @endforeach
-                    </div>
-                   </div>
-                   <br>
+            @foreach($permissions->groupBy('group_name') as $groupname => $accesses)
+            <div class="col-sm-3 my-2">
+              <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{$groupname}}</h2>
+                    @foreach ($accesses as $permission)
+                        <input type="checkbox" class="form-check-input" name="permissions[]" id="{{ $permission->id }}" value="{{ $permission->id }}" @if($admin->can($permission->name)) checked @endif>
+                        <label class="form-check-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
+                        <br>
+                    @endforeach
                 </div>
-                @php
-                $index++;
-                @endphp
-                @endforeach
+                </div>
+                <br>
+            </div>
+            
+            @endforeach
 
-                <!--submit -->
-              <div class="col-12 text-left py-2">
-                <div class="form-group text-left">
-                    <button type="submit" class="btn btn-info">Submit </button>
-              </div>
+            <!--submit -->
+            <div class="col-12 text-left py-2">
+              <div class="form-group text-left">
+                  <button type="submit" class="btn btn-info">Submit </button>
+            </div>
         </div>
                 
               
    
        </form>
     </div>
-   </div>
-   <script type="text/javascript">
-    $(document).on("click", '.all-check', function(){
-            let all_checkbox = $("form input[type='checkbox']");
-            all_checkbox.each(function(i, list){
-                $(list).prop("checked", true);
-            });
+  </div>
+</div>
+<script type="text/javascript">
+$(document).on("click", '.all-check', function(){
+        let all_checkbox = $("form input[type='checkbox']");
+        all_checkbox.each(function(i, list){
+            $(list).prop("checked", true);
         });
-        $(document).on("click", '.all-uncheck', function(){
-            let all_checkbox = $("form input[type='checkbox']");
-            all_checkbox.each(function(i, list){
-                $(list).prop("checked", false);
-            });
+    });
+    $(document).on("click", '.all-uncheck', function(){
+        let all_checkbox = $("form input[type='checkbox']");
+        all_checkbox.each(function(i, list){
+            $(list).prop("checked", false);
         });
-  
-   </script>
+    });
+
+</script>
    
 @endsection
