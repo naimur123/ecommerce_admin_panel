@@ -71,7 +71,7 @@
                         <p class="row align-items-center justify-content-center">Or,Signup with</p>
                         <div class="row align-items-center justify-content-center">
                             <div class="col-md-6 offset-md-4">
-                                <a href="{{ route('register.google') }}" class="btn btn-danger btn-lg remove-from-cart" rule="button"><i class="bi bi-google">oogle</i></a>
+                                <a href="{{ route('register.google') }}" class="btn btn-danger btn-lg remove-from-cart" rule="button"><ion-icon name="logo-google"></ion-icon>oogle</a>
                             </div>
                         </div>
 

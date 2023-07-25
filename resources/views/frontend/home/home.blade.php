@@ -64,30 +64,7 @@
                     </div>
                    
                 </div>
-                {{-- <div class="row">
-                    <div class="col-4">col</div>
-                    <div class="col-4">col</div>
-                    <div class="col-4">col</div>
-                    
-                </div> --}}
-                    {{-- <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                        <div class="d-flex align-items-center border mb-6" style="padding: 20px;">
-                            <h1 class="fa fa-check text-primary m-0 mr-3"></h1> Quality Product
-                            {{-- <h5 class="fw-bold m-0">Quality Product</h5> 
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                        <div class="d-flex align-items-center border mb-6" style="padding: 10px;">
-                            <h1 class="fas fa-exchange-alt text-primary m-0 mr-md-5 d-inline-block"></h1>14-Day Return
-                            
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                        <div class="d-flex align-items-center border mb-6" style="padding: 10px;">
-                            <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>24/7 Support
-                            
-                        </div>
-                    </div> --}}
+              
                    
                 
             </nav>
@@ -100,14 +77,7 @@
                     <div class="carousel-inner">
                         @foreach($sliders as $key => $slider)
                         <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
-                            <img src="{{ asset($slider->image)}}" class="d-block w-100"  alt="..." style="height: 400px">
-                            {{-- <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">{{ $slider->title }}</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{ $slider->description }}</h3>
-                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>  --}}
+                            <img src="{{ asset('storage/'.$slider->image)}}" class="d-block w-100"  alt="..." style="height: 400px">
                         </div>
                         @endforeach
                     </div>
@@ -151,7 +121,7 @@
             
             <div class="card product-item border-2 mb-4">
                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                    <img class="img-fluid w-100" src="{{ asset($product->image_one) }}" alt="" style="height: 200px">
+                    <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px">
                 </div>
                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
@@ -187,7 +157,7 @@
             
             <div class="card product-item border-2 mb-4">
                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                    <img class="img-fluid w-100" src="{{ asset($latest->image_one) }}" alt="" style="height: 200px">
+                    <img class="img-fluid w-100" src="{{ asset('storage/'.$latest->image_one) }}" alt="" style="height: 200px">
                 </div>
                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 class="text-truncate mb-3">{{ $latest->name }}</h6>

@@ -67,7 +67,7 @@
         <td>{{ $user->email_verified_at ?? "N/A" }}</td>
         <td>{{ $user->social_id ?? "N/A" }}</td>
         
-        <td><img src="{{ asset($user->picture) }}" height="100px" width="100px"></td>
+        <td><img src="{{ asset('storage/'.$user->picture) }}" height="100px" width="100px"></td>
         @if($title == "Deleted List")
             <td>{{ $user->deleted_at }}</td>
             <td class="d-flex gap-2 mt-4">

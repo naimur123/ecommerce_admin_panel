@@ -51,7 +51,7 @@
                     { data: '{{ $column }}', name: '{{ $column }}' },
                 @endforeach
             ],
-            "lengthMenu": [[100, 500, 1000, -1], [100, 500, 1000, "All"]],
+            // "lengthMenu": [[100, 500, 1000, -1], [100, 500, 1000, "All"]],
             "language": {
                 "lengthMenu": "_MENU_"
             },

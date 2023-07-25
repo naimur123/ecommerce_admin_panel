@@ -10,7 +10,7 @@
                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                    <ul class="navbar-nav">
                        <li class="nav-item">
-                           <img src="{{ asset(Auth::user()->image) }}" class="rounded-circle" alt="Image" style="height: 30px; width:30px">
+                           <img src="{{ asset('storage/'.Auth::user()->image) }}" class="rounded-circle" alt="Image" style="height: 30px; width:30px">
                        </li>
                        <li class="dropdown is-dropdown-submenu-parent collapsed">
                            <a class="colapse nav-link text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,8 +36,8 @@
                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                            @if(auth()->user()->can('Dashboard view'))
                               <li>
-                                  <a href="{{ route('admin.home') }}" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-border-style"></i><span class="ms-1 d-none d-sm-inline text-white"> Dashboard </span>
+                                  <a href="{{ route('admin.home') }}" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-chart-line"></i><span id="menuSpan">Dashboard </span>
                                   </a>
                                       
                               </li>
@@ -46,8 +46,8 @@
                                {{-- Activity Log --}}
                                @if(auth()->user()->can('Activitylog view'))
                                <li>
-                                  <a href="{{ route('admin.actvitylog') }}" class="nav-link px-0 align-middle text-white" style="text-decoration: none">
-                                      <i class="bi bi-person-workspace "></i><span class="ms-2 d-none d-sm-inline text-white">Activity Log</span>
+                                  <a href="{{ route('admin.actvitylog') }}" class="nav-link px-0 text-white" style="text-decoration: none">
+                                    <i class="fa-solid fa-hurricane"></i><span id="menuSpan">Activity Log</span>
                                   </a>
                                  
                                </li>
@@ -57,48 +57,48 @@
                               {{-- @if(auth()->user()->can("Order")) --}}
                               @if(auth()->user()->hasAnyPermission('Order view','Order create','Order edit','Order delete'))
                               <li>
-                                  <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-cart4 fa-lg"></i></i><span class="ms-2 d-none d-sm-inline text-white">Orders</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                  <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-check"></i></i><span id="menuSpan">Orders</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu2" data-bs-parent="#menu">
                                       <li class="w-100">
-                                          <a href="#" class="nav-link px-2">Order List</a>
+                                          <a href="#" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Order List</a>
                                       </li>
                                       <li>
-                                          <a href="#" class="nav-link px-2">Pending Orders</a>
+                                          <a href="#" class="nav-link px-2 text-white"><i class="fa-solid fa-bell"></i> Pending Orders</a>
                                       </li>
                                       <li>
-                                          <a href="#" class="nav-link px-2">Deleted Orders</a>
+                                          <a href="#" class="nav-link px-2 text-white"><i class="fa-solid fa-box-archive"></i> Deleted Orders</a>
                                       </li>
                                   </ul>
                               </li>
                               @endif
-                              {{-- @endhasanyrole --}}
+                              
                               
                                {{-- Products --}}
                               {{-- @hasanyrole('superadmin|admin')  --}}
                               @if(auth()->user()->hasAnyPermission('Product view','Product create','Product edit','Product delete'))
-                               <li class="{{ isset($nav) && $nav == 'product' ? 'active' : null }}">
-                                  <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-list-columns-reverse"></i><span class="ms-2 d-none d-sm-inline text-white mx-2">Products</span>
+                               <li>
+                                  <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-bag-shopping"></i><span id="menuSpan">Products</span>
                                   </a>
                                   
-                                  <ul class="collapse nav flex-column ms-1" id="submenu3">
+                                  <ul class="collapse nav flex-column " id="submenu3">
                                       @if(auth()->user()->can('Product view'))
-                                      <li class="w-100">
-                                          <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Product List</a>
+                                      <li >
+                                          <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Product List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Product create'))
                                       <li>
                                           
-                                          <a href="{{ route('admin.products.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add New Product</a>
+                                          <a href="{{ route('admin.products.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add New Product</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Product delete'))
                                       <li>
-                                          <a href="{{ route('admin.products.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted Products</a>
+                                          <a href="{{ route('admin.products.archive') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-box-archive"></i> Deleted Products</a>
                                       </li>
                                       @endif
                                   </ul>
@@ -106,140 +106,121 @@
                               @endif
       
                               {{-- Categories --}}
-                              {{-- @hasanyrole('superadmin|admin') --}}
                               <li>
-                                  <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-collection-fill"></i><span class="ms-2 d-none d-sm-inline text-white">Categories</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu4">
+                                  <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-person-half-dress"></i><span id="menuSpan"> Categories</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu4">
                                       @if(auth()->user()->can('Category view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.category') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Category List</a>
+                                          <a href="{{ route('admin.category') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Category List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Category create'))
                                       <li>
-                                          <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Category</a>
+                                          <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i>> Add Category</a>
                                       </li>
                                       @endif
-                                      {{-- <li>
-                                          <a href="#" class="nav-link px-2 text-white">Deleted Category</a>
-                                      </li> --}}
+                                      
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
-   
-                              {{-- @hasanyrole('superadmin|admin') --}}
+                         
+
                               {{--Sub Categories --}}
                               <li>
-                                  <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-subtract"></i><span class="ms-2 d-none d-sm-inline text-white">Subcategories</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+                                  <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-child-dress"></i><span id="menuSpan"> Subcategories</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu5" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Subcategory view'))
                                       <li>
-                                              <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Subcategory List</a>
+                                              <a href="{{ route('admin.subcategory') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Subcategory List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Subcategory create'))
                                       <li>
-                                          <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Subcategory</a>
+                                          <a href="{{ route('admin.subcategory.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Subcategory</a>
                                       </li>
                                       @endif
-                                      {{-- <li>
-                                          <a href="#" class="nav-link px-2 text-white">Deleted Sub-Category</a>
-                                      </li> --}}
+                                      
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                             
       
                               {{-- Brands --}}
-                              {{-- @hasanyrole('superadmin|admin') --}}
                               <li>
-                                  <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-playstation fa-lg"></i><span class="ms-1 d-none d-sm-inline text-white">Brands</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu6" data-bs-parent="#menu">
+                                  <a href="#submenu6" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-mobile"></i><span id="menuSpan">Brands</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu6" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Brand view'))
                                       <li class="w-100">
-                                              <a href="{{ route('admin.brand') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Brand List</a>
+                                              <a href="{{ route('admin.brand') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Brand List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Brand create'))
                                       <li>
-                                          <a href="{{ route('admin.brand.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Brand</a>
+                                          <a href="{{ route('admin.brand.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Brand</a>
                                       </li>
                                       @endif
-                                      {{-- <li>
-                                          <a href="#" class="nav-link px-2 text-white">Deleted Brand</a>
-                                      </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
-      
+                            
                                {{-- Countries --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+
                                <li>
-                                  <a href="#submenu7" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="fa-solid fa-globe text-white"></i><span class="ms-2 d-none d-sm-inline text-white">Countries</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
+                                  <a href="#submenu7" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                      <i class="fa-solid fa-globe"></i><span id="menuSpan">Countries</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu7" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Country view'))
                                       <li class="w-100">
-                                              <a href="{{ route('admin.country') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Country List</a>
+                                              <a href="{{ route('admin.country') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Country List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Country create'))
                                       <li>
-                                          <a href="{{ route('admin.country.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Country</a>
+                                          <a href="{{ route('admin.country.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Country</a>
                                       </li>
                                       @endif
-                                      {{-- <li>
-                                          <a href="#" class="nav-link px-2 text-white">Deleted Countries</a>
-                                      </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
-   
-                               {{-- Countries --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+                            
+                               {{-- Currencies --}}
                                <li>
-                                  <a href="#submenu12" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-currency-exchange fa-lg"></i><span class="ms-1 d-none d-sm-inline text-white">Currencies</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu12" data-bs-parent="#menu">
+                                  <a href="#submenu12" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-dollar-sign"></i><span id="menuSpan">Currencies</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu12" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Currency view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.currency') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Currency List</a>
+                                          <a href="{{ route('admin.currency') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Currency List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Currency create'))
                                       <li>
-                                          <a href="{{ route('admin.currency.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Currency</a>
+                                          <a href="{{ route('admin.currency.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Currency</a>
                                       </li>
                                       @endif
-                                      {{-- <li>
-                                          <a href="#" class="nav-link px-2 text-white">Deleted Currency</a>
-                                      </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
       
                                {{-- Units --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+                               
                                <li>
-                                  <a href="#submenu8" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-unity fa-lg"></i><span class="ms-1 d-none d-sm-inline text-white">Units</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu8" data-bs-parent="#menu">
+                                  <a href="#submenu8" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-weight-hanging"></i><span id="menuSpan">Units</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu8" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Unit view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.unit') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Unit List</a>
+                                          <a href="{{ route('admin.unit') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Unit List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Unit create'))
                                       <li>
-                                          <a href="{{ route('admin.unit.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Unit</a>
+                                          <a href="{{ route('admin.unit.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Unit</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -247,23 +228,23 @@
                                       </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
                               
                               {{-- Coupon Code --}}
-                              {{-- @hasanyrole('superadmin|admin') --}}
+                              
                               <li>
-                                  <a href="#submenu9" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                                      <i class="bi bi-coin"></i><span class="ms-2 d-none d-sm-inline text-white">Coupons</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu9" data-bs-parent="#menu">
+                                  <a href="#submenu9" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-coins"></i><span id="menuSpan">Coupons</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu9" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Coupon view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.coupon') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Counpon Code List</a>
+                                          <a href="{{ route('admin.coupon') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Counpon Code List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Coupon create'))
                                       <li>
-                                          <a href="{{ route('admin.coupon.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Counpon Code</a>
+                                          <a href="{{ route('admin.coupon.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Counpon Code</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -271,23 +252,23 @@
                                       </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
       
                                {{-- Sliders --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+                               
                                <li>
-                                  <a href="#submenu10" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white ">
-                                      <i class="bi bi-sliders fa-lg"></i><span class="ms-1 d-none d-sm-inline  text-white">Sliders</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu10" data-bs-parent="#menu">
+                                  <a href="#submenu10" data-bs-toggle="collapse" class="nav-link px-0 text-white ">
+                                    <i class="fa-solid fa-images"></i><span id="menuSpan">Sliders</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu10" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Slider view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.slider') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Slider List</a>
+                                          <a href="{{ route('admin.slider') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Slider List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Slider create'))
                                       <li>
-                                          <a href="{{ route('admin.slider.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add New Slider</a>
+                                          <a href="{{ route('admin.slider.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add New Slider</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -295,23 +276,22 @@
                                       </li> --}}
                                   </ul>
                                </li>
-                               {{-- @endhasanyrole --}}
+                               
       
                                {{-- Status --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
                                <li>
-                                  <a href="#submenu11" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="fa fa-cloud text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Generic Status</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu11" data-bs-parent="#menu">
+                                  <a href="#submenu11" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-brands fa-creative-commons-sa"></i><span id="menuSpan">Generic Status</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu11" data-bs-parent="#menu">
                                       @if(auth()->user()->can('Status view'))
                                       <li class="w-100">
-                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Status create'))
                                       <li>
-                                          <a href="{{ route('admin.status.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add Generic Status</a>
+                                          <a href="{{ route('admin.status.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Generic Status</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -319,20 +299,20 @@
                                       </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
       
                               {{-- Email --}}
-                              {{-- @hasanyrole('superadmin|admin') --}}
+                              
                               <li>
-                                  <a href="#submenu13" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="bi bi-envelope-exclamation-fill text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Email setup</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu13" data-bs-parent="#menu">
+                                  <a href="#submenu13" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-envelope-circle-check"></i><span id="menuSpan">Email setup</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu13" data-bs-parent="#menu">
                                       {{-- <li class="w-100">
-                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
                                       </li> --}}
                                       @if(auth()->user()->can('Emailsetup create'))
                                       <li>
-                                          <a href="{{ route('admin.emailtemplate.create') }}" class="nav-link px-2 text-white"><i class="bi bi-file-word"></i> Email tempalte</a>
+                                          <a href="{{ route('admin.emailtemplate.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-file-word"></i> Email tempalte</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -340,51 +320,49 @@
                                       </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
       
                                {{-- Customer --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+                               
                                <li>
-                                  <a href="#submenu14" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="bi bi-people fa-lg text-white"></i> <span class="ms-1 d-none d-sm-inline  text-white">Customer</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu14" data-bs-parent="#menu">
+                                  <a href="#submenu14" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-user"></i><span id="menuSpan">Customer</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu14" data-bs-parent="#menu">
                                       {{-- <li class="w-100">
-                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
                                       </li> --}}
                                       @if(auth()->user()->can('Customer view'))
                                       <li>
-                                          <a href="{{ route('admin.customer') }}" class="nav-link px-2 text-white"><i class="bi bi-person-lines-fill"></i> Customer list</a>
+                                          <a href="{{ route('admin.customer') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-users"></i> Customer list</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Customer delete'))
                                       <li>
-                                          <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
+                                          <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-user-minus"></i> Deleted customer</a>
                                       </li>
                                       @endif
                                   </ul>
                                </li>
-                               {{-- @endhasanyrole --}}
+                               
       
                                {{-- Admin --}}
-                               {{-- @hasanyrole('superadmin|admin') --}}
+                               
                                 <li>
-                                  <a href="#submenu15" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="bi bi-person-circle fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Admin</span>
+                                  <a href="#submenu15" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-user-tie"></i><span id="menuSpan">Admin</span>
                                   </a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu15" data-bs-parent="#menu" onclick="active">
-                                      {{-- <li class="w-100">
-                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
-                                      </li> --}}
+                                  <ul class="collapse nav flex-column " id="submenu15" data-bs-parent="#menu" onclick="active">
+                                     
                                       @if(auth()->user()->can('Admin view'))
                                       <li>
-                                          <a href="{{ route('admin.admin') }}" class="nav-link px-2 text-white"><i class="bi bi-person-lines-fill"></i> Admin list</a>
+                                          <a href="{{ route('admin.admin') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-user-secret"></i> Admin list</a>
                                       </li>
                                       @endif
       
                                       @if(auth()->user()->can('Admin create'))
                                       <li>
-                                          <a href="{{ route('admin.admin.create') }}" class="nav-link px-2 text-white"><i class="bi bi-cloud-plus-fill"></i> Add new admin</a>
+                                          <a href="{{ route('admin.admin.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-user-plus"></i> Add new admin</a>
                                       </li>
                                       @endif
                                       {{-- <li>
@@ -392,19 +370,19 @@
                                       </li> --}}
                                   </ul>
                               </li>
-                              {{-- @endhasanyrole --}}
+                              
       
-                              {{-- @hasanyrole('superadmin|admin') --}}
+                              
                                 <li>
-                                  <a href="#submenu16" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                      <i class="bi bi-globe fa-lg text-white"></i><span class="ms-1 d-none d-sm-inline  text-white">Website</span></a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu16" data-bs-parent="#menu">
+                                  <a href="#submenu16" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-globe"></i><span id="menuSpan">Website</span></a>
+                                  <ul class="collapse nav flex-column " id="submenu16" data-bs-parent="#menu">
                                       {{-- <li class="w-100">
-                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="bi bi-diagram-2"></i> Generic Status List</a>
+                                          <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
                                       </li> --}}
                                       @if(auth()->user()->can('Website view'))
                                       <li>
-                                          <a href="{{ route('admin.website.create') }}" class="nav-link px-2 text-white"><i class="bi bi-gear-fill"></i> Settings</a>
+                                          <a href="{{ route('admin.website.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-gear"></i> Settings</a>
                                       </li>
                                       @endif
       

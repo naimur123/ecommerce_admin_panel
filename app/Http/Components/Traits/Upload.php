@@ -10,13 +10,13 @@ trait Upload{
     /*
      * Define Directories
      */
-    protected  $brand = "storage/uploads/brands/";
+    protected  $brand = "brands";
     protected  $product = 'products';
-    protected  $slider = "storage/uploads/sliders/";
-    protected  $admin = "storage/uploads/admins/";
-    protected  $user = "storage/uploads/users/";
-    protected  $logo_dir = "storage/uploads/logo/";
-    protected  $others_dir = "storage/uploads/others/";
+    protected  $slider = "sliders";
+    protected  $admin = "admins";
+    protected  $user = "users";
+    protected  $logo_dir = "logo";
+    protected  $others_dir = "others";
 
     /*
      * ---------------------------------------------

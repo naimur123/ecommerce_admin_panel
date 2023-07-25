@@ -65,7 +65,8 @@ class CustomerController extends Controller
                 $data->phone = $request->phone;
                 $data->password = !empty($request->password) ? bcrypt($request->password) : $data->password;
                 if($request->has('picture')){
-                    $data->picture = $this->uploadImage($request, 'picture', $this->user,null,null,$data->picture);
+                    $picture = $request->file('picture');
+                    $data->picture = $this->uploadImage($picture, $this->user);
                 }
                 $data->save();
                 

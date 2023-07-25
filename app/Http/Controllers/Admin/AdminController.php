@@ -78,7 +78,8 @@ class AdminController extends Controller
                 $data->phone = $request->phone;
                 $data->password = !empty($request->password) ? bcrypt($request->password) : $data->password;
                 if($request->has('image')){
-                    $data->image = $this->uploadImage($request, 'image', $this->admin,null,null,$data->picture);
+                    $image = $request->file('image');
+                    $data->image = $this->uploadImage($image, $this->admin);
                 }
                 $data->save();
                 

@@ -77,7 +77,10 @@ class SliderController extends Controller
     
                 $data->title = $request->title ?? null;
                 $data->description = $request->description ?? null;
-                $data->image = $this->uploadImage($request, 'image', $this->slider, null,null, $data->image);
+                if($request->has('image')){
+                    $image = $request->file('image');
+                    $data->image = $this->uploadImage($image,$this->slider);
+                }
                 $data->remarks = $request->remarks ?? null;
                 $data->status_id = $request->status_id;
                 $data->save();

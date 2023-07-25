@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -17,11 +18,15 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
+use Illuminate\Console\View\Components\Alert as ComponentsAlert;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ProductController extends Controller
 {
@@ -44,10 +49,11 @@ class ProductController extends Controller
 
     //Get Datas
     public function index(Request $request){
-
+        
+        // dd($permission);
         if( $request->ajax() )
         {
-        
+            // $permission = $admin->hasPermissionTo('Product edit');
             return $this->getDataTable($request);
         }
         $params = [
@@ -209,15 +215,8 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         $getcategory_id = Category::where('id',$product->category_id)->pluck('id')->toArray();
-        // print_r($getcategory_id);
-        $subcategory = SubCategory::where('category_id',$getcategory_id)->get();
-        // if(empty($subcategory)){
-        //     $subcategory = SubCategory::all();
-        // }
-        // else{
-        //     $subcategory = $getsubcategory;
-        // }
 
+        $subcategory = SubCategory::where('category_id',$getcategory_id)->get();
         $params = [
             "title"      => "Edit",
             "form_url"   => route('admin.products.store'),
@@ -243,14 +242,15 @@ class ProductController extends Controller
     public function delete(Request $request, $id){
 
         try{
-         $data = $this->getModel()->find($id);
-         if(!empty($data)){
-            $data->delete();
-            $message = "product archived";
-            $msg = implode(' ', array($data->name, $message));
-           //$admin = Session::get('admin');
-            $this->saveActivity($request, $msg);
+            $data = $this->getModel()->find($id);
+            if(!empty($data)){
+                $data->delete();
+                
+                $message = "product archived";
+                $msg = implode(' ', array($data->name, $message));
+                $this->saveActivity($request, $msg);
          }
+         Alert::success('Success', 'Product Deleted');
          return back();
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
@@ -276,8 +276,8 @@ class ProductController extends Controller
 
         try{
             $this->getModel()->onlyTrashed()->find($id)->restore();
-           //$admin = Session::get('admin');
             $this->saveActivity($request,"Product Restored");
+            Alert::success('Success', 'Product Restored');
             return redirect()->route('admin.products');
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
@@ -294,10 +294,9 @@ class ProductController extends Controller
             $product->forceDelete();
             $message = "product permanently deleted";
             $msg = implode(' ', array($product->name, $message));
-           //$admin = Session::get('admin');
             $this->saveActivity($request, $msg);
           }
-          
+          Alert::success('Success', 'Product Deleted Permanently');
           return redirect()->route('admin.products.archive');
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();
@@ -309,6 +308,7 @@ class ProductController extends Controller
    protected function getDataTable(Request $request){
       if ($request->ajax()){
          $data = Product::with('categories','subcategory','brands','status')->get();
+         
          return DataTables::of($data)->addIndexColumn()
                 // ->addColumn('index', function(){ return ++$this->index; })
                 ->addColumn('category_name', function($row){ return $row->categories->name; })
@@ -321,8 +321,18 @@ class ProductController extends Controller
                     return $image;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'.route('admin.products.edit', $row->id).'" class="btn btn-primary btn-sm">Edit</a>';
+                    $admin = Admin::find(Auth::user()->id);
+                    $btn = '';
+                    if($admin->hasPermissionTo('Product edit')){
+                        $editBtn = '<a href="'.route('admin.products.edit', $row->id).'" class="btn btn-primary btn-sm">Edit</a>';
+                        $btn .= $editBtn;
+                    }
+                    if($admin->hasPermissionTo('Product delete')){
+                        $deleteBtn = '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
+                        $btn .= ($btn ? ' ' : '') . $deleteBtn;
+                    }
                     return $btn;
+                    
                 })
                 ->rawColumns(['image_one','action'])
                 ->make(true);

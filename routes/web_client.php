@@ -7,6 +7,7 @@ use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\SslCommerzPaymentController as UserSslCommerzPaymentController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/link',[HomeController::class,'link']);

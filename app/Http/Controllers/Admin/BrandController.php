@@ -79,7 +79,10 @@ class BrandController extends Controller
                 }
     
                $data->name = $request->name;
-               $data->image = $this->uploadImage($request, 'image', $this->brand, null, null,$data->image) ?? null;
+               if($request->has('image')){
+                    $image = $request->file('image');
+                    $data->image = $this->uploadImage($image, $this->brand);
+                }
                $data->remarks = $request->remarks;
                $data->country_id = $request->country_id;
                $data->status_id = $request->status_id;

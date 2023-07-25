@@ -48,7 +48,7 @@
         <td>{{ $brand->updatedBy->name ?? ""}}</td>
         <td>{{ $brand->created_at }}</td>
         <td>{{ $brand->updated_at }}</td>
-        <td><img src="{{ asset($brand->image) }}" height="100px" width="100px"></td>
+        <td><img src="{{ asset('storage/'.$brand->image) }}" height="100px" width="100px"></td>
         <td class="d-flex gap-2 mt-4">
           @if(auth()->user()->can('Brand edit'))
           <a href="{{route('admin.brand.edit', $brand->id )}}" class="btn btn-sm btn-info" title="Edit" > <span class="fa fa-edit fa-lg"></span> </a> 
