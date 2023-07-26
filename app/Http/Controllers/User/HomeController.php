@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,8 @@ class HomeController extends Controller
         $cart = session()->get('cart', []);
   
         if(isset($cart[$id])) {
-            return redirect()->back()->with('alert', 'Item already added to the cart');
+            Alert::warning('Warning', 'Product Already Added To Cart');
+            return redirect()->back();
         } else {
             $cart[$id] = [
                 "name" => $product->name,
@@ -57,7 +59,8 @@ class HomeController extends Controller
         }
           
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart');
+        Alert::success('Success', 'Product Added To Cart');
+        return redirect()->back();
     }
 
     // Cart details
@@ -84,7 +87,7 @@ class HomeController extends Controller
                 unset($cart[$id]);
                 session()->put('cart', $cart);
             }
-            session()->flash('success', 'Product removed successfully');
+            Alert::success('Success', 'Cart deleted successfully');
             return redirect()->back();
         }
     }
@@ -114,6 +117,17 @@ class HomeController extends Controller
         else{
             return redirect()->route('user.login');
         }
+       
+    }
+
+    //product details
+    public function productDetails(Request $request){
+        
+            $params =[
+                'products' => Product::with('categories','subcategory','brands','status','currency')->where('id',$request->id)->get()
+            ];
+            return view('frontend.productDetails.details', $params);
+        
        
     }
 

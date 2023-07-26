@@ -135,8 +135,8 @@ class ProductController extends Controller
                 // 'code' => 'required|numeric|min:4',
                 'quantity' => 'required|numeric|min:1',
                 'price' => 'required',
-                'short_description' => 'nullable|min:2|max:50',
-                'long_description' => 'nullable|min:2|max:250'
+                'short_description' => 'nullable|min:2',
+                'long_description' => 'nullable|min:2|max:2500'
     
             ]
            )->validate();

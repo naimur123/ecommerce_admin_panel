@@ -124,14 +124,21 @@
                     <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px">
                 </div>
                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                    <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
+                    <h5 class="text-truncate mb-3">{{ $product->name }}</h5>
                     <div class="d-flex justify-content-center">
-                        <h6>৳{{ $product->price }}</h6>
+                        @if ($product->discount_price != 0)
+                            <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price - $product->discount_price }}
+                                <span class="text-decoration-line-through ms-1" style="font-size: 10px">{{ $product->currency->currency_symbol }}{{ $product->price }}</span>
+                            
+                            </h6>
+                        @else
+                            <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price }}</h6> 
+                        @endif
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
-                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                    <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i><strong>View Detail</strong></a>
+                    <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i><strong>Add To Cart</strong></a>
                 </div>
                 
             </div>

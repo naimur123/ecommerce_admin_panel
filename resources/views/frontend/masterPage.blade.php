@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
 
 
     <!-- Libraries Stylesheet -->
@@ -27,13 +27,13 @@
     <link href="asset('frontend/css/style.min.css')" rel="stylesheet"> --}}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
+    {{-- <script>
         var msg = '{{Session::get('alert')}}';
         var exist = '{{Session::has('alert')}}';
         if(exist){
           alert(msg);
         }
-    </script>
+    </script> --}}
    
 </head>
 
@@ -107,35 +107,21 @@
                 <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control border border-2 border-danger" placeholder="Search for products">
-                        {{-- <div class="input-group-append"> --}}
                             <span class="input-group-text bg-danger">
-                                <i class="bi bi-search text-white"></i>
+                                <i class="fa-brands fa-searchengin"></i>
                             </span>
-                        {{-- </div> --}}
                     </div>
                 </form>
             </div>
             <div class="col-lg-2 col-6 ml-4">
-                {{-- <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a> --}}
                 <a href="{{ route('cart') }}" class="text-decoration-none">
-                    <i class="bi bi-cart-plus fa-2x text-dark"><span class="mt-2" style="font-size: 20px">{{ count((array) session('cart')) }}</span></i>   
+                    <i class="fa-solid fa-cart-plus text-black"></i><span style="font-size: 15px; color: black">{{ count((array) session('cart')) }}</span></i>   
                 </a>
                
             </div>
         </div>
         <div class="container">
-  
-            @if(session('success'))
-                <div class="alert alert-success">
-                  {{ session('success') }}
-                </div> 
-            @endif
-          
             @yield('content')
-           
         </div>
     </div>
     <!-- Topbar End -->
@@ -171,37 +157,18 @@
 
 
     <!-- JavaScript Libraries -->
-    {{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> --}}
-    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> --}}
-    {{-- <script src="lib/easing/easing.min.js"></script> --}}
-    <script src="{{ asset('frontend/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('frontend/lib/easing/easing.js') }}"></script>
-    {{-- <script src="lib/owlcarousel/owl.carousel.min.js"></script> --}}
+    {{-- <script src="{{ asset('frontend/lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('frontend/lib/easing/easing.js') }}"></script> --}}
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
-    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-
-    <!-- Contact Javascript File -->
-    {{-- <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script> --}}
-
-    <!-- Template Javascript -->
-    {{-- <script src="js/main.js"></script> --}}
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-   
+    @include('sweetalert::alert')
    
 </body>
 

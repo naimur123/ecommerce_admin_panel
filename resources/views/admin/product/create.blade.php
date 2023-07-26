@@ -180,7 +180,7 @@
                     <!--Image 2 -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <label><b>Image Two</b></label><br>
-                        <input type="file" name="image_two">
+                        <input type="file" class="form-control" name="image_two">
                         <div class="my-2">
                         @error('image_two')
                         <strong class="text-danger">{{ $message }}</strong>
@@ -191,7 +191,7 @@
                     <!--Image 3 -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <label><b>Image Three</b></label><br>
-                        <input type="file" name="image_three">
+                        <input type="file" class="form-control" name="image_three">
                         <div class="my-2">
                         @error('image_three')
                         <strong class="text-danger">{{ $message }}</strong>

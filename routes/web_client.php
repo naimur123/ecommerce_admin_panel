@@ -18,6 +18,31 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 //     Route::get('auth/google', 'redirectToGoogle');
 //     Route::get('auth/callback', 'googleCallback');
 // });
+Route::get('/send-sms', function () {
+    // Place the HTTP request code here (the code we provided earlier)
+    // You can also move the HTTP request code to a separate controller if desired.
+    // For this example, we'll keep it here.
+    $response = Http::withHeaders([
+            'Authorization' => '86e09636c7ef44e40a63f9050ae4a5e3-cdbb5615-0e82-4da8-9b89-ffb2fd1e175a',
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])
+        ->post('https://dmwl81.api.infobip.com', [
+            'messages' => [
+                [
+                    'destinations' => [
+                        ['to' => '8801688158696']
+                    ],
+                    'from' => 'InfoSMS',
+                    'text' => 'This is a sample message'
+                ]
+            ]
+        ]);
+
+    echo $response;
+});
+
+    
 
 
 Route::get('/register/google',[LoginController::class,'redirectToGoogle'])->name('register.google');
@@ -44,6 +69,10 @@ Route::get('/addTocart/{id}',[HomeController::class,'addTocart'])->name('addtoca
 Route::post('/update/cart',[HomeController::class,'cartUpdate'])->name('cart.update');
 Route::get('/cart/delete/{id}',[HomeController::class,'cartDelete'])->name('cart.delete');
 Route::get('/cart/checkout',[HomeController::class,'checkout'])->name('cart.checkout');
+
+
+//product details
+Route::get('/product/details/{id}',[HomeController::class,'productDetails'])->name('product.details');
 
 //Order Controller
 Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
