@@ -172,7 +172,7 @@ class ProductController extends Controller
                 $data->unit_id = $request->unit_id;
                 $data->short_description = $request->short_description ?? null;
                 // $data->long_description = $request->long_description ?? null;
-                $data->long_description = $this->htmlText($request->long_description) ?? null;
+                $data->long_description = $request->long_description ? $this->htmlText($request->long_description) : $data->long_description;
                 $data->price = $request->price;
                 $data->discount_percentage = $request->discount_percentage ?? 0;
                 $data->discount_price = $request->discount_percentage ? ($request->price*$request->discount_percentage/100) : 0;

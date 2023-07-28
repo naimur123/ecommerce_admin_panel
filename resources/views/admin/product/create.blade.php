@@ -213,7 +213,7 @@
                     <div class="col-12 my-2">
                         <div class="form-group">
                             <label>Long Description </label>
-                            <textarea class="summernote" id="summernote2" name="long_description"  value="{{ old("long_description") ?? ($data->long_description ?? "")  }}">{!! $data->long_description ?? "{{ old('long_description') }}" !!} </textarea>
+                            <textarea class="summernote" id="summernote2" name="long_description"  value="{{ old("long_description") ?? ($data->long_description ?? "")  }}"></textarea>
                             @error('long_description')
                             <strong class="text-danger">{{ $message }}</strong>
                             @enderror
