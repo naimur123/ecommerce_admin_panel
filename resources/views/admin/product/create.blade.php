@@ -81,7 +81,7 @@
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
                             <label>Product Slug</label>
-                            <input type="text" class="form-control {{--  {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" id="first_name" value="{{ old("first_name") ?? ($data->first_name ?? "")}}--}}" value="{{ old("slug") ?? ($data->slug ?? "")}}" name="slug" >
+                            <input type="text" class="form-control" value="{{ old("slug") ?? ($data->slug ?? "")}}" name="slug" >
                             @error('slug')
                             <strong class="text-danger">{{ $message }}</strong>
                     @enderror
@@ -89,17 +89,16 @@
                     </div>
     
                     <!-- Product Code -->
-                    @if($title == "Edit")
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
                             <label>Product Code <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="code"  value="{{ old("code") ?? ($data->code ?? "")}}" required readonly >
+                            <input type="text" class="form-control" name="code"  value="{{ old("code") ?? (!isset($data->id) ? Str::random(6): $data->code) }}" required >
                             @error('code')
                             <strong class="text-danger">{{ $message }}</strong>
                             @enderror
                         </div>
                     </div>
-                    @endif
+    
                     <!-- Product Quantity -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
@@ -146,13 +145,13 @@
                     </div>
     
                     <!-- Discount Price -->
-                    <div class="col-12 col-sm-6 col-md-4 my-2">
+                    {{-- <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
                             <label>Discount Price</label>
                             <input type="number" class="form-control" name="discount_price" value="{{ old("discount_price") ?? ($data->discount_price ?? "") }}">
                         </div>
-                    </div>
-    
+                    </div> --}}
+                    &nbsp; &nbsp;
                     <!-- Discount Percentage -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
@@ -160,7 +159,7 @@
                             <input type="number" class="form-control" name="discount_percentage" value="{{ old("discount_percentage") ?? ($data->discount_percentage ?? "") }}">
                         </div>
                     </div>
-    
+                    
                     
                     @if ($title == "Create")
                         &nbsp; &nbsp;
@@ -203,7 +202,7 @@
                     <div class="col-12 my-2">
                         <div class="form-group">
                             <label>Short Description </label>
-                            <textarea class="summernote" id="summernote1" name="short_description" value="{{ old("short_description") ?? ($data->short_description ?? "")  }}"></textarea>
+                            <textarea class="summernote" id="summernote1" name="short_description" value="{{ old("short_description") ?? ($data->short_description ?? "")  }}">{!! $data->short_description ?? "{{ old('short_description') }}" !!}</textarea>
                             @error('short_description')
                             <strong class="text-danger">{{ $message }}</strong>
                             @enderror
@@ -214,7 +213,7 @@
                     <div class="col-12 my-2">
                         <div class="form-group">
                             <label>Long Description </label>
-                            <textarea class="summernote" id="summernote2" name="long_description"  value="{{ old("long_description") ?? ($data->long_description ?? "")  }}"></textarea>
+                            <textarea class="summernote" id="summernote2" name="long_description"  value="{{ old("long_description") ?? ($data->long_description ?? "")  }}">{!! $data->long_description ?? "{{ old('long_description') }}" !!} </textarea>
                             @error('long_description')
                             <strong class="text-danger">{{ $message }}</strong>
                             @enderror

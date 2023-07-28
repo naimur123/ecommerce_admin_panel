@@ -67,11 +67,11 @@
                    <h5 class="text-black">More Information</h5>
                    <h6 class="text-black">Brand: {{ $product->brands->name }}</h6>
                    <h6 class="text-black">Category: {{ $product->categories->name }}</h6>
-                   <h6 class="text-black">Subcategory: {{ $product->subcategory->name }}</h6>
+                   <h6 class="text-black">Subcategory: {{ $product->subcategory->name ?? '' }}</h6>
                    <h6 class="text-black">Product Code: {{ $product->code }}</h6>
                    <h6 class="text-black"><b>Details:</b></h6>
                    <p><strong>{{ strip_tags($product->short_description) }}</strong></p>
-                   <p>{{ strip_tags($product->long_description) }}</p>
+                   <p>{!! $product->long_description !!}</p>
 
                </div>
             @endforeach

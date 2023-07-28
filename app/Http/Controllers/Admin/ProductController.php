@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
+use DOMDocument;
 use Illuminate\Console\View\Components\Alert as ComponentsAlert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -127,7 +128,7 @@ class ProductController extends Controller
     //store product
     public function store(Request $request){
         // dd($image_one);
-        $validator = Validator::make(
+            Validator::make(
             $request->all(),
             [
                 'name' => 'required|min:2',
@@ -135,8 +136,8 @@ class ProductController extends Controller
                 // 'code' => 'required|numeric|min:4',
                 'quantity' => 'required|numeric|min:1',
                 'price' => 'required',
-                'short_description' => 'nullable|min:2',
-                'long_description' => 'nullable|min:2|max:2500'
+                'short_description' => 'nullable',
+                'long_description' => 'nullable'
     
             ]
            )->validate();
@@ -145,8 +146,7 @@ class ProductController extends Controller
                 DB::beginTransaction();
                 if( $request->id == 0 ){
                     $data = $this->getModel();
-                    // if(Session::has('admin')){
-                        $data->code = Str::random(6);
+                    // if(Session::has('admin')){     
                         $data->created_by = $request->user()->id;
                     // }
                    //$admin = Session::get('admin');
@@ -162,7 +162,7 @@ class ProductController extends Controller
                    //$admin = Session::get('admin');
                     $this->saveActivity($request, $msg);
                 }
-    
+                $data->code = $request->code;
                 $data->category_id = $request->category_id;
                 $data->subcategory_id  = $request->subcategory_id ?? null;
                 $data->brand_id = $request->brand_id;
@@ -171,10 +171,11 @@ class ProductController extends Controller
                 $data->quantity = $request->quantity;
                 $data->unit_id = $request->unit_id;
                 $data->short_description = $request->short_description ?? null;
-                $data->long_description = $request->long_description ?? null;
+                // $data->long_description = $request->long_description ?? null;
+                $data->long_description = $this->htmlText($request->long_description) ?? null;
                 $data->price = $request->price;
-                $data->discount_price = $request->discount_price ?? 0;
                 $data->discount_percentage = $request->discount_percentage ?? 0;
+                $data->discount_price = $request->discount_percentage ? ($request->price*$request->discount_percentage/100) : 0;
                 $data->currency_id = $request->currency_id;
                 if($request->has('image_one')){
                     $image_one = $request->file('image_one');

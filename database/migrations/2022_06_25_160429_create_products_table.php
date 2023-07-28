@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('quantity')->nullable();
             $table->foreignId('unit_id')->nullable()->references('id')->on('units');
             $table->text('short_description')->nullable();
-            $table->text('long_description')->nullable();
+            $table->longText('long_description')->nullable();
             $table->float('price');
             $table->float('discount_price')->nullable();
             $table->float('discount_percentage')->nullable();

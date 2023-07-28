@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Components\Traits;
+
+use DOMDocument;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 trait Upload{
     /*
@@ -12,6 +14,7 @@ trait Upload{
      */
     protected  $brand = "brands";
     protected  $product = 'products';
+    protected  $productDetailsImg = 'productDetailsImg';
     protected  $slider = "sliders";
     protected  $admin = "admins";
     protected  $user = "users";
@@ -116,5 +119,34 @@ trait Upload{
             }
             return $allImage;
         }
+    }
+
+    ///For summer note
+    protected function htmlText($description){
+        
+        $dom = new DOMDocument(); 
+            $dom->loadHTML($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $images = $dom->getElementsByTagName('img');
+
+            foreach ($images as $key => $img) {
+                $srcAttribute = $img->getAttribute('src');
+                $data = substr($srcAttribute, 0, strpos($srcAttribute,',')+1);
+                $image_extension = explode('/',explode(':',substr($srcAttribute, 0, strpos($srcAttribute,';')))[1])[1];
+
+                $imageR = str_replace($data,'',$srcAttribute);
+                $image = base64_decode(str_replace('','+',$imageR));
+
+                if (!empty($image_extension)) {
+                    $image_name = time() . $key . '.' . $image_extension;
+                    $path = 'productsDetails/' . $image_name;
+                    Storage::put($path, $image);
+                    $img->removeAttribute('src');
+                    $img->setAttribute('src', Storage::url($path));
+                } else {
+                     Alert::error('Error','Product Long description image extesion error');
+                }
+            }
+            $description = $dom->saveHTML();
+            return $description;
     }
 }
