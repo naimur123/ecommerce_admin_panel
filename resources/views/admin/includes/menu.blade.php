@@ -118,7 +118,7 @@
       
                                       @if(auth()->user()->can('Category create'))
                                       <li>
-                                          <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i>> Add Category</a>
+                                          <a href="{{ route('admin.category.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add Category</a>
                                       </li>
                                       @endif
                                       

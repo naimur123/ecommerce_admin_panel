@@ -1,111 +1,112 @@
 @extends('frontend.masterPage')
 @section('all')
-<!-- Navbar Start -->
-<div class="container-fluid mb-5">
+<style>
+    .category-item {
+      position: relative;
+    }
 
-    <div class="row border-top px-xl-5">
-        <div class="col-lg-3 my-4 d-none d-lg-block">
-            <a class="d-flex align-items-center justify-content-center text-decoration-none bg-danger text-white w-100 " {{-- data-toggle="collapse" href="#navbar-vertical" --}} style="height: 65px;">
-                <h3 class="m-0 fw-bold">Categories</h3>
-                {{-- <i class="fa fa-angle-down text-dark"></i> --}}
-            </a>
-            <nav class="show navbar navbar-vertical navbar-light align-items-start p-2  border border-danger border-top-0 border-bottom-2" {{-- id="navbar-vertical" --}}>
-                <div class="navbar-nav w-100 overflow-hidden mx-2" style="height: 400px;">
-                    <div class="nav-item dropdown">
-                        @php
-                             $index = 1;
-                        @endphp
-                            {{-- @foreach ($subcategories as $subcategory) --}}
-                            @foreach($subcategories->groupBy('category_id') as $category => $subcategorys)
-                                <a href="#" class="nav-link text-dark fw-bold">{{ App\Models\Category::find($category)->name }}<i class="fa fa-angle-down float-right mt-1"></i></a>
-                                  @foreach ($subcategorys as $subcategory)
-                                    <div {{-- class="dropdown-menu bg-secondary border-2 rounded-0 w-100 m-0" --}} class="bg-secondary border-2">
-                                        <a href="" class="dropdown-item">{{ $subcategory->name }}</a>
-                                    </div>
-                                   @endforeach
-                                        
-                                <hr>
-                            @endforeach
-                        @php
-                            $index++;
-                        @endphp
-                            @foreach ($categories as $category)
-                                    <a href="#" class="nav-link text-dark fw-bold" {{-- data-toggle="dropdown" --}}>{{ $category->name }}</a>
-                                    <hr>
-                                        
-                            @endforeach
-                           
-                    </div>
-                       
-                </div>
-            </nav>
-        </div>
-        <div class="col-lg-9 my-4">
-            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                <a href="{{ route('home') }}" class="text-decoration-none d-block d-lg-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold text-danger">KenaKata</h1>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button> 
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="shop.html" class="nav-item nav-link">Shop</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                   
-                </div>
-              
-                   
-                
-            </nav>
-            
-            <div id="header-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-                <div class="carousel-inner">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        @foreach($sliders as $key => $slider)
-                        <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
-                            <img src="{{ asset('storage/'.$slider->image)}}" class="d-block w-100"  alt="..." style="height: 400px">
-                        </div>
-                        @endforeach
-                    </div>
-                    <a class="carousel-control-prev" href="#header-carousel" role="button"  data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
-                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                        <span class="carousel-control-prev-icon mb-n2" aria-hidden="true"></span>
-                    </div>
-                </a>
-                <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
-                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                        <span class="carousel-control-next-icon mb-n2" aria-hidden="true"></span>
-                    </div>
-                </a>
-                 
-            </div>
-           
-        </div>
+    .category-name {
+      color: white;
+      text-decoration: none;
+    }
+
+    .category-name:hover {
+      color: #f16a4f;
+    }
+
+    .subcategory-card {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        background-color: rgb(200, 197, 197);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        width: 200px;
+        z-index: 100;
+    }
+
+    .category-item:hover .subcategory-card {
+      display: block;
+    }
+
+    .subcategory-details {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .subcategory-details li {
+      color: black;
+      margin-bottom: 5px;
+    }
+
+    .subcategory-details li:hover {
+      color: #f16a4f;
+    }
+</style>
+<div class="row">
+    <!-- Navbar Start Category+Sub-->
+    <div class="col-lg-12" style="background-color: #404956;">
+            <ul class="nav justify-content-center">
+                @foreach ($categories as $category)
+                <li class="nav-item category-item">
+                  <a href="#" class="nav-link category-name" data-category-id="{{ $category->id }}">{{ $category->name }}</a>
+                  @if (count($category->subcategories) > 0)
+                  <div class="subcategory-card">
+                    <ul class="subcategory-details">
+                      @foreach ($category->subcategories as $subcategory)
+                      <li>{{ $subcategory->name }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                  @endif
+                </li>
+                @endforeach
+            </ul>
     </div>
 </div>
+<div class="row">
+    {{-- slider --}}
+    <div class="col-md-12 my-3 text-center" style="width: 80%; margin-left: 10%">
+        <div id="header-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+            <div class="carousel-inner">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                </ol>
+                <div class="carousel-inner">
+                    @foreach($sliders as $key => $slider)
+                    <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
+                        <img src="{{ asset('storage/'.$slider->image)}}" class="d-block w-100"  alt="..." style="height: 400px">
+                    </div>
+                    @endforeach
+                </div>
+                <a class="carousel-control-prev" href="#header-carousel" role="button"  data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
+                <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                    <span class="carousel-control-prev-icon mb-n2" aria-hidden="true"></span>
+                </div>
+            </a>
+            <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
+                <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                    <span class="carousel-control-next-icon mb-n2" aria-hidden="true"></span>
+                </div>
+            </a>
+            
+        </div>
+    
+    </div>
+</div>
+
+{{-- </div> --}}
 <!-- Navbar End -->
 
 <!-- Products Start -->
@@ -183,5 +184,19 @@
         @endforeach
     </div>
 </div>
+
+<script>
+//     $(document).ready(function () {
+//     // Handle the mouse hover event
+//     $(".category-item").hover(
+//       function () {
+//         $(this).find(".subcategory-card").fadeIn(200);
+//       },
+//       function () {
+//         $(this).find(".subcategory-card").fadeOut(200);
+//       }
+//     );
+//   });
+</script>
 <!-- Products End -->
 @endsection

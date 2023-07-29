@@ -22,9 +22,10 @@ class HomeController extends Controller
     public function index(){
        
 
-        $category_id = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
+        // $category_id = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
 
-        $category = Category::whereNotIn('id', $category_id)->take(3)->get();
+        // $category = Category::whereNotIn('id', $category_id)->take(3)->get();
+        $category = Category::where('status_id', 1)->get();
 
         // dd($category);
 

@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
     {{-- image part --}}
-    <div class="col-4">
+    <div class="col-4 my-3">
         <div id="header-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="carousel-inner">
                 <ol class="carousel-indicators">
@@ -43,7 +43,7 @@
     </div>
     
     {{-- details part --}}
-    <div class="col-8">
+    <div class="col-8 my-3">
         <div class="card">
             @foreach ($products as $product)
                <div class="card-header">
@@ -67,7 +67,10 @@
                    <h5 class="text-black">More Information</h5>
                    <h6 class="text-black">Brand: {{ $product->brands->name }}</h6>
                    <h6 class="text-black">Category: {{ $product->categories->name }}</h6>
-                   <h6 class="text-black">Subcategory: {{ $product->subcategory->name ?? '' }}</h6>
+                    @if(!empty($product->subcategory->name))
+                    <h6 class="text-black">Subcategory: {{ $product->subcategory->name ?? '' }}</h6>
+                    @else
+                    @endif
                    <h6 class="text-black">Product Code: {{ $product->code }}</h6>
                    <h6 class="text-black"><b>Details:</b></h6>
                    <p><strong>{{ strip_tags($product->short_description) }}</strong></p>

@@ -16,4 +16,8 @@ class Category extends Model
     public function updatedBy(){
         return $this->belongsTo(Admin::class, "updated_by");
     }
+    public function subcategories()
+    {
+        return $this->hasMany(Subcategory::class);
+    }
 }

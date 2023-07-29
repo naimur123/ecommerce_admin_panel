@@ -18,29 +18,29 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 //     Route::get('auth/google', 'redirectToGoogle');
 //     Route::get('auth/callback', 'googleCallback');
 // });
-Route::get('/send-sms', function () {
-    // Place the HTTP request code here (the code we provided earlier)
-    // You can also move the HTTP request code to a separate controller if desired.
-    // For this example, we'll keep it here.
-    $response = Http::withHeaders([
-            'Authorization' => '86e09636c7ef44e40a63f9050ae4a5e3-cdbb5615-0e82-4da8-9b89-ffb2fd1e175a',
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])
-        ->post('https://dmwl81.api.infobip.com', [
-            'messages' => [
-                [
-                    'destinations' => [
-                        ['to' => '8801688158696']
-                    ],
-                    'from' => 'InfoSMS',
-                    'text' => 'This is a sample message'
-                ]
-            ]
-        ]);
+// Route::get('/send-sms', function () {
+//     // Place the HTTP request code here (the code we provided earlier)
+//     // You can also move the HTTP request code to a separate controller if desired.
+//     // For this example, we'll keep it here.
+//     $response = Http::withHeaders([
+//             'Authorization' => '86e09636c7ef44e40a63f9050ae4a5e3-cdbb5615-0e82-4da8-9b89-ffb2fd1e175a',
+//             'Content-Type' => 'application/json',
+//             'Accept' => 'application/json'
+//         ])
+//         ->post('https://dmwl81.api.infobip.com', [
+//             'messages' => [
+//                 [
+//                     'destinations' => [
+//                         ['to' => '8801688158696']
+//                     ],
+//                     'from' => 'InfoSMS',
+//                     'text' => 'This is a sample message'
+//                 ]
+//             ]
+//         ]);
 
-    echo $response;
-});
+//     echo $response;
+// });
 
     
 

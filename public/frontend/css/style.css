@@ -9565,14 +9565,14 @@ a.text-dark:hover, a.text-dark:focus {
   list-style-type: none;
 }
 
-.back-to-top {
+/* .back-to-top {
   position: fixed;
   display: none;
   right: 30px;
   bottom: 30px;
   z-index: 11;
   animation: action 1s infinite alternate;
-}
+} */
 
 @keyframes action {
   0% {
