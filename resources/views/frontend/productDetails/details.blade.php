@@ -1,10 +1,5 @@
 @extends('frontend.masterPage')
 @section('content')
-<style>
-    .productDetailsImg{
-        height: 80%;
-    }
-</style>
 <div class="row">
     {{-- slider details part --}}
     <div class="col-4 my-3 productDetailsImg">
@@ -77,27 +72,7 @@
 
 
 <script type="text/javascript">
-    var swiper = new Swiper(".productDetailsImg", {
-        // effect: "coverflow",
-        // grabCursor: true,
-        // centeredSlides: true,
-        // slidesPerView: "auto",
-        // coverflowEffect: {
-        //     rotate: 40,
-        //     stretch: 0,
-        //     depth: 100,
-        //     modifier: 1,
-        //     slideShadows: false,
-        // },
-        // autoplay:{
-        //     delay: 3000,
-        // }
-        effect: "cards",
-        grabCursor: true,
-        autoplay:{
-            delay: 3000,
-        }
-    });
+    
    
 </script>
 

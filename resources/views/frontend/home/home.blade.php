@@ -1,55 +1,7 @@
 @extends('frontend.masterPage')
 @section('all')
 <style>
-    .category-item {
-      position: relative;
-    }
-
-    .category-name {
-      color: white;
-      text-decoration: none;
-    }
-
-    .category-name:hover {
-      color: #f16a4f;
-    }
-
-    .subcategory-card {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        display: none;
-        background-color: rgb(200, 197, 197);
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        width: 200px;
-        z-index: 100;
-    }
-
-    .category-item:hover .subcategory-card {
-      display: block;
-    }
-
-    .subcategory-details {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .subcategory-details li {
-      color: black;
-      margin-bottom: 5px;
-    }
-
-    .subcategory-details li:hover {
-      color: #f16a4f;
-    }
-
-    /* swipper */
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-    }
+  
 
     
    
@@ -100,7 +52,7 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             @foreach ($products as $product)
-            <div class="swiper-slide col-lg-3 col-md-6 col-sm-6">             
+            <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
                 <div class="card border-2 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                         <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px;">
@@ -142,7 +94,7 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             @foreach ($latest_products as $product)
-            <div class="swiper-slide col-lg-3 col-md-6 col-sm-6">             
+            <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
                 <div class="card border-2 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                         <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px;">
@@ -176,36 +128,9 @@
 
 
 {{-- swipperjs --}}
-<script type="text/javascript">
-    var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 4,
-        spaceBetween: 30,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        autoplay: {
-            delay: 5000,
-        },
-        breakpoints: {
-            991: {
-                slidesPerView: 4,
-            },
-            767: {
-                slidesPerView: 2,
-            },
-        },
-    });
-
-    var swiperSlider = new Swiper(".mySwiperSlider", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 3000,
-        },
-        speed: 800,
-    });
-</script>
+{{-- <script type="text/javascript">
+  
+</script> --}}
 
 
 <!-- Products End -->

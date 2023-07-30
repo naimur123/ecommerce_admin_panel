@@ -62,32 +62,6 @@
     </tfoot>
 </table>
 
-
-{{-- <script type="text/javascript">
-    $(document).ready(function (){
-    $("#quantity").change(function (e) {
-        e.preventDefault();
-        var id = document.getElementById("id").value;
-        var quantity = document.getElementById("quantity").value;
-        // console.log(id);
-        $.ajax({
-        url: '{{ route('cart.update') }}',
-        method: "post",
-        data: {
-            _token: '{{ csrf_token() }}', 
-            id: id, 
-            quantity: quantity
-        },
-        
-        success: function (response) {
-           window.location.reload();
-           console.log(data);
-        }
-        
-      });
-    });
-   });
-</script> --}}
 <script type="text/javascript">
 
     $(".update-cart").change(function (e) {

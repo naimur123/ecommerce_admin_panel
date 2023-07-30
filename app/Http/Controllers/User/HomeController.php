@@ -116,6 +116,7 @@ class HomeController extends Controller
             
         }
         else{
+            Session::put('checkout','checkoutclick');
             return redirect()->route('user.login');
         }
        

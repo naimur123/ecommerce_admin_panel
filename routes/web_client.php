@@ -1,50 +1,17 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\User\SslCommerzPaymentController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\OrderController;
-use App\Http\Controllers\User\SslCommerzPaymentController as UserSslCommerzPaymentController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/link',[HomeController::class,'link']);
 Route::get('/',[HomeController::class,'index'])->name('home');
 
 // User Login With google
-// Route::controller(LoginController::class)->group(function(){
-//     Route::get('auth/google', 'redirectToGoogle');
-//     Route::get('auth/callback', 'googleCallback');
-// });
-// Route::get('/send-sms', function () {
-//     // Place the HTTP request code here (the code we provided earlier)
-//     // You can also move the HTTP request code to a separate controller if desired.
-//     // For this example, we'll keep it here.
-//     $response = Http::withHeaders([
-//             'Authorization' => '86e09636c7ef44e40a63f9050ae4a5e3-cdbb5615-0e82-4da8-9b89-ffb2fd1e175a',
-//             'Content-Type' => 'application/json',
-//             'Accept' => 'application/json'
-//         ])
-//         ->post('https://dmwl81.api.infobip.com', [
-//             'messages' => [
-//                 [
-//                     'destinations' => [
-//                         ['to' => '8801688158696']
-//                     ],
-//                     'from' => 'InfoSMS',
-//                     'text' => 'This is a sample message'
-//                 ]
-//             ]
-//         ]);
-
-//     echo $response;
-// });
-
-    
-
-
 Route::get('/register/google',[LoginController::class,'redirectToGoogle'])->name('register.google');
 Route::get('/register/google/signin',[LoginController::class,'googleSignin'])->name('register.google.signin');
 
@@ -77,19 +44,12 @@ Route::get('/product/details/{id}',[HomeController::class,'productDetails'])->na
 //Order Controller
 Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
 Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.store');
-// Route::get('/pay/online',[OrderController::class,'onlineview'])->name('pay.online');
-// Route::post('/pay/online',[OrderController::class,'onlinestore'])->name('pay.online.store');
-// Route::post('/pay-via-ajax', [OrderController::class, 'payViaAjax']);
-// Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-// Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
-// Route::post('/success', [SslCommerzPaymentController::class, 'success']);
-// Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
-// Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+//ssl commerz
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
-// SSLCOMMERZ Start
-// Route::get('/example1', [SslCommerzPaymentController::class, 'onlineview'])->name('easy.checkout');
-// Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+Route::post('/success', [SslCommerzPaymentController::class, 'successes']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
-// Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-Route::post('/pay-via-ajax', [UserSslCommerzPaymentController::class, 'payViaAjax']);
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);

@@ -18,11 +18,12 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->foreignId('shipping_id')->nullable()->references('id')->on('shipping_addresses');
             $table->foreignId('payment_type_id')->nullable()->references('id')->on('payment_types');
-            $table->integer('total_price')->nullable();
             $table->integer('sub_total_price')->nullable();
             $table->integer('shipping_cost')->nullable();
             $table->integer('discount_price')->nullable();
-            $table->foreignId('status_id')->nullable()->references('id')->on('generic_statuses');
+            $table->integer('amount')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

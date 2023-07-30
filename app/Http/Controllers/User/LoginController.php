@@ -43,13 +43,22 @@ class LoginController extends Controller
                 $data->phone = $user->phone ?? null;
                 $data->password = bcrypt(123456);
                 $data->social_id = $user->id;
+                $data->last_login = Carbon::now();
                 $data->save();
 
                 $params = [
                     "id" => $data->social_id,
                     "email_verified_at" => $data->email_verified_at
                 ];
-                return view('frontend.user.dashboard.dashboard', $params);
+                if(session()->has('checkout')){
+                    $user = User::where('social_id',$user->id)->pluck('id');
+                    Session::put('user',$user);
+                    return Redirect()->route('cart.checkout');
+                }
+                else{
+                    return view('frontend.user.dashboard.dashboard', $params);
+                }
+                
             
             }
       
@@ -108,7 +117,12 @@ class LoginController extends Controller
                         Session::put('user',$user->id);
                         $user->last_login = Carbon::now();
                         $user->save();
-                        return Redirect::route('user.dashboard', $user->id);
+                        if(session()->has('checkout')){
+                            return Redirect()->route('cart.checkout');
+                        }
+                        else{
+                            return Redirect::route('user.dashboard', $user->id);
+                        }
                     }else{
                         return back()->with('error',"Account doesnot match");
                     }

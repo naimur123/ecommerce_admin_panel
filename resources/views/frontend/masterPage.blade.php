@@ -25,24 +25,10 @@
     {{-- swipperjs --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <style>
-       
-        .login-cart-container {
-            display: flex;
-            align-items: center;
-        }
+
+    {{-- customcss --}}
+    <link rel="stylesheet" href="{{ asset('frontend/custom/customStyle.css') }}">
     
-        .login-signup {
-            margin-right: 10px;
-        }
-        .card{
-            border: none !important;
-        }
-
-     
-     
-
-    </style>
    
 </head>
 
@@ -80,9 +66,9 @@
                         @if (session()->has('user'))
                             <?php 
                                 $user = session()->get('user');
-                                $user = App\Models\User::find($user);
+                                $user = App\Models\User::where('id',$user)->first();
                             ?>
-                            <a href="{{ route('user.dashboard',$user) }}">{{ $user->name }}</a>
+                            <a href="{{ route('user.dashboard',$user->id) }}">{{ $user->name }}</a>
                         @else
                             <a href="{{ route('user.showLoginform') }}" class="text-decoration-none" style="color: #404956"><i class="fa-solid fa-user"></i> Login/Signup</a>
                         @endif
@@ -105,7 +91,7 @@
     <!-- Footer Start -->
         <div class="row">
             <div class="col-md-12">
-                <div class="card text-white" style="background-color: #404956">
+                <div class="card text-white" id="footerCard" style="background-color: #404956">
                     <div class="card-body text-center">
                         <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
                         <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
@@ -139,6 +125,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="{{ asset('frontend/custom/customJs.js') }}"></script>
     
     @include('sweetalert::alert')
    

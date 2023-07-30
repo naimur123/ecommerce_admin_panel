@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->string('name')->nullable();
+            $table->string('details')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
