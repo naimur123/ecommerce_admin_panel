@@ -344,6 +344,22 @@
                                       @endif
                                   </ul>
                                </li>
+
+                               {{-- Vendor --}}
+                               <li>
+                                <a href="#submenu17" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-solid fa-people-carry-box"></i><span id="menuSpan">Vendor</span></a>
+                                <ul class="collapse nav flex-column " id="submenu17" data-bs-parent="#menu">
+                                    {{-- <li class="w-100">
+                                        <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
+                                    </li> --}}
+                                    @if(auth()->user()->can('Vendor create'))
+                                    <li>
+                                        <a href="{{ route('admin.vendor.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Vendor create</a>
+                                    </li>
+                                    @endif
+                                </ul>
+                             </li>
                                
       
                                {{-- Admin --}}
@@ -363,6 +379,11 @@
                                       @if(auth()->user()->can('Admin create'))
                                       <li>
                                           <a href="{{ route('admin.admin.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-user-plus"></i> Add new admin</a>
+                                      </li>
+                                      @endif
+                                      @if(auth()->user()->can('Vendor view'))
+                                      <li>
+                                          <a href="{{ route('admin.pending.vendor') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-bell"></i> Pending Vendor List</a>
                                       </li>
                                       @endif
                                       {{-- <li>

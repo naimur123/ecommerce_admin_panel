@@ -13,6 +13,7 @@ use App\Models\GenericStatus;
 use App\Models\SubCategory;
 use App\Models\Country;
 use App\Models\Unit;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -112,12 +113,13 @@ class ProductController extends Controller
         $params = [
              "title"       => "Create",
              "form_url"    => route('admin.products.store'),
-             "categories" => Category::all(),
-             "subs"       => SubCategory::all(),
-             "brands"     => Brand::all(),
-             "units"      => Unit::all(),
-             "currencies" => Currency::all(),
-             "statuses"     => GenericStatus::all()
+             "vendors"     => Vendor::where('is_approved',1)->get(),
+             "categories"  => Category::all(),
+             "subs"        => SubCategory::all(),
+             "brands"      => Brand::all(),
+             "units"       => Unit::all(),
+             "currencies"  => Currency::all(),
+             "statuses"    => GenericStatus::all()
 
         ];
        //$admin = Session::get('admin');
@@ -162,6 +164,7 @@ class ProductController extends Controller
                    //$admin = Session::get('admin');
                     $this->saveActivity($request, $msg);
                 }
+                $data->vendor_id = $request->vendor_id;
                 $data->code = $request->code;
                 $data->category_id = $request->category_id;
                 $data->subcategory_id  = $request->subcategory_id ?? null;

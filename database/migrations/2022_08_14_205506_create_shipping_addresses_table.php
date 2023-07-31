@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->string('area_name')->nullable();
+            $table->string('division')->nullable();
             $table->integer('for_later')->default(0);
             $table->timestamps();
             $table->softDeletes();

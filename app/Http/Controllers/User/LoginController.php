@@ -51,8 +51,8 @@ class LoginController extends Controller
                     "email_verified_at" => $data->email_verified_at
                 ];
                 if(session()->has('checkout')){
-                    $user = User::where('social_id',$user->id)->pluck('id');
-                    Session::put('user',$user);
+                    $user = User::where('social_id',$user->id)->first();
+                    Session::put('user',$user->id);
                     return Redirect()->route('cart.checkout');
                 }
                 else{

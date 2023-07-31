@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\User\LoginController;
 use Illuminate\Support\Facades\Artisan;
@@ -67,6 +68,8 @@ Route::middleware(['admin'])->group(function(){
             Route::post('/create',[AdminAdminController::class,'store'])->name('admin.store');
             Route::get('/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
             Route::post('/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
+            Route::get('/vendor/pendinglist',[VendorController::class,'pendingVendor'])->name('pending.vendor');
+            Route::get('/vendor/statusupdate',[VendorController::class,'statusupdate'])->name('statusupdate.vendor');
         // });
 
         // Generic Status
@@ -217,6 +220,22 @@ Route::middleware(['admin'])->group(function(){
         // Activity Log
         Route::get('activity',[ActivityLogController::class,'index'])->name('actvitylog');
 
+        // Vendor
+        Route::prefix('vendor')->group(function(){
+
+            Route::get('',[VendorController::class,'index'])->name('vendor');
+            Route::get('/create',[VendorController::class,'create'])->name('vendor.create');
+            Route::post('/update',[VendorController::class,'store'])->name('vendor.store');
+            // Route::get('/update/{id}',[VendorController::class,'edit'])->name('customer.edit');
+            // Route::get('/delete/{id}',[VendorController::class,'delete'])->name('customer.delete');
+            // Route::get('/deletedList',[VendorController::class, 'archive'])->name('customer.archive');
+            // Route::get('/restore/{id}',[VendorController::class, 'restore'])->name('customer.restore');
+            // Route::get('/permanentDelete/{id}',[VendorController::class, 'parmenentDelete'])->name('customer.pdelete');
+            // Route::get('/customerlistpdf',[VendorController::class,'pdf'])->name('customer.pdf');
+            // Route::get('/customerlistexcel',[VendorController::class,'excel'])->name('customer.excel');
+
+        });
+        // Customer
         Route::prefix('customer')->group(function(){
 
             Route::get('',[CustomerController::class,'index'])->name('customer');

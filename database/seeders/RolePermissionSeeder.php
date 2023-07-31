@@ -21,6 +21,7 @@ class RolePermissionSeeder extends Seeder
         //Role create
         $roleSuperAdmin = Role::create(['name' => 'superadmin','guard_name' =>'admin']);
         $roleAdmin = Role::create(['name' => 'admin','guard_name' =>'admin']);
+        $roleVendor = Role::create(['name' => 'vendor','guard_name' =>'vendor']);
         $roleUser = Role::create(['name' => 'user']);
 
          // Permission List as array
@@ -54,7 +55,7 @@ class RolePermissionSeeder extends Seeder
             [
                 'group_name' => 'Order',
                 'permissions' => [
-                    //customer Permissions
+                    //order Permissions
                     'Order create',
                     'Order view',
                     'Order edit',
@@ -195,6 +196,18 @@ class RolePermissionSeeder extends Seeder
                     'Permission create',
                     'Permission edit',
                     'Permission delete'
+                ]
+            ],
+            [
+                'group_name' => 'Vendor',
+                'permissions' => [
+                    //Vendor Permissions
+                    'Vendor view',
+                    'Vendor create',
+                    'Vendor edit',
+                    'Vendor delete',
+                    'Vendor approve',
+                    'Vendor cancel'
                 ]
             ],
         ];

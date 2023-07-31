@@ -21,6 +21,18 @@
                         <input type="hidden" name="id" value="{{ $data->id ?? 0 }}">
                         <hr/>
                     </div>
+                    <!-- Vendor-->
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label>Vendor<span class="text-danger">*</span></label>
+                            <select class="form-control select2" name="vendor_id" required >
+                                <option value="">Select Vendor</option>
+                                @foreach($vendors as $vendor)
+                                <option value="{{ $vendor->id }}" {{ old('vendor_id') && old('vendor_id')== $vendor->id?'selected':(isset($data->vendor_id) && $data->vendor_id == $vendor->id?"selected":Null) }}>{{ $vendor->name }}</option>
+                                @endforeach                           
+                            </select>
+                        </div>
+                    </div>
                     <!-- Category -->
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="form-group">

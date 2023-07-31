@@ -21,7 +21,10 @@
 
     {{-- Datatable --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.css"/>
-
+    
+    {{-- Sweetalert --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    
     {{-- Custom Css --}}
     <link rel="stylesheet" href="{{ asset('custom/app.css') }}">
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>

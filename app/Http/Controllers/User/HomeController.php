@@ -52,9 +52,10 @@ class HomeController extends Controller
             return redirect()->back();
         } else {
             $cart[$id] = [
+                "product_id" => $product->id,
                 "name" => $product->name,
                 "quantity" => 1,
-                "price" => $product->price,
+                "price" => $product->discount_price != 0 ? $product->price - $product->discount_price : $product->price,
                 "image" => $product->image_one
             ];
         }
@@ -97,6 +98,7 @@ class HomeController extends Controller
     public function checkout(){
         if(Session::has('user')){
             $user = Session::get('user');
+            // dd($user);
                 if(session()->has('cart')){
                     $cart = session()->get('cart');
                     $subtotal = 0;

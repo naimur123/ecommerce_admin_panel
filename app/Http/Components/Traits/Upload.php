@@ -18,6 +18,7 @@ trait Upload{
     protected  $slider = "sliders";
     protected  $admin = "admins";
     protected  $user = "users";
+    protected  $vendor = "vendors";
     protected  $logo_dir = "logo";
     protected  $others_dir = "others";
 

@@ -96,12 +96,8 @@ class OrderController extends Controller
                 $order_details->save();
             }
 
-            //order Transaction
-            $transaction = new Transactions();
-            $transaction->user_id = $request->user ?? null;
-            $transaction->order_id = $order->id ?? null;
-            $transaction->status = "pending";
-            $transaction->save();
+       
+           
         
         }catch(Exception $e){
             DB::rollBack();
