@@ -72,7 +72,8 @@ class LoginController extends Controller
      * After Logout the redirect location
      */
     protected function loggedOut(){
-        return Auth::guard('admin')->logout() ?: redirect()->back();
+        Auth::guard('admin')->logout();
+        return redirect($this->logout);
     }
 
     // After Login Dashboard

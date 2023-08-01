@@ -350,9 +350,11 @@
                                 <a href="#submenu17" data-bs-toggle="collapse" class="nav-link px-0 text-white">
                                     <i class="fa-solid fa-people-carry-box"></i><span id="menuSpan">Vendor</span></a>
                                 <ul class="collapse nav flex-column " id="submenu17" data-bs-parent="#menu">
-                                    {{-- <li class="w-100">
-                                        <a href="{{ route('admin.status') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Generic Status List</a>
-                                    </li> --}}
+                                    @if(auth()->user()->can('Vendor view'))
+                                      <li>
+                                          <a href="{{ route('admin.vendor') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-user-secret"></i> Vendor list</a>
+                                      </li>
+                                    @endif
                                     @if(auth()->user()->can('Vendor create'))
                                     <li>
                                         <a href="{{ route('admin.vendor.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Vendor create</a>
@@ -386,6 +388,10 @@
                                           <a href="{{ route('admin.pending.vendor') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-bell"></i> Pending Vendor List</a>
                                       </li>
                                       @endif
+
+                                      <li>
+                                        <a href="{{ route('admin.create.permisssion') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-unlock-keyhole"></i> Create new permission</a>
+                                      </li>
                                       {{-- <li>
                                           <a href="{{ route('admin.customer.archive') }}" class="nav-link px-2 text-white"><i class="bi bi-archive"></i> Deleted customer</a>
                                       </li> --}}

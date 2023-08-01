@@ -67,7 +67,7 @@
                     </div>
     
                     <!-- Brand -->
-                    <div class="col-12 col-sm-6 col-md-4">
+                    <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
                             <label>Brand<span class="text-danger">*</span></label>
                             <select class="form-control select2" name="brand_id" required >
@@ -156,14 +156,6 @@
                         </div>
                     </div>
     
-                    <!-- Discount Price -->
-                    {{-- <div class="col-12 col-sm-6 col-md-4 my-2">
-                        <div class="form-group">
-                            <label>Discount Price</label>
-                            <input type="number" class="form-control" name="discount_price" value="{{ old("discount_price") ?? ($data->discount_price ?? "") }}">
-                        </div>
-                    </div> --}}
-                    &nbsp; &nbsp;
                     <!-- Discount Percentage -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
@@ -171,11 +163,6 @@
                             <input type="number" class="form-control" name="discount_percentage" value="{{ old("discount_percentage") ?? ($data->discount_percentage ?? "") }}">
                         </div>
                     </div>
-                    
-                    
-                    @if ($title == "Create")
-                        &nbsp; &nbsp;
-                    @endif
                     
                     <!--Image 1 -->
                     <div class="col-12 col-sm-6 col-md-4 my-2">

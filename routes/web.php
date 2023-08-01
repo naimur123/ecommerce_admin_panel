@@ -66,8 +66,10 @@ Route::middleware(['admin'])->group(function(){
             Route::get('/edit/{id}',[AdminAdminController::class,'edit'])->name('admin.edit');
             Route::post('/edit',[AdminAdminController::class,'store'])->name('admin.store');
             Route::post('/create',[AdminAdminController::class,'store'])->name('admin.store');
-            Route::get('/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
-            Route::post('/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
+            Route::get('/create/permission',[AdminAdminController::class,'createPermission'])->name('create.permisssion');
+            Route::post('/create/permission',[AdminAdminController::class,'addPermission'])->name('permisssion.add');
+            Route::get('/give/permission/{id}',[AdminAdminController::class,'permission'])->name('permisssion');
+            Route::post('/give/permission',[AdminAdminController::class,'permissionStore'])->name('permisssion.store');
             Route::get('/vendor/pendinglist',[VendorController::class,'pendingVendor'])->name('pending.vendor');
             Route::get('/vendor/statusupdate',[VendorController::class,'statusupdate'])->name('statusupdate.vendor');
         // });
@@ -226,13 +228,8 @@ Route::middleware(['admin'])->group(function(){
             Route::get('',[VendorController::class,'index'])->name('vendor');
             Route::get('/create',[VendorController::class,'create'])->name('vendor.create');
             Route::post('/update',[VendorController::class,'store'])->name('vendor.store');
-            // Route::get('/update/{id}',[VendorController::class,'edit'])->name('customer.edit');
-            // Route::get('/delete/{id}',[VendorController::class,'delete'])->name('customer.delete');
-            // Route::get('/deletedList',[VendorController::class, 'archive'])->name('customer.archive');
-            // Route::get('/restore/{id}',[VendorController::class, 'restore'])->name('customer.restore');
-            // Route::get('/permanentDelete/{id}',[VendorController::class, 'parmenentDelete'])->name('customer.pdelete');
-            // Route::get('/customerlistpdf',[VendorController::class,'pdf'])->name('customer.pdf');
-            // Route::get('/customerlistexcel',[VendorController::class,'excel'])->name('customer.excel');
+            Route::get('/permission/{id}',[VendorController::class,'permission'])->name('vendor.permisssion');
+            Route::post('/permission',[VendorController::class,'permissionStore'])->name('vendor.permisssion.store');
 
         });
         // Customer

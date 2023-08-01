@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class VendorController extends Controller
 {
@@ -21,20 +23,20 @@ class VendorController extends Controller
             return new Vendor();
         }
 
-        //Get Datas
-        // public function index(Request $request){
-        //     $user = VendorPublishCommand::orderBy('id',"ASC");
-        //     $user = $user->paginate(5);
-        //     $params =[
+        // Get Datas
+        public function index(Request $request){
+            $vendor = Vendor::where('is_approved',1)->orderBy('id',"ASC");
+            $vendor = $vendor->paginate(5);
+            $params =[
 
-        //         "title" => "List",
-        //         "users" => $user
-        //     ];
+                "title" => "Vendor List",
+                "vendors" => $vendor
+            ];
 
-        //     $this->saveActivity($request, "Customer list viewed",);
+            $this->saveActivity($request, "Vendor list viewed",);
 
-        //     return view('admin.customer.customerList',$params);
-        // }
+            return view('admin.vendor.vendorlist',$params);
+        }
 
         //vendor create
         public function create(Request $request){
@@ -95,7 +97,7 @@ class VendorController extends Controller
             }
 
         
-        return back()->with("success", $request->id == 0 ? "Vendor Added Successfully" : "User Updated Successfully");
+        return back()->with("success", $request->id == 0 ? "Vendor Added Successfully" : "vendor Updated Successfully");
     }
 
     // pending vendor list
@@ -128,5 +130,45 @@ class VendorController extends Controller
                 }
             }
         }
+    }
+
+    // vendor permission
+    public function permission(Request $request){
+        $role = Role::where('guard_name','vendor')->get();
+        $permission = Permission::where('guard_name','vendor')->get();
+        $vendor = Vendor::find($request->id);
+        $params= [
+            "roles"       => $role,
+            "permissions" => $permission,
+            "vendor"       => $vendor,
+            "form_url"    => route('admin.vendor.permisssion.store')
+
+        ];
+
+        return view('admin.vendor.permission',$params);
+    }
+    public function permissionStore(Request $request){
+
+        try{
+            $vendor = Vendor::find($request->vendor);
+    
+            $role = $vendor->assignRole($request->name);
+
+            $permissions = $request->input('permissions');
+            if (!empty($permissions)) {
+                foreach($permissions as $permission){
+                    $vendor->syncPermissions($permission);
+                }
+            }
+            else{
+                return back()->with('error',"At least one permission needed");
+            }
+    
+            return back()->with('success',"Permission added");
+        }catch(Exception $e){
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        
+
     }
 }

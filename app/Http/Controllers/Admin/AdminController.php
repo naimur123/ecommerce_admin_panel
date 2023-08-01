@@ -115,6 +115,33 @@ class AdminController extends Controller
         return view('admin.admin.create',$params);
     }
 
+    //create new permisssion
+    public function createPermission(Request $request){
+        $params =[
+           "title" => "Create Permission",
+           "form_url" => route('admin.permisssion.add')
+        ];
+        return view('admin.admin.createPermission',$params);
+    }
+
+    //store new permission
+    public function addPermission(Request $request){
+
+        try{
+            $permission = new Permission();
+            $permission->name = $request->name;
+            $permission->guard_name = 'vendor';
+            $permission->group_name = $request->group_name;
+            $permission->save();
+            DB::commit();
+
+        }catch(Exception $e){
+            DB::rollBack();
+            return back()->with("error", $this->getError($e))->withInput();
+        }
+        return back()->with("success","Permission Added Successfully");
+    }
+
     //get permissions
     public function permission(Request $request){
 
