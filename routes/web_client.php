@@ -42,14 +42,12 @@ Route::get('/cart/checkout',[HomeController::class,'checkout'])->name('cart.chec
 Route::get('/product/details/{id}',[HomeController::class,'productDetails'])->name('product.details');
 
 //Order Controller
-Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
+// Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
 Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.store');
 
 //ssl commerz
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-
 Route::post('/success', [SslCommerzPaymentController::class, 'successes']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);

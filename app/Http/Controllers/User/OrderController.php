@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
@@ -51,61 +53,59 @@ class OrderController extends Controller
 
      try{
 
+            $formData = $request->all();
+
+            $user_id = $formData['user'];
+            $phone = $formData['phone'];
+            $address = $formData['address'];
+            $subtotal = $formData['subtotal'];
+            $shippingCost = $formData['shipping_cost'];
+            $totalAmount = $formData['total_amount'];
         
             $carts = session()->get('cart');
-        
-            if($request->has('phone')){
-                $user = User::find($request->user);
-                $user->phone = $request->phone;
-                $user->save();      
-            }
-
-            //payment type table
-            $payment_type = new PaymentType();
-            $payment_type->user_id = $request->user;
-            $payment_type->name = "cash";
-            $payment_type->save();
-
-            //Shipping address
-            if($request->has('area_name')){
-                $shipping = new ShippingAddress();
-                $shipping->user_id = $request->user;
-                $shipping->area_name = $request->area_name;
-                $shipping->for_later = $request->for_later;
-                $shipping->save();
-            }
+            // return response()->json(['message' => $carts]);
 
             //Order place
             $order = new Order();
-            $order->user_id = $request->user ?? null;
-            $order->shipping_id = $shipping->id ?? null;
-            $order->payment_type_id =  $payment_type->id ?? null;
-            $order->total_price = $request->total_price ?? null;
-            $order->sub_total_price = $request->sub_total_price ?? null;
-            $order->shipping_cost = $request->shipping_cost ?? null;
-            $order->discount_price = $request->discount_price ?? null;
-            $order->status_id = 2;
+            $order->user_id = $user_id ?? '';
+            $order->phone = $phone ?? '';
+            $order->shipping_id = 1 ?? '';
+            $order->shipping_address_details = $address ?? '';
+            $order->payment_type_id =  1 ?? '';
+            $order->invoice_no = Str::random(8);
+            $order->sub_total_price = $subtotal ?? 0;
+            $order->shipping_cost = $shippingCost ?? 0;
+            $order->amount = $totalAmount ?? 0;
+            $order->discount_price = $discount_price ?? 0;
+            $order->transaction_id = uniqid();
+            $order->currency = 'BDT';
+            $order->status = 'Processing';
             $order->save();
-
             //Order detials
+            $order_id = Order::where('user_id',$user_id)->value('id');
+            // return response()->json(['message' => $order_id]);
+
             foreach($carts as $cartid => $cart){
                 $order_details = new OrderDetails();
-                $order_details->order_id = $order->id ?? null;
-                $order_details->product_id = $cartid ?? null;
+                $order_details->order_id = $order_id ?? '';
+                $order_details->product_id = $cart['product_id'] ?? '';
                 $order_details->product_sales_quantity = $cart['quantity'];
                 $order_details->save();
             }
 
-       
-           
+         session()->forget('cart');
+         return response()->json(['message' => 'Order Placed']);
         
         }catch(Exception $e){
             DB::rollBack();
             return back()->with("error", $this->getError($e))->withInput();
         }
 
-        session()->forget('cart');
-        return Redirect::route('user.dashboard', $request->user)->with("success", "Your order has been placed");
+        
+        // return back();
+        // Alert::suceess('Success','Order is been placed');
+        // return Redirect()->route('home');
+        // return Redirect::route('user.dashboard', $request->user)->with("success", "Your order has been placed");
 
     }
 

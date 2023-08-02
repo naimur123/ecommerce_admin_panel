@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,9 +80,8 @@ class LoginController extends Controller
 
     // After Login Dashboard
     public function dashboard(Request $request){
-        // $roles = $request->user()->getPermissionsViaRoles()->toArray();
-        // dd($roles);
-        // $name = $request->user()->name;
+
+        // dd(Order::whereDate('created_at',Carbon::today())->count());
         if($request->user() == null){
            echo "empty";
         }
@@ -88,6 +89,8 @@ class LoginController extends Controller
             $params =[
 
                 "user" => User::all()->count(),
+                "allOrders" => Order::all()->count(),
+                "todayOrders" => Order::whereDate('created_at',Carbon::today())->count()
             ];
             return view('admin.dashboard.home',$params);
 

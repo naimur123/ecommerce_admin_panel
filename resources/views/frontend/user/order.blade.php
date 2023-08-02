@@ -6,12 +6,12 @@
     </div> 
  @endif --}}
 <div class="row">
-    <div class="col-12 col-lg-12 mt-2 mb-2">
+    <div class="col-12 col-lg-12">
         <div class="card">
            <div class="card-body">
-            <form class="row form-horizontal">
+            <form class="row form-horizontal" enctype="multipart/form-data">
                 <input type="hidden" name="user" id="user_id" value="{{ $user }}">
-             @csrf
+                @csrf
                 <div class="col-md-6 mt-2">
                     <div class="row">
                         <div class="card">
@@ -32,7 +32,7 @@
                                             <span class="input-group-text">+880</span>
                                         </div>
                                         @if(empty($user->phone))
-                                            <input type="text"  class="form-control" id="phone" name="phone" placeholder="Mobile" value="{{ !empty($user->phone) ? $user->phone : "" }}" required>
+                                            <input type="text"  class="form-control" id="phone" name="phone" placeholder="Mobile" value="" required>
                                         @else
                                             <input type="text"  class="form-control" id="phone" name="phone" placeholder="Mobile" value="{{ $user->phone }}" readonly>
                                         @endif
@@ -94,6 +94,7 @@
             </form>
            </div>
         <div class="card-footer text-end border-none">
+            <button id="cashPayBtn" class="btn btn-primary" style="height: 40px; width:20%">Cash</button>
             <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
                         postdata=""
@@ -116,7 +117,7 @@
         crossorigin="anonymous"></script>
 
 
-<!-- If you want to use the popup integration, -->
+<!-- ssl commrez integration-->
 <script type="text/javascript">
     var obj = {};
     obj.user_id = $('#user_id').val();
@@ -127,10 +128,7 @@
     obj.shipping_cost = $('#shipping_cost').text();
     obj.total_amount = $('#total_amount').text();
 
-    console.log(obj)
     $('#sslczPayBtn').prop('postdata', obj);
-
-    // console.log(postdata)
 
     (function (window, document) {
         var loader = function () {
@@ -143,4 +141,29 @@
         window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
     })(window, document);
 </script>
+{{-- Cash Integration --}}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#cashPayBtn").click(function() {
+            var formData = $("form").serialize();
+            var subtotal = $("#sub_total_price").text();
+            var shippingCost = $("#shipping_cost").text();
+            var totalAmount = $("#total_amount").text();
+            formData += "&subtotal=" + subtotal + "&shipping_cost=" + shippingCost + "&total_amount=" + totalAmount;
+            console.log(formData);
+            $.ajax({
+                url: '{{ route('pay.cash.store') }}',
+                type: 'POST',
+                data: formData,
+                success: function(res) {
+                    console.log(res);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
 @endsection

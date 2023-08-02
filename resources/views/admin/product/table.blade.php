@@ -27,10 +27,6 @@
                                 @endforeach                                
                             </tr>
                         </thead>
-
-                        {{-- <tbody>
-                           
-                        </tbody> --}}
                     </table>
                 </div>
         </div>
@@ -51,17 +47,11 @@
                     { data: '{{ $column }}', name: '{{ $column }}' },
                 @endforeach
             ],
-            // "lengthMenu": [[100, 500, 1000, -1], [100, 500, 1000, "All"]],
             "language": {
                 "lengthMenu": "_MENU_"
             },
         });
     });
-    // setInterval(function () {
-    //       $('#table').DataTable().ajax.reload();
-    // }, 60000);
-
-
 </script>
 
 @endsection

@@ -263,9 +263,9 @@
                     else{
                         $('#subcat').prop('disabled', false);
                         $.each(res, function (key, value) {
-                        $('#subcat').append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
-                    });
+                            $('#subcat').append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
                     }
                     
                     

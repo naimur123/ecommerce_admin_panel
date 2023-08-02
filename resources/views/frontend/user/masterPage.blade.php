@@ -31,11 +31,11 @@
 </head>
 <body>
  <div class="container-fluid">
-    <nav class="navbar col-lg-12 col-12 fixed-top d-flex flex-row" style="background-color:#404E67">
+    <nav class="navbar col-lg-12 col-12 fixed-top" style="background-color: #d4d4d4; width: 80%; margin-left: 10%">
         <div class="navbar-brand-wrapper d-flex justify-content-center">
          <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a href="{{ route('home') }}" class="d-flex align-items-center px-4 pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-5 d-none d-sm-inline">{{ $system->title_name }}</span>
+          <a href="{{ route('home') }}" class="d-flex align-items-center px-4 pb-3 mb-md-0 me-md-auto text-decoration-none">
+            <span class="fs-5 d-none d-sm-inline" style="color: #404956;">{{ $system->title_name }}</span>
           </a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-sort-variant"></span>
@@ -43,16 +43,12 @@
          </div>  
         </div>
        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <a href="{{ route('user.logout') }}" class="text-white mx-4" style="text-decoration: none">Logout</a>
+        <a href="{{ route('user.logout') }}" class="mx-4" style="text-decoration: none; color: #404956;">Logout</a>
       </div>
       
     </nav>
     <div class="row flex-nowrap">
-        <div class="col-2">
-            
-        </div>
-        
-        <div class="col-10">
+        <div class="col-12" style="margin-top: 80px">
             @yield('contentHome')
         </div>
         

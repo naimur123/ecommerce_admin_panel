@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\PaymentType;
 use App\Models\ShippingAddress;
+use Carbon\Carbon;
 use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -71,7 +72,7 @@ class SslCommerzPaymentController extends Controller
                 'user_id' => $post_data['user_id'],
                 'phone' => $post_data['phone'],
                 'shipping_id' => 1,
-                'shipping_address_details' => 1,
+                'shipping_address_details' => $post_data['address'],
                 'payment_type_id' => $post_data['payment_type_id'],
                 'invoice_no' => $post_data['invoice_no'],
                 'sub_total_price' => $post_data['sub_total_price'],
@@ -80,6 +81,8 @@ class SslCommerzPaymentController extends Controller
                 'transaction_id' => $post_data['tran_id'],
                 'currency'       => $post_data['currency'],
                 'status' => 'Pending',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
             //Order detials
             $carts = session()->get('cart');
