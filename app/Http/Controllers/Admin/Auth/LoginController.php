@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\User;
+use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -89,6 +90,7 @@ class LoginController extends Controller
             $params =[
 
                 "user" => User::all()->count(),
+                "vendor" => Vendor::all()->count(),
                 "allOrders" => Order::all()->count(),
                 "todayOrders" => Order::whereDate('created_at',Carbon::today())->count()
             ];

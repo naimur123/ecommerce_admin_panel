@@ -157,6 +157,14 @@
                 data: formData,
                 success: function(res) {
                     console.log(res);
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Your order is been placed!',
+                        icon: 'success',
+                        onClose: function () {
+                            window.location.replace(res.url);
+                        }
+                    });
                 },
                 error: function(xhr, status, error) {
                     console.log(error);

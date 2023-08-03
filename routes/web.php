@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmailController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
@@ -46,10 +47,10 @@ Route::get('/admin/login',[AuthLoginController::class, 'showloginform']);
 Route::post('/admin/login',[AuthLoginController::class, 'login'])->name('admin.login');
 // Route::get('/admin/login',[AdminController::class, 'showloginform']);
 // Route::post('/admin/login',[AdminController::class, 'login'])->name('admin.login');
-Route::middleware(['admin'])->group(function(){
+// Route::middleware(['admin'])->group(function(){
 
 
-    Route::middleware(["auth:admin"])->group(function(){
+Route::middleware(["auth:admin"])->group(function(){
 
         Route::prefix('admin')->name('admin.')->group(function(){
 
@@ -247,13 +248,16 @@ Route::middleware(['admin'])->group(function(){
 
         });
 
-        
+        //Orders
+        Route::prefix('orders')->group(function(){
+            Route::get('',[OrderController::class,'index'])->name('order.list');
+        });
 
         Route::get('test',[EmailController::class,'test']);
 
         });
-   });
 });
+// });
 
 
 // Route::get('/home', [HomeController::class, 'index']);

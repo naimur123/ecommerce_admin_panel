@@ -94,8 +94,10 @@ class OrderController extends Controller
             }
 
          session()->forget('cart');
-         return response()->json(['message' => 'Order Placed']);
-        
+         $params = [
+            "url" => route('home')
+         ];
+        return response()->json($params);
         }catch(Exception $e){
             DB::rollBack();
             return back()->with("error", $this->getError($e))->withInput();

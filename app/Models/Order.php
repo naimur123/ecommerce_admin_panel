@@ -10,4 +10,10 @@ class Order extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    public function orderDetails(){
+       return $this->hasMany(OrderDetails::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

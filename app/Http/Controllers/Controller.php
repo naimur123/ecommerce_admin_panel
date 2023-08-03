@@ -17,4 +17,5 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     use CurrencySymbol, Helper, Message, Upload, ActivityLog;
+    protected $index;
 }

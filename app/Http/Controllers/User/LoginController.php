@@ -156,7 +156,14 @@ class LoginController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
 
-            return redirect()->route('user.login')->with('success',"Account created successfully.Please login");
+            if(session()->has('checkout')){
+                return Redirect()->route('cart.checkout');
+            }
+            else{
+                return Redirect::route('user.dashboard', $user->id);
+            }
+
+            // return redirect()->route('user.login')->with('success',"Account created successfully.Please login");
 
         }catch(Exception $e){
             return back()->with("error", $this->getError($e))->withInput();

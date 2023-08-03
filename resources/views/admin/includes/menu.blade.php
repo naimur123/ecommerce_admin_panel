@@ -29,7 +29,7 @@
            </div>
    
            <div class="row flex-nowrap">
-               <div class="col-2" style="background-color:#404E67; margin-top: 55px;" id="navbarGeneral">
+               <div class="col-2" style="background-color:#404E67; margin-top: 52px;" id="navbarGeneral">
                    {{-- <button class="navbar-toggler" > --}}
                    {{-- </button> --}}
                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -61,7 +61,7 @@
                                     <i class="fa-solid fa-check"></i></i><span id="menuSpan">Orders</span></a>
                                   <ul class="collapse nav flex-column " id="submenu2" data-bs-parent="#menu">
                                       <li class="w-100">
-                                          <a href="#" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Order List</a>
+                                          <a href="{{ route('admin.order.list') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Order List</a>
                                       </li>
                                       <li>
                                           <a href="#" class="nav-link px-2 text-white"><i class="fa-solid fa-bell"></i> Pending Orders</a>

@@ -36,8 +36,14 @@ class Product extends Model
     public function status(){
         return $this->belongsTo(GenericStatus::class,'status_id');
     }
+    public function orderProduct(){
+        return $this->hasMany(OrderDetails::class);
+    }
+    public function vendor(){
+        return $this->belongsTo(Vendor::class,'vendor_id');
+    }
 
-    // protected $fillable = [
-    //     'name', 'quantity'
-    // ];
+    protected $fillable = [
+        'name', 'quantity'
+    ];
 }
