@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ShippingAddress;
@@ -25,13 +26,14 @@ class HomeController extends Controller
         // $category_id = SubCategory::where('status_id', 1)->pluck('category_id')->toArray();
 
         // $category = Category::whereNotIn('id', $category_id)->take(3)->get();
-        $category = Category::where('status_id', 1)->get();
+        // $category = Category::where('status_id', 1)->get();
 
         // dd($category);
 
         $params = [
             // "categories" => Category::where('status_id',1)->get(),
-            "categories" => $category,
+            "brands"     => Brand::where('status_id', 1)->get(),
+            "categories" => Category::where('status_id', 1)->get(),
             "products" => Product::where('status_id',1)->paginate(12),
             "subcategories" => SubCategory::where('status_id',1)->take(5)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
@@ -133,6 +135,28 @@ class HomeController extends Controller
             return view('frontend.productDetails.details', $params);
         
        
+    }
+
+    // nameWise product show
+    public function nameWiseShow(Request $request){
+        // dd($request->name);
+        if($request->name && $request->name =='category'){
+            $title = Category::where('id',$request->id)->value('name');
+            $product = Product::where('category_id',$request->id)->get();
+        }
+        else if($request->name && $request->name =='subcategory'){
+            $title = SubCategory::where('id',$request->id)->value('name');
+            $product = Product::where('subcategory_id',$request->id)->get();
+        }
+        else{
+            $title = Brand::where('id',$request->id)->value('name');
+            $product = Product::where('brand_id',$request->id)->get();
+        }
+        $params =[
+            "title"    => $title,
+            "products" => $product
+        ];
+        return view('frontend.home.nameWiseProduct', $params);
     }
 
 }

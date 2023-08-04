@@ -17,9 +17,34 @@ var swiper = new Swiper(".mySwiper", {
             slidesPerView: 2,
         },
     },
+    speed: 800,
    
 });
+// end
+// home brands
+var swiper = new Swiper(".mySwiperBrand", {
+    slidesPerView: 8,
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    autoplay: {
+        delay: 5000,
+    },
+    breakpoints: {
+        991: {
+            slidesPerView: 8,
+        },
+        767: {
+            slidesPerView: 4,
+        },
+    },
+   
+});
+// end
 
+// slider
 var swiperSlider = new Swiper(".mySwiperSlider", {
     slidesPerView: 1,
     spaceBetween: 30,
@@ -55,3 +80,4 @@ var swiper = new Swiper(".productDetailsImg", {
     }
 });
 // end
+

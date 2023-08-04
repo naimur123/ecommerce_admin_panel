@@ -35,7 +35,7 @@
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row py-2 px-xl-5" style="background-color: #d4d4d4">
+        <div class="row py-2" style="background-color: #d4d4d4;">
             <div class="col-lg-2 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
                     <a href="{{ route('home') }}" class="text-decoration-none">

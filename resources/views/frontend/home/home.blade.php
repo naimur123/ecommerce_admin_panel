@@ -1,27 +1,26 @@
 @extends('frontend.masterPage')
 @section('all')
-<style>
-  
-
-    
-   
-</style>
-
 <div class="row">
     <!-- Navbar Start Category+Sub-->
     <div class="col-lg-12" style="background-color: #404956;">
             <ul class="nav justify-content-center">
                 @foreach ($categories as $category)
                 <li class="nav-item category-item">
-                  <a href="#" class="nav-link category-name" data-category-id="{{ $category->id }}">{{ $category->name }}</a>
-                  @if (count($category->subcategories) > 0)
-                  <div class="subcategory-card">
-                    <ul class="subcategory-details">
-                      @foreach ($category->subcategories as $subcategory)
-                      <li>{{ $subcategory->name }}</li>
-                      @endforeach
-                    </ul>
-                  </div>
+                  @if (count($category->subcategories) < 0)
+                    <a href="{{ route('nameWise.product.show',["name" =>"category","id"=> $category->id]) }}" class="nav-link category-name" data-category-id="{{ $category->id }}">
+                        {{ $category->name }}
+                    </a>
+                  @else
+                    <a href="#" class="nav-link category-name" data-category-id="{{ $category->id }}">{{ $category->name }}</a>
+                    <div class="subcategory-card">
+                        <ul class="subcategory-details">
+                        @foreach ($category->subcategories as $subcategory)
+                        <a href="{{ route('nameWise.product.show',["name" =>"subcategory","id"=> $subcategory->id]) }}" class="text-decoration-none">
+                            <li>{{ $subcategory->name }}</li>
+                        </a>
+                        @endforeach
+                        </ul>
+                    </div>
                   @endif
                 </li>
                 @endforeach
@@ -31,7 +30,7 @@
 {{-- slider --}}
 <div class="row">
     <div class="swiper mySwiperSlider">
-        <div class="swiper-wrapper col-md-12 my-3 text-center">
+        <div class="swiper-wrapper col-md-12 text-center">
             @foreach ($sliders as $slider)
             <div class="swiper-slide">
                 <img src="{{ asset('storage/'.$slider->image)}}" class="d-block w-100" alt="..." style="height: 400px">
@@ -47,7 +46,9 @@
 <!-- Trandy product Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+        <h2 class="section-title px-5" id="headText">
+            <span class="px-2">Trandy Products</span>
+        </h2>
     </div>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -88,7 +89,7 @@
 
 <!--Latest Products Start -->
 <div class="container-fluid pt-5">
-    <div class="text-center mb-4">
+    <div class="text-center mb-4" id="headText">
         <h2 class="section-title px-5"><span class="px-2">Newly Arrived</span></h2>
     </div>
     <div class="swiper mySwiper">
@@ -126,11 +127,28 @@
 </div>
 {{-- end --}}
 
+<!-- Brands start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4" id="headText">
+        <h2 class="section-title px-5"><span class="px-2">Popular Brands</span></h2>
+    </div>
+    <div class="swiper mySwiperBrand">
+        <div class="swiper-wrapper">
+            @foreach ($brands as $brand)
+            <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
+                <div class="card border-2 mb-4">
+                    <div class="card-header bg-transparent border-none p-0">
+                       <a href="{{ route('nameWise.product.show',["name" =>"brand","id"=> $brand->id]) }}"><img class="img-fluid w-100" src="{{ asset('storage/'.$brand->image) }}" alt="" style="height: 50px;"></a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        <div class="swiper-pagination" style="display: none"></div>
+    </div>
+</div>
 
-{{-- swipperjs --}}
-{{-- <script type="text/javascript">
-  
-</script> --}}
+<!-- END -->
 
 
 <!-- Products End -->

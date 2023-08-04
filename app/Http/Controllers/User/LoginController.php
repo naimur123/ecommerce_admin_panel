@@ -174,20 +174,7 @@ class LoginController extends Controller
     public function verifyNotification(Request $request, $id){
         
             $user = User::find($id);
-            
-            // $id = $user->id;
-            // Mail::to($user->email)->send(new EmailVerifiy($user));
-
-            // $details = array();
-
-            // $details['greeting'] = "Hello";
-            // $details['body'] = "Please verify your email";
-            // // $details['actionurl'] = "Check";
-            // $details['endtext'] = "Thanks";
-            // $template = EmailTemplate::where("type","smptp")->get();
-            // if($template){
-                $user->notify(new EmailVerifys($user));
-            // }
+            $user->notify(new EmailVerifys($user));
             return back()->with("verified","Verification email sent successfully. Please check your email.");
           
        

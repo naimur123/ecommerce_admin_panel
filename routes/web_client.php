@@ -45,6 +45,13 @@ Route::get('/product/details/{id}',[HomeController::class,'productDetails'])->na
 // Route::get('/pay/cash',[OrderController::class,'orderplaceview'])->name('pay.cash');
 Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.store');
 
+//category or subcategory or barnd wise product show
+Route::get('/{name}/list/{id}',[HomeController::class,'nameWiseShow'])->name('nameWise.product.show');
+
+
+
+
+
 //ssl commerz
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 Route::post('/success', [SslCommerzPaymentController::class, 'successes']);
