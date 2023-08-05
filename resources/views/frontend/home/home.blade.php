@@ -54,7 +54,7 @@
         <div class="swiper-wrapper">
             @foreach ($products as $product)
             <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
-                <div class="card border-2 mb-4">
+                <div class="card border-1 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                         <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px;">
                     </div>
@@ -71,7 +71,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="card-footer bg-light border">
+                    <div class="card-footer bg-light border-none">
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i><strong>View Detail</strong></a>
                         <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i><strong>Add To Cart</strong></a>
                     </div>
@@ -96,7 +96,7 @@
         <div class="swiper-wrapper">
             @foreach ($latest_products as $product)
             <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
-                <div class="card border-2 mb-4">
+                <div class="card border-1 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                         <img class="img-fluid w-100" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 200px;">
                     </div>
@@ -113,7 +113,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="card-footer bg-light border">
+                    <div class="card-footer bg-light border-none">
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i><strong>View Detail</strong></a>
                         <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i><strong>Add To Cart</strong></a>
                     </div>
@@ -136,9 +136,9 @@
         <div class="swiper-wrapper">
             @foreach ($brands as $brand)
             <div class="swiper-slide col-lg-3 col-md-6 col-sm-6" id="productSwipper">             
-                <div class="card border-2 mb-4">
+                <div class="card border-1 mb-4">
                     <div class="card-header bg-transparent border-none p-0">
-                       <a href="{{ route('nameWise.product.show',["name" =>"brand","id"=> $brand->id]) }}"><img class="img-fluid w-100" src="{{ asset('storage/'.$brand->image) }}" alt="" style="height: 50px;"></a>
+                       <a href="{{ route('nameWise.product.show',["name" =>"brand","id"=> $brand->id]) }}"><img class="img-fluid w-100" src="{{ asset('storage/'.$brand->image) }}" alt="" style="height: 40px;"></a>
                     </div>
                 </div>
             </div>

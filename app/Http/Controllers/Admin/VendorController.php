@@ -155,10 +155,9 @@ class VendorController extends Controller
             $role = $vendor->assignRole($request->name);
 
             $permissions = $request->input('permissions');
+            // dd($permissions);
             if (!empty($permissions)) {
-                foreach($permissions as $permission){
-                    $vendor->syncPermissions($permission);
-                }
+                $role->syncPermissions($permissions);
             }
             else{
                 return back()->with('error',"At least one permission needed");

@@ -10,12 +10,15 @@ var swiper = new Swiper(".mySwiper", {
         delay: 5000,
     },
     breakpoints: {
-        991: {
+        800: {
             slidesPerView: 4,
         },
-        767: {
+        700: {
             slidesPerView: 2,
         },
+        650:{
+            slidesPerView: 1,
+        }
     },
     speed: 800,
    
@@ -80,4 +83,6 @@ var swiper = new Swiper(".productDetailsImg", {
     }
 });
 // end
+
+
 

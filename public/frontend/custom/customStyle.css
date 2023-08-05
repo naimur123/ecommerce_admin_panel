@@ -1,5 +1,5 @@
 /* navbar right side */
-.login-cart-container {
+.login-cart {
     display: flex;
     align-items: center;
 }
@@ -92,4 +92,20 @@
 }
 #headText:hover span{
   color: #06333f;
+}
+
+
+@media only screen and (max-width: 480px){
+  #titleBlock{
+    margin-left: 100px;
+  }
+  .login-cart{
+    margin-top: 5px;
+    margin-left: 90px;
+  }
+  /* #searchInput {
+    margin-left: 20px;
+    max-width: 80%; */
+    
+  /* } */
 }

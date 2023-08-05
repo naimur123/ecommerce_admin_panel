@@ -45,9 +45,7 @@ use Illuminate\Support\Facades\Artisan;
 // Route::get('/admin/login',[HomeController::class, 'showloginform'])->name('admin.login');
 Route::get('/admin/login',[AuthLoginController::class, 'showloginform']);
 Route::post('/admin/login',[AuthLoginController::class, 'login'])->name('admin.login');
-// Route::get('/admin/login',[AdminController::class, 'showloginform']);
-// Route::post('/admin/login',[AdminController::class, 'login'])->name('admin.login');
-// Route::middleware(['admin'])->group(function(){
+
 
 
 Route::middleware(["auth:admin"])->group(function(){
@@ -184,12 +182,7 @@ Route::middleware(["auth:admin"])->group(function(){
             Route::get('',[CouponController::class, 'index'])->name('coupon');
             Route::get('/create',[CouponController::class, 'create'])->name('coupon.create');
             Route::post('/create',[CouponController::class, 'store'])->name('coupon.store');
-            // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
-            // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
-            // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
-            // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
-            // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
-            // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+           
         });
 
         // Slider 
@@ -201,23 +194,14 @@ Route::middleware(["auth:admin"])->group(function(){
             Route::get('/update/{id}',[SliderController::class, 'edit'])->name('slider.edit');
             Route::post('/update',[SliderController::class, 'store'])->name('slider.store');
             Route::get('/delete/{id}',[SliderController::class, 'delete'])->name('slider.delete');
-            // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
-            // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
-            // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+          
         });
 
         // Email 
         Route::prefix('email')->group(function(){
-
-            // Route::get('',[SliderController::class, 'index'])->name('slider');
             Route::get('/create',[EmailController::class, 'create'])->name('emailtemplate.create');
             Route::post('/create',[EmailController::class, 'store'])->name('emailtemplate.store');
-            // Route::get('/update/{id}',[ProductController::class, 'edit'])->name('products.edit');
-            // Route::post('/update',[ProductController::class, 'store'])->name('products.store');
-            // Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');
-            // Route::get('/deletedList',[ProductController::class, 'archive'])->name('products.archive');
-            // Route::get('/restore/{id}',[ProductController::class, 'restore'])->name('products.restore');
-            // Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
+
         });
 
         // Activity Log
@@ -265,5 +249,6 @@ Route::get('test',[EmailController::class,'test']);
 
 
 // Client Side Routes
-require('web_client.php');
+// require('web_client.php');
+// require('web_vendor.php');
 

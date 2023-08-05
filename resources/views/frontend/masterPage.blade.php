@@ -36,27 +36,29 @@
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row py-2" style="background-color: #d4d4d4;">
-            <div class="col-lg-2 d-none d-lg-block">
+            <div class="col-lg-3 d-lg-block" id="titleBlock">
                 <div class="d-inline-flex align-items-center">
                     <a href="{{ route('home') }}" class="text-decoration-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold" style="color: #f16a4f">{{ $system->title_name }}</h1>
+                        <h1 class="m-0 font-weight-semi-bold" style="color: #f16a4f">{{ $system->title_name }}</h1>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-8 text-center">
+            <div class="col-lg-6 text-center">
                 <div class="d-flex justify-content-center">
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control border-none shadow-none" placeholder="Search for products">
-                            <span class="input-group-text " style="background-color: #f16a4f">
-                                <i class="fa-brands fa-searchengin text-white" style="font-size: 20px"></i>
-                            </span>
+                            <input type="text" id="searchInput" class="form-control border-none shadow-none" placeholder="Search for products">
+                            <button type="submit" class="input-group-text" style="background-color: #f16a4f; border: none;">
+                                <i class="fa-brands fa-searchengin text-white" style="font-size: 20px;"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="login-cart-container">
+            
+            
+            <div class="col-lg-3">
+                <div class="login-cart">
                     <div class="login-signup">
                         <a href="{{ route('cart') }}" class="text-decoration-none" style="color: #404956">
                             <i class="fa-solid fa-cart-plus"></i>Cart({{ count((array) session('cart')) }})
@@ -114,8 +116,6 @@
 
 
     <!-- JavaScript Libraries -->
-    {{-- <script src="{{ asset('frontend/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('frontend/lib/easing/easing.js') }}"></script> --}}
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
@@ -128,6 +128,25 @@
     <script src="{{ asset('frontend/custom/customJs.js') }}"></script>
     
     @include('sweetalert::alert')
+    <script>
+        //input search text
+        $(document).ready(function(){
+            $("#searchInput").on("input", function(){
+                var text = $("#searchInput").val();
+                console.log(text);
+                $.ajax({
+                    url: '{{ route('search.product')}}?text='+text,
+                    type: 'get',
+                    success: function (res) {
+                        console.log(res)
+                    }
+                });
+            })
+            
+        })
+
+       // end
+    </script>
    
 </body>
 

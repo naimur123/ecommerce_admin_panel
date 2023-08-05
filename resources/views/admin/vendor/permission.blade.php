@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <h2 class="card-title">{{$groupname}}</h2>
                     @foreach ($accesses as $permission)
-                        <input type="checkbox" class="form-check-input" name="permissions[]" id="{{ $permission->id }}" value="{{ $permission->id }}">
+                        <input type="checkbox" class="form-check-input" name="permissions[]" id="{{ $permission->id }}" value="{{ $permission->id }}" @if($vendor->can($permission->name)) checked @endif>
                         <label class="form-check-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
                         <br>
                     @endforeach

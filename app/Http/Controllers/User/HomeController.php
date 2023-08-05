@@ -159,4 +159,11 @@ class HomeController extends Controller
         return view('frontend.home.nameWiseProduct', $params);
     }
 
+    // Product search
+    public function searchProduct(Request $request){
+        // return response()->json(['message' => $request->text]);
+        $product = Product::where('name','LIKE','%'.$request->text.'%')->get();
+        return response()->json(['message' => $product]);
+    }
+
 }

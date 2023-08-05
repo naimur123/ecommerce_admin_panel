@@ -48,7 +48,8 @@ Route::post('/pay/cash',[OrderController::class,'cashstore'])->name('pay.cash.st
 //category or subcategory or barnd wise product show
 Route::get('/{name}/list/{id}',[HomeController::class,'nameWiseShow'])->name('nameWise.product.show');
 
-
+//search product
+Route::get('/search/product',[HomeController::class,'searchProduct'])->name('search.product');
 
 
 
