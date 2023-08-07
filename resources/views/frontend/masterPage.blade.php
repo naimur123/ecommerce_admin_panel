@@ -22,6 +22,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
    
+
     {{-- swipperjs --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -45,15 +46,14 @@
             </div>
             <div class="col-lg-6 text-center">
                 <div class="d-flex justify-content-center">
-                    <form action="">
-                        <div class="input-group">
-                            <input type="text" id="searchInput" class="form-control border-none shadow-none" placeholder="Search for products">
-                            <button type="submit" class="input-group-text" style="background-color: #f16a4f; border: none;">
-                                <i class="fa-brands fa-searchengin text-white" style="font-size: 20px;"></i>
-                            </button>
-                        </div>
-                    </form>
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control border-none shadow-none" placeholder="Search for products">
+                        <button type="submit" class="input-group-text" style="background-color: #f16a4f; border: none;">
+                            <i class="fa-brands fa-searchengin text-white" style="font-size: 20px;"></i>
+                        </button>
+                    </div>
                 </div>
+                <div id="searchproductList"></div>
             </div>
             
             
@@ -133,14 +133,28 @@
         $(document).ready(function(){
             $("#searchInput").on("input", function(){
                 var text = $("#searchInput").val();
-                console.log(text);
+                console.log(text.length);
                 $.ajax({
-                    url: '{{ route('search.product')}}?text='+text,
-                    type: 'get',
-                    success: function (res) {
-                        console.log(res)
-                    }
+                url: '{{ route('search.product')}}?text='+text,
+                type: 'get',
+                success: function (res) {
+                    console.log(res)
+                    var productList = "";
+                        $.each(res, function(index, product){
+                            productList += '<a href="" class="list-group-item list-group-item-action">'+product.name+'</a>';
+                        });
+                        // $("#searchproductList").html('<div class="card search-results"><div class="card-body"><div class="list-group">'+productList+'</div></div></div>');
+
+                        if (text.length > 0) {
+                            $("#searchproductList").html('<div class="card search-results"><div class="card-body"><div class="list-group">'+productList+'</div></div></div>');
+                        } 
+                        else {
+                            $("#searchproductList").html("");
+                        }
+                }
                 });
+                
+                
             })
             
         })

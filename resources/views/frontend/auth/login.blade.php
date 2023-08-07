@@ -1,14 +1,14 @@
 @extends('frontend.masterPage')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ">
         <div class="col-md-8">
             @if(session('error'))
                 <div class="alert alert-danger">
                   {{ session('error') }}
                 </div> 
             @endif
-            <div class="card">
+            <div class="card mt-2 mb-2">
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -53,19 +53,19 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-3 text-center">
+                                <button type="submit" class="btn btn-outline-success">
                                     Login
                                 </button>
                             </div>
                         </div>
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <p>Don't have an account? simply register</p>
-                                <a href="{{ route('user.register') }}" class="btn btn-danger btn-lg remove-from-cart" rule="button">Register</a>
+                        <div class="row mt-2">
+                            <div class="col-md-8 offset-md-3 text-center">
+                                <p><strong>Don't have an account? simply register</strong></p>
+                                <a href="{{ route('user.register') }}" class="btn btn-outline-danger" rule="button">Register</a>
                             </div>
                         </div>
                     </form>

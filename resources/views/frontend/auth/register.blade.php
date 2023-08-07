@@ -11,7 +11,7 @@
                 </div> 
            
             @endif
-            <div class="card">
+            <div class="card mt-2 mb-2">
                 <div class="card-header">Register</div>
 
                 <div class="card-body">
@@ -60,19 +60,24 @@
                             </div>
                         </div>
 
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-3 text-center">
+                                <button type="submit" class="btn btn-outline-primary">
                                     Register
                                 </button>
                             </div>
                         </div>
-                        &nbsp;
-                        <p class="row align-items-center justify-content-center">Or,Signup with</p>
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-md-6 offset-md-4">
-                                <a href="{{ route('register.google') }}" class="btn btn-danger btn-lg remove-from-cart" rule="button"><ion-icon name="logo-google"></ion-icon>oogle</a>
+                        <div class="row mt-2">
+                            <div class="col-md-8 offset-md-3 text-center">
+                                <p><strong>Or,Signup with</strong></p>
+                                <a class="btn btn-outline-primary" href="{{ route('register.google') }}" rule="button">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="25" /><span
+                                      style="margin-left: 10px;"
+                                      >Sign up with google</span
+                                    >
+                                  </a>
                             </div>
+                            
                         </div>
 
                     </form>

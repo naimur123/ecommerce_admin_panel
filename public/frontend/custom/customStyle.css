@@ -103,9 +103,15 @@
     margin-top: 5px;
     margin-left: 90px;
   }
-  /* #searchInput {
-    margin-left: 20px;
-    max-width: 80%; */
-    
-  /* } */
+  /* .search-results {
+    width:100%;
+  } */
+}
+
+.search-results {
+  position: absolute;
+  z-index: 999;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
 }
