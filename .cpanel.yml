@@ -1,0 +1,5 @@
+deployment:
+task:
+ - export DEPLOYPATH=/home/naimurra/kenakatabd.naimurrahman.xyz
+ - /bin/cp index.html $DEPLOYPATH
+ - /bin/cp style.css $DEPLOYPATH
