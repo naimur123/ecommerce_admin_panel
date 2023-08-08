@@ -35,8 +35,9 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid">
-        <div class="row py-2" style="background-color: #d4d4d4;">
+<div class="container-fluid" id="page">
+    {{-- <div class="container-fluid"> --}}
+        <div class="row display-8 py-2" style="background-color: #d4d4d4;">
             <div class="col-lg-3 d-lg-block" id="titleBlock">
                 <div class="d-inline-flex align-items-center">
                     <a href="{{ route('home') }}" class="text-decoration-none">
@@ -57,7 +58,7 @@
             </div>
             
             
-            <div class="col-lg-3">
+            <div class="col-lg-3 mt-2">
                 <div class="login-cart">
                     <div class="login-signup">
                         <a href="{{ route('cart') }}" class="text-decoration-none" style="color: #404956">
@@ -78,37 +79,39 @@
                     
                 </div>
             </div>
-        </div>
-        <div class="container">
+        {{-- </div> --}}
+        {{-- <div class="row mb-2">
             @yield('content')
-        </div>
+        </div> --}}
     </div>
+
     <!-- Topbar End -->
 
-    <div class="container-fluid">
+    <div class="row">
         @yield('all')
     </div>
 
 
     <!-- Footer Start -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card text-white" id="footerCard" style="background-color: #404956">
-                    <div class="card-body text-center">
-                        <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                        <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-                    </div>
-                    <div class="card-footer text-end">
-                        <a href="#" class="btn back-to-top shadow-none pull-right" style="color: #f16a4f;"><i class="fa fa-angle-double-up"></i></a>
-                    </div>
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card text-white" id="footerCard" style="background-color: #404956">
+                <div class="card-body text-center">
+                    <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                    <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
                 </div>
-                   
+                <div class="card-footer text-end">
+                    <a href="#" class="btn back-to-top shadow-none pull-right" style="color: #f16a4f;"><i class="fa fa-angle-double-up"></i></a>
+                </div>
             </div>
+                
+        </div>
         
         
     </div>
+</div>
     <!-- Footer End -->
 
 

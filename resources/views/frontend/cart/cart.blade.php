@@ -1,11 +1,11 @@
 @extends('frontend.masterPage')
-@section('content')
-<div class="row">
-    <div class="col-12">
+@section('all')
+{{-- <div class="row"> --}}
+    <div class="col-12 col-md-12 col-lg-12 mx-2">
         <div class="card mt-2 mb-2">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="cart" class="table table-hover">
+                    <table id="cart" class="table table-responsive">
                         <thead>
                             <tr>
                                 <th style="width:50%">Product</th>
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-</div>
+{{-- </div> --}}
 
 <script type="text/javascript">
 

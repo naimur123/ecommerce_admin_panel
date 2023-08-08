@@ -1,6 +1,6 @@
 @extends('frontend.masterPage')
-@section('content')
-<div class="row">
+@section('all')
+
     {{-- slider details part --}}
     <div class="col-4 my-3 productDetailsImg">
         <div class="swiper-wrapper">
@@ -21,7 +21,7 @@
         </div>
 
         <!-- Add to cart button here -->
-        <div style="margin-left: 55px;">
+        <div style="margin-left: 55px;" id="detailsCart">
             <a href="{{ route('addtocart', $product_id) }}" class="btn btn-outline-primary" style="width: 250px" role="button">
                 <i class="fas fa-shopping-cart"></i>Add to cart
             </a>
@@ -29,7 +29,7 @@
     </div>
 
     {{-- Details part --}}
-    <div class="col-8 my-3">
+    <div class="col-8 my-3" id="productDetailsCard">
         <div class="card">
             @foreach ($products as $product)
                 <div class="card-header">
@@ -68,12 +68,7 @@
         </div>
     </div>
     
-</div>
 
 
-<script type="text/javascript">
-    
-   
-</script>
 
 @endsection

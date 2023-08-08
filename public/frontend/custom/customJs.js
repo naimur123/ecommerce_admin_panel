@@ -1,11 +1,6 @@
 // home cards
 var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 4,
     spaceBetween: 30,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
     autoplay: {
         delay: 5000,
     },
@@ -26,7 +21,6 @@ var swiper = new Swiper(".mySwiper", {
 // end
 // home brands
 var swiper = new Swiper(".mySwiperBrand", {
-    slidesPerView: 8,
     spaceBetween: 10,
     pagination: {
         el: ".swiper-pagination",
@@ -36,13 +30,17 @@ var swiper = new Swiper(".mySwiperBrand", {
         delay: 5000,
     },
     breakpoints: {
-        991: {
+        800: {
             slidesPerView: 8,
         },
-        767: {
-            slidesPerView: 4,
+        700: {
+            slidesPerView: 6,
         },
+        650:{
+            slidesPerView: 4,
+        }
     },
+    speed: 800,
    
 });
 // end
@@ -61,23 +59,17 @@ var swiperSlider = new Swiper(".mySwiperSlider", {
 
 // product details
 var swiper = new Swiper(".productDetailsImg", {
-    // effect: "coverflow",
-    // grabCursor: true,
-    // centeredSlides: true,
-    // slidesPerView: "auto",
-    // coverflowEffect: {
-    //     rotate: 40,
-    //     stretch: 0,
-    //     depth: 100,
-    //     modifier: 1,
-    //     slideShadows: false,
-    // },
-    // autoplay:{
-    //     delay: 3000,
-    // }
-    effect: "cards",
+    effect: "creative",
     rewind: true,
     grabCursor: true,
+    creativeEffect: {
+        prev: {
+          translate: [0, 0, -400],
+        },
+        next: {
+          translate: ["100%", 0, 0],
+        },
+      },
     autoplay:{
         delay: 3000,
     }
