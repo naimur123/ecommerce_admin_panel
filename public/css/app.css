@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -152,6 +152,68 @@ p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+
+/* Sidebar */
+#sidebar {
+  width: 220px;
+  background-color: #404E67;
+  color: #fff;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 10px;
+  height: 150vh;
+  margin-top: 52px;
+}
+
+#sidebar.active {
+  left: -220px;
+}
+  @media (max-width: 991.98px) {
+    #sidebar {
+      margin-left: -250px; 
+      z-index: 999;
+      width: 50%;
+    }
+    
+    #sidebar.active {
+      left: 0;
+      margin-left: 0;
+    }
+
+    #sidebar .custom-menu {
+        margin-right: -50px !important;
+        top: 10px !important; 
+    } 
+
+    #mainContent {
+      margin-top: 52px;
+      width: 100%; /* Full width */
+      transition: all 0.3s;
+    }
+
+  }
+ 
+  #sidebar .custom-menu {
+    display: inline-block;
+    top: 20px;
+    right: 0;
+    margin-right: -20px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; 
+  }
+  .custom-menu button {
+    color: white;
+    margin-left: 100px;
+}
+
+#mainContent.expanded {
+  margin-left: 0; 
+  width: 100%; 
+}
+
 
 abbr[title],
 abbr[data-bs-original-title] {
@@ -3862,12 +3924,12 @@ textarea.form-control-lg {
 
 .navbar-toggler-icon {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1em;
+  height: 1em;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: 50%;
 }
 
 .navbar-nav-scroll {

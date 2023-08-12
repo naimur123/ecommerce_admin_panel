@@ -47,11 +47,13 @@
             </div>
             <div class="col-lg-6 text-center">
                 <div class="d-flex justify-content-center">
-                    <div class="input-group">
-                        <input type="text" id="searchInput" class="form-control border-none shadow-none" placeholder="Search for products">
-                        <button type="submit" class="input-group-text" style="background-color: #f16a4f; border: none;">
-                            <i class="fa-brands fa-searchengin text-white" style="font-size: 20px;"></i>
-                        </button>
+                    <div class="form-outline w-75">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control border-none shadow-none" placeholder="Search for products">
+                            <button type="submit" class="input-group-text" style="background-color: #f16a4f; border: none;">
+                                <i class="fa-brands fa-searchengin text-white" style="font-size: 20px;"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div id="searchproductList"></div>

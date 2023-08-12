@@ -13,7 +13,7 @@
 </div>
 <br>
 <div class="table-responsive text-nowrap">
-<table class="table table-striped table-bordered table-lg table-hover">
+<table class="table table-bordered table-lg">
     <thead class="table text-white" style="background-color: #0ac282">
       <tr class="text-center">
         <th scope="col">#</th>

@@ -247,6 +247,10 @@ Route::middleware(["auth:admin"])->group(function(){
 // Route::get('/home', [HomeController::class, 'index']);
 Route::get('test',[EmailController::class,'test']);
 
+Route::get('checkPage',function(){
+    return view('admin.checkMenu');
+});
+
 
 // Client Side Routes
 // require('web_client.php');

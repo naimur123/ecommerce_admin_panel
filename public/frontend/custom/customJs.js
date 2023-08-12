@@ -1,15 +1,15 @@
 // home cards
 var swiper = new Swiper(".mySwiper", {
-    spaceBetween: 30,
+    spaceBetween: 10,
     autoplay: {
         delay: 5000,
     },
     breakpoints: {
         800: {
-            slidesPerView: 4,
+            slidesPerView: 5,
         },
         700: {
-            slidesPerView: 2,
+            slidesPerView: 3,
         },
         650:{
             slidesPerView: 1,

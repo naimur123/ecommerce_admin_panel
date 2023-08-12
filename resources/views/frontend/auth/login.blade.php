@@ -1,5 +1,5 @@
 @extends('frontend.masterPage')
-@section('content')
+@section('all')
 <div class="container">
     <div class="row justify-content-center ">
         <div class="col-md-8">
@@ -8,8 +8,8 @@
                   {{ session('error') }}
                 </div> 
             @endif
-            <div class="card mt-2 mb-2">
-                <div class="card-header">Login</div>
+            <div class="card mt-2 mb-2 text-center">
+                <div class="card-header"><strong>User Login</strong></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.login')}}">
