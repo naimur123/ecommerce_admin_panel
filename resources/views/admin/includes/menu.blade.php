@@ -3,7 +3,7 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#404E67">
                 <!-- Navbar brand and toggle button -->
-                <a class="navbar-brand text-white" href="{{ route('admin.home') }}">{{ $system->title_name }}</a>
+                <a class="navbar-brand text-white" href="{{ route('admin.home') }}" style="margin-left:15px">{{ $system->title_name }}</a>
                 <div class="custom-menu">
                     <button type="button" id="sidebarCollapse" class="btn btn-sm shadow-none">
                         <ion-icon name="reorder-four-outline"></ion-icon>

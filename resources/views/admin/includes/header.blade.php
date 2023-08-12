@@ -9,6 +9,7 @@
 
     <!-- BootStrap Path -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
@@ -25,8 +26,6 @@
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     
-    {{-- tailwind --}}
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     {{-- Custom Css --}}
     <link rel="stylesheet" href="{{ asset('custom/app.css') }}">
     
