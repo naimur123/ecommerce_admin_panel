@@ -29,6 +29,6 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     {{-- Custom Css --}}
     <link rel="stylesheet" href="{{ asset('custom/app.css') }}">
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    
     
 </head>
