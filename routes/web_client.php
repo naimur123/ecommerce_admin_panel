@@ -6,6 +6,8 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\OrderController;
+use Spatie\Analytics\AnalyticsFacade as Analytics;
+use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -59,3 +61,10 @@ Route::post('/success', [SslCommerzPaymentController::class, 'successes']);
 Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
+
+//
+Route::get('/data',function(){
+    $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
+    dd($analyticsData);
+});

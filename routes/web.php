@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OthersController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
@@ -237,7 +238,13 @@ Route::middleware(["auth:admin"])->group(function(){
             Route::get('',[OrderController::class,'index'])->name('order.list');
         });
 
-        Route::get('test',[EmailController::class,'test']);
+        //Others
+        Route::prefix('others')->group(function(){
+            Route::get('/paymenttype',[OthersController::class,'createPtype'])->name('others.paymenttype.create');
+            Route::post('/paymenttype',[OthersController::class,'storePtype'])->name('others.paymenttype.store');
+            Route::get('/division',[OthersController::class,'createDivision'])->name('others.division.create');
+            Route::post('/division',[OthersController::class,'storeDivision'])->name('others.division.store');
+        });
 
         });
 });
@@ -246,10 +253,6 @@ Route::middleware(["auth:admin"])->group(function(){
 
 // Route::get('/home', [HomeController::class, 'index']);
 Route::get('test',[EmailController::class,'test']);
-
-Route::get('checkPage',function(){
-    return view('admin.checkMenu');
-});
 
 
 // Client Side Routes

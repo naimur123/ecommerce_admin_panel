@@ -2,8 +2,8 @@
 @section('all')
 
     {{-- slider details part --}}
-    <div class="col-4 my-3 productDetailsImg">
-        <div class="swiper-wrapper">
+    <div class="col-4 my-3">
+        {{-- <div class="swiper-wrapper">
             @foreach ($products as $product)
                 @php
                     $product_id = $product->id;
@@ -18,14 +18,37 @@
                     <img src="{{ asset('storage/' . $product->image_three) }}" alt="..." style="height: 400px">
                 </div>
             @endforeach
+        </div> --}}
+        <div class="gallery">
+            @foreach ($products as $product)
+            <div class="main-image">
+              <img id="mainImg" src="{{ asset('storage/' . $product->image_one) }}" alt="Main Image">
+            </div>
+            <div class="thumbnails">
+                <div class="thumbnail" onclick="changeImage('{{ asset('storage/' . $product->image_one) }}')"> 
+                    <img src="{{ asset('storage/' . $product->image_one) }}" alt="Thumbnail 1">
+                </div>
+              
+              @if ($product->image_two)
+                <div class="thumbnail" onclick="changeImage('{{ asset('storage/' . $product->image_two) }}')"> 
+                    <img src="{{ asset('storage/' . $product->image_two) }}" alt="Thumbnail 2">
+                </div>
+              @endif
+              @if ($product->image_three)
+                <div class="thumbnail" onclick="changeImage('{{ asset('storage/' . $product->image_three) }}')">
+                    <img src="{{ asset('storage/' . $product->image_three) }}" alt="Thumbnail 3">
+                </div>
+              @endif
+            </div>
+            @endforeach
         </div>
 
         <!-- Add to cart button here -->
-        <div style="margin-left: 55px;" id="detailsCart">
+        {{-- <div style="margin-left: 55px;" id="detailsCart">
             <a href="{{ route('addtocart', $product_id) }}" class="btn btn-outline-primary" style="width: 250px" role="button">
                 <i class="fas fa-shopping-cart"></i>Add to cart
             </a>
-        </div>
+        </div> --}}
     </div>
 
     {{-- Details part --}}
@@ -68,7 +91,12 @@
         </div>
     </div>
     
-
+<script>
+    function changeImage(imageSrc) {
+        const mainImage = document.getElementById('mainImg');
+        mainImage.src = imageSrc;
+    }
+</script>
 
 
 @endsection

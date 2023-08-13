@@ -6,7 +6,7 @@
         <ul class="nav justify-content-center">
             @foreach ($categories as $category)
             <li class="nav-item category-item">
-                @if (count($category->subcategories) < 0)
+                @if (count($category->subcategories) == 0)
                 <a href="{{ route('nameWise.product.show',["name" =>"category","id"=> $category->id]) }}" class="nav-link category-name" data-category-id="{{ $category->id }}">
                     {{ $category->name }}
                 </a>
@@ -46,7 +46,7 @@
 <div class="col-12 col-lg-12 col-md-6 pt-5" id="changeWidthContent">
     <div class="text-center mb-4">
         <h2 class="section-title px-5" id="headText">
-            <span class="px-2">Trendy Products</span>
+            <span class="text-truncate px-2">Trendy Products</span>
         </h2>
     </div>
     <div class="swiper mySwiper">
@@ -87,7 +87,7 @@
 <div class="col-12 col-lg-12 col-md-6 pt-5" id="changeWidthContent">
     <div class="text-center mb-4">
         <h2 class="section-title px-5" id="headText">
-            <span class="px-2">Trendy Products</span>
+            <span class="px-2">Newly Arrived Products</span>
         </h2>
     </div>
     <div class="swiper mySwiper">
@@ -126,7 +126,7 @@
 <!-- Brands start -->
 <div class="col-12 col-lg-12 col-md-6 pt-5" id="changeWidthContent">
     <div class="text-center mb-4" id="headText">
-        <h2 class="section-title px-5"><span class="px-2">Popular Brands</span></h2>
+        <h2 class="section-title px-5"><span class="text-truncate px-2">Popular Brands</span></h2>
     </div>
     <div class="swiper mySwiperBrand">
         <div class="swiper-wrapper">

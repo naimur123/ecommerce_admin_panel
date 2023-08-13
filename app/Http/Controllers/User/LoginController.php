@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
+
 // use Mail;
 class LoginController extends Controller
 {
@@ -28,12 +30,13 @@ class LoginController extends Controller
     }
     public function googleSignin(){
 
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         
         $find = User::where('email', $user->email)->first();
 
             if($find){
-                return redirect()->route('user.register')->with("alert","Account already exists");
+                Alert::warning('Warning','Account Already Exist');
+                return redirect()->route('user.register');
             }
             else{
                 $data = New User();

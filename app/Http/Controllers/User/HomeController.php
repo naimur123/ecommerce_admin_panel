@@ -115,6 +115,7 @@ class HomeController extends Controller
                     "subtotal" => $subtotal,
                     "shipping_cost" => $shipping_cost,
                     "total" => $total,
+                    "shippings" => ShippingAddress::all()
                 ];
                 return view('frontend.user.order', $params);
             
@@ -162,9 +163,9 @@ class HomeController extends Controller
     // Product search
     public function searchProduct(Request $request){
         
-        
-        $product = Product::where('name','LIKE','%'.$request->text.'%')->get();
-        
+        $keyword = $request->text;
+
+        $product = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
         return response($product);
         
         

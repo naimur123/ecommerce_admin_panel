@@ -26,7 +26,7 @@
     top: 0;
     left: 0;
     padding-left: 10px;
-    height: 150vh;
+    height: 200vh;
     margin-top: 52px;
 }
 
@@ -60,17 +60,17 @@ left: -220px;
 }
    
 #sidebar .custom-menu {
-      display: inline-block;
-      top: 20px;
-      right: 0;
-      margin-right: -20px;
-      -webkit-transition: 0.3s;
-      -o-transition: 0.3s;
-      transition: 0.3s; 
+    display: inline-block;
+    top: 20px;
+    right: 0;
+    margin-right: -20px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; 
 }
 .custom-menu button {
-      color: white;
-      margin-left: 100px;
+    color: white;
+    margin-left: 100px;
 }
   
 #mainContent.expanded {

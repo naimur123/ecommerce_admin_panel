@@ -44,6 +44,15 @@
                                     <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{ !empty($user->email) ? $user->email : "" }}">
                                 </div>
                                 <div class="col-md-12">
+                                    <label>Division<span class="text-danger">*</span></label>
+                                    <select class="form-control select2" name="shipping_id" id="shipping_id" required >
+                                        <option value="">Select Division</option>
+                                        @foreach($shippings as $shipping)
+                                            <option value="{{ $shipping->id }}" > {{ $shipping->division }} </option>     
+                                        @endforeach                           
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
                                     <label for="address">Shipping address</label>
                                     <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
                                 </div>
@@ -119,8 +128,13 @@
 
 <!-- ssl commrez integration-->
 <script type="text/javascript">
+    var shipping_id = '';
+    $('#shipping_id').on('change', function (){
+        shipping_id = this.value;
+    })
     var obj = {};
     obj.user_id = $('#user_id').val();
+    obj.shipping_id = $('#shipping_id').val();
     obj.payment_type_id = 1;
     obj.phone = $('#phone').val();
     obj.address = $('#address').val();

@@ -63,7 +63,7 @@ class OrderController extends Controller
                   ->addColumn('vendor_name', function($row){ return $row->productOrdered->vendor->name ?? "N/A"; })
                   ->addColumn('code', function($row){ return $row->productOrdered->code ?? "N/A"; })
                   ->addColumn('transaction_id', function($row){ return $row->order->transaction_id ?? "N/A"; })
-                  ->addColumn('price', function($row){ return $row->order->amount ?? "N/A"; })
+                  ->addColumn('price', function($row){ return $row->productOrdered->price - $row->productOrdered->discount_price ?? "N/A"; })
                   ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })
                   ->addColumn('action', function($row){
                       $admin = Admin::find(Auth::user()->id);

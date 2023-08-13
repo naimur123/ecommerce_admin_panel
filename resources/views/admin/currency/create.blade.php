@@ -50,7 +50,7 @@
                                 <input type="text" class="form-control {{--  {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" id="first_name" value="{{ old("first_name") ?? ($data->first_name ?? "")}}--}}" value="{{ old("remarks") ?? ($data->remarks ?? "")}}" name="remarks" >
                                 @error('remarks')
                                 <strong class="text-danger">{{ $message }}</strong>
-                        @enderror
+                                @enderror
                             </div>
                         </div>
     

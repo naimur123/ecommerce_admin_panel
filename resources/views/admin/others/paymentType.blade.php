@@ -25,7 +25,7 @@
              <!--Name -->
              <div class="col-12 col-sm-6 col-md-4 my-2">
                  <div class="form-group">
-                     <label>Name <span class="text-danger">*</span></label>
+                     <label>Payment type<span class="text-danger">*</span></label>
                      <input type="text" class="form-control " value="{{ old("name") ?? ($data->name ?? "")}} " name="name">
                      @error('name')
                             <strong class="text-danger">{{ $message }}</strong>
@@ -36,9 +36,9 @@
              <!-- Group Name -->
              <div class="col-12 col-sm-6 col-md-4 my-2">
                  <div class="form-group">
-                     <label>Group Name <span class="text-danger">*</span></label>
-                     <input type="text" class="form-control " value="{{ old("group_name") ?? ($data->group_name ?? "")}} " name="group_name">
-                     @error('phone')
+                     <label>Details<span class="text-danger">*</span></label>
+                     <input type="text" class="form-control " value="{{ old("details") ?? ($data->details ?? "")}} " name="details">
+                     @error('details')
                             <strong class="text-danger">{{ $message }}</strong>
                      @enderror
                  </div>

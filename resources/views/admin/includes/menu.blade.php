@@ -374,13 +374,30 @@
                                    @endif
 
                                    <li>
-                                     <a href="{{ route('admin.create.permisssion') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-unlock-keyhole"></i> Create new permission</a>
+                                     <a href="{{ route('admin.create.permisssion') }}" class="nav-link px-2 text-truncate text-white"><i class="fa-solid fa-unlock-keyhole"></i> Create new permission</a>
                                    </li>
                                </ul>
                            </li>
                            
+                           {{-- others --}}
+                           <li>
+                                <a href="#submenu18" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                    <i class="fa-brands fa-squarespace"></i><span id="menuSpan">Others</span></a>
+                                <ul class="collapse nav flex-column " id="submenu18" data-bs-parent="#menu">
+                                    @if(auth()->user()->can('Website view'))
+                                    <li>
+                                        <a href="{{ route('admin.others.paymenttype.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-file-invoice"></i> Create payment type</a>
+                                    </li>
+                                    @endif
+                                    @if(auth()->user()->can('Website view'))
+                                    <li>
+                                        <a href="{{ route('admin.others.division.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-city"></i> Add division</a>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </li>
    
-                           
+                           {{-- website settings --}}
                              <li>
                                <a href="#submenu16" data-bs-toggle="collapse" class="nav-link px-0 text-white">
                                  <i class="fa-solid fa-globe"></i><span id="menuSpan">Website</span></a>

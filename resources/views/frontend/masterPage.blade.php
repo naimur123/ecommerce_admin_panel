@@ -29,6 +29,15 @@
 
     {{-- customcss --}}
     <link rel="stylesheet" href="{{ asset('frontend/custom/customStyle.css') }}">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2E0FN79K7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-V2E0FN79K7');
+    </script>
     
    
 </head>
@@ -148,9 +157,8 @@
                         $.each(res, function(index, product){
                             productList += '<a href="" class="list-group-item list-group-item-action">'+product.name+'</a>';
                         });
-                        // $("#searchproductList").html('<div class="card search-results"><div class="card-body"><div class="list-group">'+productList+'</div></div></div>');
 
-                        if (text.length > 0) {
+                        if (text.length > 0 && productList.length > 0) {
                             $("#searchproductList").html('<div class="card search-results"><div class="card-body"><div class="list-group">'+productList+'</div></div></div>');
                         } 
                         else {

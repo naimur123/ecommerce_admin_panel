@@ -181,6 +181,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        // Spatie\Analytics\AnalyticsFacade::class,
+
+        
 
         /*
          * Package Service Providers...
@@ -198,6 +201,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        
 
     ],
 

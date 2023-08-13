@@ -174,16 +174,10 @@ class AdminController extends Controller
 
         try{
             $admin = Admin::find($request->admin);
-            // dd($admin);
-            // dd($admin->getAllPermissions());
             $role = $admin->assignRole($request->name);
-            // dd($request->name);
             $permissions = $request->input('permissions');
-            // dd($permissions);
            
             if (!empty($permissions)) {
-                // $admin->revokePermissionTo($permissions);
-                // $role->givePermissionTo($permissions);
                 $role->syncPermissions($permissions);
             }
             else{
