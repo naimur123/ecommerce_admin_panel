@@ -31,14 +31,15 @@
     <link rel="stylesheet" href="{{ asset('frontend/custom/customStyle.css') }}">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2E0FN79K7"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2JHBB200QT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-2JHBB200QT');
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPYN12BVE7"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+
+       gtag('config', 'G-DPYN12BVE7');
     </script>
     
    
