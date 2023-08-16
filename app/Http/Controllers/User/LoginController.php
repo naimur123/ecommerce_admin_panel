@@ -160,6 +160,8 @@ class LoginController extends Controller
             $user->save();
 
             if(session()->has('checkout')){
+                $user = User::where('email',$request->email)->first();
+                Session::put('user',$user->id);
                 return Redirect()->route('cart.checkout');
             }
             else{

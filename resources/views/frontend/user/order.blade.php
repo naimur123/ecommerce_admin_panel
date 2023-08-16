@@ -129,13 +129,13 @@
 <!-- ssl commrez integration-->
 <script type="text/javascript">
     var shipping_id = '';
-    $('#shipping_id').on('change', function (){
-        shipping_id = this.value;
-    })
     var obj = {};
     obj.user_id = $('#user_id').val();
-    obj.shipping_id = $('#shipping_id').val();
     obj.payment_type_id = 1;
+    $('#shipping_id').on('change', function (){
+        shipping_id = this.value;
+        obj.shipping_id = shipping_id;
+    })
     obj.phone = $('#phone').val();
     obj.address = $('#address').val();
     obj.sub_total_price = $('#sub_total_price').text();

@@ -6,7 +6,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\OrderController;
-use Spatie\Analytics\AnalyticsFacade as Analytics;
+use Spatie\Analytics\Facades\Analytics;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -64,7 +64,12 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
 //
-Route::get('/data',function(){
-    $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-    dd($analyticsData);
+Route::get('/analyticsdata',function(){
+    try {
+        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
+        dd($analyticsData);
+    } catch (\Exception $e) {
+        // Log or display the error
+        dd($e->getMessage());
+    }
 });
