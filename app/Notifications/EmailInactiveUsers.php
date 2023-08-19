@@ -41,9 +41,12 @@ class EmailInactiveUsers extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('You re not using our application for a long time.')
-                    ->action('Please login', route('user.login'))
-                    ->line('Thank you for using our application!');
+                    ->subject('Come Back and Shop: Special Offers Awaiting You!')
+                    ->line("We noticed you haven't been around lately.")
+                    ->line("We have special offers waiting for you!")
+                    ->action('Visit Our Store', url('/'))
+                    ->line('Thank you for being a valued customer!')
+                    ->salutation('KenakataBD');
     }
 
     /**

@@ -21,7 +21,7 @@ class EmailInactiveUsers extends Command
      *
      * @var string
      */
-    protected $description = 'Email Inactive Users';
+    protected $description = 'Come Back and Shop: Special Offers Await You!';
 
     /**
      * Execute the console command.
