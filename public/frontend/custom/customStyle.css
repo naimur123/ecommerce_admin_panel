@@ -146,6 +146,9 @@
   .gallery{
     margin-left: 170px;
   }
+  #buyerDetails .card{
+    margin-bottom: 10px;
+  }
   
 }
 
@@ -192,6 +195,15 @@
 .thumbnail img {
   width: 50px;
   height: 50px;
+}
+
+#buyerDetails{
+  width: 80%;
+  margin-left: 8%;
+}
+#prodcutDescription{
+  width: 80%;
+  margin-left: 9%;
 }
 
 

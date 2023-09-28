@@ -29,12 +29,27 @@ class HomeController extends Controller
         // $category = Category::where('status_id', 1)->get();
 
         // dd($category);
+    //    $product = DB::table('products')
+    //                 ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+    //                 ->selectRaw('MIN(products.id) as id, products.name as product_name, MIN(products.discount_price) as discount_price, MIN(products.price) as price, currencies.currency_symbol as currency_symbol')
+    //                 ->groupBy('product_name', 'currency_symbol')
+    //                 ->get();
+    //     dd($product);
 
         $params = [
             // "categories" => Category::where('status_id',1)->get(),
             "brands"     => Brand::where('status_id', 1)->get(),
             "categories" => Category::where('status_id', 1)->get(),
-            "products" => Product::where('status_id',1)->paginate(12),
+            // "products" => Product::where('status_id',1)->paginate(12),
+            "products" => DB::table('products')
+                            ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+                            ->selectRaw('MIN(products.id) as id, products.name as product_name, 
+                                        MIN(products.discount_price) as discount_price, 
+                                        MIN(products.price) as price, 
+                                        currencies.currency_symbol as currency_symbol,
+                                        MIN(products.image_one) as image_one')
+                            ->groupBy('product_name', 'currency_symbol')
+                            ->get(),
             "subcategories" => SubCategory::where('status_id',1)->take(5)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
             "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
@@ -130,8 +145,11 @@ class HomeController extends Controller
     //product details
     public function productDetails(Request $request){
         
+            $product = Product::findOrFail($request->id);
+            $vendor = Product::where('name', $product->name)->with('vendor')->get();
             $params =[
-                'products' => Product::with('categories','subcategory','brands','status','currency')->where('id',$request->id)->get()
+                'products' => Product::with('categories','subcategory','brands','status','currency')->where('id',$request->id)->get(),
+                'vendors'  => $vendor
             ];
             return view('frontend.productDetails.details', $params);
         
@@ -165,7 +183,12 @@ class HomeController extends Controller
         
         $keyword = $request->text;
 
-        $product = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
+        // $product = Product::where('name', 'LIKE', '%' . $keyword . '%')->first();
+        $product = DB::table('products')
+                    ->selectRaw('MIN(products.id) as id, products.name as product_name')
+                    ->where('products.name', 'LIKE', '%' . $keyword . '%')
+                    ->groupBy('product_name')
+                    ->get();
         return response($product);
         
         

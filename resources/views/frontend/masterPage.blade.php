@@ -107,7 +107,7 @@
 
 
     <!-- Footer Start -->
-     <div class="row">
+     {{-- <div class="row">
         <div class="col-md-12">
             <div class="card text-white" id="footerCard" style="background-color: #404956">
                 <div class="card-body text-center">
@@ -124,7 +124,7 @@
         </div>
         
         
-    </div>
+    </div> --}}
 </div>
     <!-- Footer End -->
 
@@ -158,11 +158,11 @@
                     console.log(res)
                     var productList = "";
                         $.each(res, function(index, product){
-                            productList += '<a href="" class="list-group-item list-group-item-action">'+product.name+'</a>';
+                            productList += '<a href="" class="list-group-item list-group-item-action">'+product.product_name+'</a>';
                         });
 
                         if (text.length > 0 && productList.length > 0) {
-                            $("#searchproductList").html('<div class="card search-results"><div class="card-body"><div class="list-group">'+productList+'</div></div></div>');
+                            $("#searchproductList").html('<div class="card search-results"><div class="list-group">'+productList+'</div></div>');
                         } 
                         else {
                             $("#searchproductList").html("");

@@ -156,6 +156,7 @@ class LoginController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->email_verified_at = null;
+            $user->last_login = Carbon::now();
             $user->password = bcrypt($request->password);
             $user->save();
 

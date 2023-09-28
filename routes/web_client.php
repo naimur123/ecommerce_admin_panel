@@ -10,6 +10,7 @@ use Spatie\Analytics\Facades\Analytics;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -66,8 +67,11 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //
 Route::get('/analyticsdata',function(){
     try {
-        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-        dd($analyticsData);
+        $startDate = Carbon::now()->subDays(7);
+        $endDate = Carbon::now();
+        $period = Period::create($startDate, $endDate);
+        $data = Analytics::fetchVisitorsAndPageViewsByDate($period);
+        return view('test',['data' => $data]);
     } catch (\Exception $e) {
         // Log or display the error
         dd($e->getMessage());
