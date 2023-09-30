@@ -77,7 +77,7 @@
                         </div>
 
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm p-0 ml-auto" id="detailsCardBtn"><strong>View Detail</strong></a>
-                        <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a>
+                        {{-- <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a> --}}
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                         </div>
 
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm p-0 ml-auto" id="detailsCardBtn"><strong>View Detail</strong></a>
-                        <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a>
+                        {{-- <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a> --}}
                     </div>
                 </div>
             </div>

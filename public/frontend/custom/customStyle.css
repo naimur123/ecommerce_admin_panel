@@ -149,6 +149,9 @@
   #buyerDetails .card{
     margin-bottom: 10px;
   }
+  .search-results{
+    width: 80% !important;
+  }
   
 }
 
@@ -158,6 +161,16 @@
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
+}
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-name {
+  margin-left: 10px;
+  font-weight: bolder;
+  letter-spacing: 2px;
 }
 
 .productDetailsImg{

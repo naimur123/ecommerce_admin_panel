@@ -40,6 +40,7 @@
        gtag('js', new Date());
 
        gtag('config', 'G-DPYN12BVE7');
+
     </script>
     
    
@@ -146,37 +147,40 @@
     
     @include('sweetalert::alert')
     <script>
-        //input search text
-        $(document).ready(function(){
-            $("#searchInput").on("input", function(){
+        // Input search text
+        $(document).ready(function () {
+            $("#searchInput").on("input", function () {
                 var text = $("#searchInput").val();
                 console.log(text.length);
                 $.ajax({
-                url: '{{ route('search.product')}}?text='+text,
-                type: 'get',
-                success: function (res) {
-                    console.log(res)
-                    var productList = "";
-                        $.each(res, function(index, product){
-                            productList += '<a href="" class="list-group-item list-group-item-action">'+product.product_name+'</a>';
+                    url: '{{ route('search.product')}}?text=' + text,
+                    type: 'get',
+                    success: function (res) {
+                        console.log(res)
+                        var productList = "";
+                        $.each(res, function (index, product) {
+                            var product_id = '{{ route("product.details", ["id" => ":id"]) }}';
+                            product_id = product_id.replace(':id', product.product_id);
+                            var image = '/storage/' + product.product_image;
+                            productList += '<a href="' + product_id + '" class="list-group-item list-group-item-action">' +
+                                '<div class="product-info">' +
+                                '<img src="' + image + '" alt="' + product.product_name + '" width="30" height="30" />' +
+                                '<span class="product-name">' + product.product_name + '</span>' +
+                                '</div>' +
+                                '</a>';
                         });
-
+    
                         if (text.length > 0 && productList.length > 0) {
-                            $("#searchproductList").html('<div class="card search-results"><div class="list-group">'+productList+'</div></div>');
-                        } 
-                        else {
+                            $("#searchproductList").html('<div class="card search-results"><div class="list-group">' + productList + '</div></div>');
+                        } else {
                             $("#searchproductList").html("");
                         }
-                }
+                    }
                 });
-                
-                
-            })
-            
+            });
         })
-
-       // end
     </script>
+    
    
 </body>
 

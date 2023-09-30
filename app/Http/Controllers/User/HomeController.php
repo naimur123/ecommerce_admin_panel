@@ -161,15 +161,45 @@ class HomeController extends Controller
         // dd($request->name);
         if($request->name && $request->name =='category'){
             $title = Category::where('id',$request->id)->value('name');
-            $product = Product::where('category_id',$request->id)->get();
+            $product = DB::table('products')
+                        ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+                        ->selectRaw('MIN(products.id) as id, products.name as product_name, 
+                                    MIN(products.discount_price) as discount_price, 
+                                    MIN(products.price) as price, 
+                                    currencies.currency_symbol as currency_symbol,
+                                    MIN(products.image_one) as image_one')
+                        ->where('products.category_id', $request->id)
+                        ->groupBy('product_name', 'currency_symbol')
+                        ->get();
+            // $product = Product::where('category_id',$request->id)->get();
         }
         else if($request->name && $request->name =='subcategory'){
             $title = SubCategory::where('id',$request->id)->value('name');
-            $product = Product::where('subcategory_id',$request->id)->get();
+            $product = DB::table('products')
+            ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+            ->selectRaw('MIN(products.id) as id, products.name as product_name, 
+                        MIN(products.discount_price) as discount_price, 
+                        MIN(products.price) as price, 
+                        currencies.currency_symbol as currency_symbol,
+                        MIN(products.image_one) as image_one')
+            ->where('products.subcategory_id', $request->id)
+            ->groupBy('product_name', 'currency_symbol')
+            ->get();
+            // $product = Product::where('subcategory_id',$request->id)->get();
         }
         else{
             $title = Brand::where('id',$request->id)->value('name');
-            $product = Product::where('brand_id',$request->id)->get();
+            $product = DB::table('products')
+                        ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+                        ->selectRaw('MIN(products.id) as id, products.name as product_name, 
+                                    MIN(products.discount_price) as discount_price, 
+                                    MIN(products.price) as price, 
+                                    currencies.currency_symbol as currency_symbol,
+                                    MIN(products.image_one) as image_one')
+                        ->where('products.brand_id', $request->id)
+                        ->groupBy('product_name', 'currency_symbol')
+                        ->get();
+            // $product = Product::where('brand_id',$request->id)->get();
         }
         $params =[
             "title"    => $title,
@@ -185,7 +215,7 @@ class HomeController extends Controller
 
         // $product = Product::where('name', 'LIKE', '%' . $keyword . '%')->first();
         $product = DB::table('products')
-                    ->selectRaw('MIN(products.id) as id, products.name as product_name')
+                    ->selectRaw('MIN(products.id) as product_id, products.name as product_name, MIN(products.image_one) as product_image')
                     ->where('products.name', 'LIKE', '%' . $keyword . '%')
                     ->groupBy('product_name')
                     ->get();
