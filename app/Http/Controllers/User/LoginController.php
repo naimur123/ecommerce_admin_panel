@@ -35,8 +35,17 @@ class LoginController extends Controller
         $find = User::where('email', $user->email)->first();
 
             if($find){
-                Alert::warning('Warning','Account Already Exist');
-                return redirect()->route('user.register');
+                // Alert::warning('Warning','Account Already Exist');
+                // return redirect()->route('user.register');
+                if(session()->has('checkout')){
+                    $user = User::where('social_id',$user->id)->first();
+                    Session::put('user',$user->id);
+                    return Redirect()->route('cart.checkout');
+                }
+                else{
+                    Session::put('user',$user->id);
+                    return view('frontend.user.dashboard.dashboard');
+                }
             }
             else{
                 $data = New User();
@@ -59,7 +68,8 @@ class LoginController extends Controller
                     return Redirect()->route('cart.checkout');
                 }
                 else{
-                    return view('frontend.user.dashboard.dashboard', $params);
+                    Session::put('user',$user->id);
+                    return view('frontend.user.dashboard.dashboard');
                 }
                 
             

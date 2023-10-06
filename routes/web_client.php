@@ -65,13 +65,37 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
 //
-Route::get('/analyticsdata',function(){
+// Route::get('/analyticsdata',function(){
+//     try {
+//         $startDate = Carbon::now()->subDays(7);
+//         $endDate = Carbon::now();
+//         $period = Period::create($startDate, $endDate);
+//         $data = Analytics::fetchVisitorsAndPageViewsByDate($period);
+//         return view('test',['data' => $data]);
+//     } catch (\Exception $e) {
+//         // Log or display the error
+//         dd($e->getMessage());
+//     }
+// });
+Route::get('/analyticsdata', function () {
     try {
-        $startDate = Carbon::now()->subDays(7);
+        $startDate = Carbon::now()->subDays(30);
         $endDate = Carbon::now();
         $period = Period::create($startDate, $endDate);
         $data = Analytics::fetchVisitorsAndPageViewsByDate($period);
-        return view('test',['data' => $data]);
+        
+        // // Prepare data for Chart.js
+        // $labels = [];
+        // $pageViews = [];
+
+        // foreach ($data as $analyticsData) {
+        //     // Assuming $analyticsData is an associative array with a 'date' and 'page_views' key
+        //     $labels[] = $analyticsData['date'];
+        //     $pageViews[] = $analyticsData['page_views'];
+        // }
+
+        
+        return view('test', ['labels' => $period, 'pageViews' => $data]);
     } catch (\Exception $e) {
         // Log or display the error
         dd($e->getMessage());

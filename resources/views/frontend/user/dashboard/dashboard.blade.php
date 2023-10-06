@@ -11,17 +11,18 @@
     {{-- @endif --}}
     {{-- @else --}}
 
-        @if(session('verified'))
+        {{-- @if(session('verified'))
             <div class="alert alert-success">
             {{ session('verified') }}
             </div>
         @else
             @if (empty($email_verified_at) && empty(session('verified')))
             <p>Youre email is not verified</p>
-            {{-- <p>{{ $user->id }}</p> --}}
             <p>To verify your email</p><a href="{{ route('email.verfiy', $id ) }}">Click here</a>
             @endif 
-        @endif
-
+        @endif --}}
+         <p>
+            {{ session('user') }}
+         </p>
     
 @endsection

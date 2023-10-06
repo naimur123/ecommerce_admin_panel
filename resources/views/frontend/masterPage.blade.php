@@ -84,7 +84,7 @@
                         @if (session()->has('user'))
                             <?php 
                                 $user = session()->get('user');
-                                $user = App\Models\User::where('id',$user)->first();
+                                $user = App\Models\User::where('id',$user)->orWhere('social_id',$user)->first();
                             ?>
                             <a href="{{ route('user.dashboard',$user->id) }}">{{ $user->name }}</a>
                         @else

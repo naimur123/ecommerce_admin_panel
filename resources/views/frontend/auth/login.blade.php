@@ -61,10 +61,18 @@
                                     Login
                                 </button>
                             </div>
+                            <div class="col-md-8 offset-md-3 text-center mt-2">
+                                <a class="btn btn-outline-primary" href="{{ route('register.google') }}" rule="button">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="25" /><span
+                                      style="margin-left: 10px;"
+                                      >Sign in with google</span
+                                    >
+                                  </a>
+                            </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-8 offset-md-3 text-center">
-                                <p><strong>Don't have an account? simply register</strong></p>
+                                <p>Don't have an account? simply register</p>
                                 <a href="{{ route('user.register') }}" class="btn btn-outline-danger" rule="button">Register</a>
                             </div>
                         </div>

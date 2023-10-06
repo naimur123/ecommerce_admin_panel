@@ -1,58 +1,30 @@
-{{-- <html>
-<head>
-    <title>Daily Visitors Report</title>
-</head>
-<body>
-    <h1>Daily Visitors Report</h1>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Visitors</th>
-            <th>Pageviews</th>
-        </tr>
-        @foreach ($data as $date => $metrics)
-            <tr>
-                <td>{{ $metrics['date'] }}</td>
-                <td>{{ $metrics['activeUsers'] }}</td>
-                <td>{{ $metrics['screenPageViews'] }}</td>
-            </tr>
-        @endforeach
-    </table>
-</body>
-</html> --}}
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Analytics Chart</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>Google Analytics Data</title>
 </head>
 <body>
-    <canvas id="analyticsChart"></canvas>
-    <script>
-        const dates = @json($data->pluck('date'));
-        const visitors = @json($data->pluck('activeUsers'));
+    <div>
+        <canvas id="analyticsChart" width="400" height="200"></canvas>
+    </div>
 
-        const ctx = document.getElementById('analyticsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('analyticsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: dates,
+                labels: <?= json_encode($labels) ?>,
                 datasets: [{
-                    label: 'Active Users',
-                    data: visitors,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false
+                    label: 'Page Views',
+                    data: <?= json_encode($pageViews) ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Customize the colors as needed
+                    borderColor: 'rgba(75, 192, 192, 1)', // Customize the colors as needed
+                    borderWidth: 1
                 }]
             },
             options: {
                 scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        }
-                    },
                     y: {
                         beginAtZero: true
                     }
@@ -60,6 +32,6 @@
             }
         });
     </script>
+    
 </body>
 </html>
-
