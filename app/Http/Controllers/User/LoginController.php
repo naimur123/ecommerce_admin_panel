@@ -43,6 +43,7 @@ class LoginController extends Controller
                     return Redirect()->route('cart.checkout');
                 }
                 else{
+                    $user = User::where('social_id',$user->id)->first();
                     Session::put('user',$user->id);
                     return view('frontend.user.dashboard.dashboard');
                 }
@@ -68,6 +69,7 @@ class LoginController extends Controller
                     return Redirect()->route('cart.checkout');
                 }
                 else{
+                    $user = User::where('social_id',$user->id)->first();
                     Session::put('user',$user->id);
                     return view('frontend.user.dashboard.dashboard');
                 }

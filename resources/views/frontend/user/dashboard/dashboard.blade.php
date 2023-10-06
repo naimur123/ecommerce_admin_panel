@@ -21,8 +21,6 @@
             <p>To verify your email</p><a href="{{ route('email.verfiy', $id ) }}">Click here</a>
             @endif 
         @endif --}}
-         <p>
-            {{ session('user') }}
-         </p>
+         
     
 @endsection
