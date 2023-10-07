@@ -16,4 +16,10 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+    public function shipping(){
+        return $this->belongsTo(ShippingAddress::class,'shipping_id');
+    }
+    public function paymentType(){
+        return $this->belongsTo(PaymentType::class,'payment_type_id');
+    }
 }

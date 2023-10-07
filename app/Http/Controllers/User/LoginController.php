@@ -44,6 +44,8 @@ class LoginController extends Controller
                 }
                 else{
                     $user = User::where('social_id',$user->id)->first();
+                    $user->last_login = Carbon::now();
+                    $user->save();
                     Session::put('user',$user->id);
                     return view('frontend.user.dashboard.dashboard');
                 }

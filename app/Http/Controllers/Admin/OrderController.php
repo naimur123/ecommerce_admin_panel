@@ -15,13 +15,13 @@ class OrderController extends Controller
 {
     // Get Table Column List
     private function getColumns(){
-        $columns = ["index","invoice_no","product_name","order_quantity","customer_name","vendor_name", "code","transaction_no","price","status","action"];
+        $columns = ["index","paymentType","invoice_no","product_name","order_quantity","customer_name","vendor_name", "code","transaction_no","price","division","address","date","status","action"];
         return $columns;
     }
 
     // Get DataTable Column List
     private function getDataTableColumns(){
-        $columns = ["index","invoice_no","product_name","product_sales_quantity","customer_name","vendor_name", "code","transaction_id","price","status","action"];
+        $columns = ["index","payment_type_id","invoice_no","product_name","product_sales_quantity","customer_name","vendor_name", "code","transaction_id","price","division","shipping_address_details","created_at","status","action"];
         return $columns;
     }
     //GetModel
@@ -31,10 +31,14 @@ class OrderController extends Controller
 
     //Get Datas
     public function index(Request $request){
-        // $orders = OrderDetails::with('productOrdered', 'order')->get();
+        // $data = OrderDetails::with('productOrdered', 'order')
+        // ->whereHas('order', function ($query) {
+        //             $query->where('status', 'Processing');
+        //         })
+        // ->get();
 
         
-        // dd($orders);
+        //  dd($data);
         if( $request->ajax() )
         {
             return $this->getDataTable($request);
@@ -46,7 +50,7 @@ class OrderController extends Controller
             'tableColumns'      => $this->getColumns(),
             'dataTableColumns'  => $this->getDataTableColumns(),
             "dataTableUrl"      => URL::current(),
-            'tableStyleClass'   => 'bg-success',
+            // 'tableStyleClass'   => '',
            
         ];
         return view('admin.order.table', $params);
@@ -55,16 +59,23 @@ class OrderController extends Controller
     protected function getDataTable(Request $request){
         if ($request->ajax()){
            $data = OrderDetails::with('productOrdered', 'order')->get();
+           $data = $data->filter(function ($item) {
+            return $item->order->status === "Processing";
+           });
            return DataTables::of($data)->addIndexColumn()
                   ->addColumn('index', function(){ return ++$this->index; })
+                  ->addColumn('payment_type_id', function($row){ return $row->order->paymentType->name ?? ""; })
                   ->addColumn('invoice_no', function($row){ return $row->order->invoice_no; })
                   ->addColumn('product_name', function($row){ return $row->productOrdered->name; })
-                  ->addColumn('customer_name', function($row){ return $row->order->user->name ?? "N/A"; })
-                  ->addColumn('vendor_name', function($row){ return $row->productOrdered->vendor->name ?? "N/A"; })
-                  ->addColumn('code', function($row){ return $row->productOrdered->code ?? "N/A"; })
-                  ->addColumn('transaction_id', function($row){ return $row->order->transaction_id ?? "N/A"; })
-                  ->addColumn('price', function($row){ return $row->productOrdered->price - $row->productOrdered->discount_price ?? "N/A"; })
-                  ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })
+                  ->addColumn('customer_name', function($row){ return $row->order->user->name ?? ""; })
+                  ->addColumn('vendor_name', function($row){ return $row->productOrdered->vendor->name ?? ""; })
+                  ->addColumn('code', function($row){ return $row->productOrdered->code ?? ""; })
+                  ->addColumn('transaction_id', function($row){ return $row->order->transaction_id ?? ""; })
+                  ->addColumn('price', function($row){ return $row->productOrdered->price - $row->productOrdered->discount_price ?? ""; })
+                  ->addColumn('division', function($row){ return $row->order->shipping->division ?? ""; })
+                  ->addColumn('shipping_address_details', function($row){ return $row->order->shipping_address_details ?? ""; })
+                  ->addColumn('created_at', function($row){ return $row->order->created_at ?? ""; })
+                  ->addColumn('status', function($row){ return $row->order->status; })
                   ->addColumn('action', function($row){
                       $admin = Admin::find(Auth::user()->id);
                       if($admin->hasPermissionTo('Order delete')){

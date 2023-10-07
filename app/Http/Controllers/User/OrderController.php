@@ -57,6 +57,7 @@ class OrderController extends Controller
 
             $user_id = $formData['user'];
             $phone = $formData['phone'];
+            $shipping_id = $formData['shipping_id'];
             $address = $formData['address'];
             $subtotal = $formData['subtotal'];
             $shippingCost = $formData['shipping_cost'];
@@ -69,9 +70,9 @@ class OrderController extends Controller
             $order = new Order();
             $order->user_id = $user_id ?? '';
             $order->phone = $phone ?? '';
-            $order->shipping_id = 1 ?? '';
+            $order->shipping_id = $shipping_id ?? '';
             $order->shipping_address_details = $address ?? '';
-            $order->payment_type_id =  1 ?? '';
+            $order->payment_type_id =  2 ?? '';
             $order->invoice_no = Str::random(8);
             $order->sub_total_price = $subtotal ?? 0;
             $order->shipping_cost = $shippingCost ?? 0;
@@ -82,7 +83,7 @@ class OrderController extends Controller
             $order->status = 'Processing';
             $order->save();
             //Order detials
-            $order_id = Order::where('user_id',$user_id)->value('id');
+            $order_id = Order::where('user_id',$user_id)->max('id');
             // return response()->json(['message' => $order_id]);
 
             foreach($carts as $cartid => $cart){

@@ -86,7 +86,8 @@
                                 $user = session()->get('user');
                                 $user = App\Models\User::where('id',$user)->orWhere('social_id',$user)->first();
                             ?>
-                            <a href="{{ route('user.dashboard',$user->id) }}">{{ $user->name }}</a>
+                            <a href="{{ route('user.dashboard',$user->id) }}" class="text-decoration-none">{{ $user->name }}</a>
+                            <a href="{{ route('user.logout') }}">Logout</a>
                         @else
                             <a href="{{ route('user.showLoginform') }}" class="text-decoration-none" style="color: #404956"><i class="fa-solid fa-user"></i> Login/Signup</a>
                         @endif
@@ -134,6 +135,7 @@
 
 
     <!-- JavaScript Libraries -->
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/lib/owlcarousel/owl.carousel.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
@@ -145,6 +147,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="{{ asset('frontend/custom/customJs.js') }}"></script>
     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     @include('sweetalert::alert')
     <script>
         // Input search text

@@ -21,6 +21,10 @@ return [
     "order_quantity"     => "Order quantity",
     "customer_name"      => "Customer name",
     "vendor_name"        => "Vendor name",
-    "transaction_no"     => "Transaction no"
+    "transaction_no"     => "Transaction no",
+    "division"           => "Division",
+    "address"            => "Shipping address",
+    "date"               => "Order date",
+    "paymentType"        => "Payment type",
     
 ];

@@ -1,5 +1,6 @@
-@extends('frontend.user.masterPage')
-@section('contentHome')
+@extends('frontend.masterPage')
+{{-- @section('contentHome') --}}
+@section('all')
     @if(session('success'))
     <div class="alert alert-success">
     {{ session('success') }}

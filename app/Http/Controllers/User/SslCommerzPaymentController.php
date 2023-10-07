@@ -87,7 +87,7 @@ class SslCommerzPaymentController extends Controller
             ]);
             //Order detials
             $carts = session()->get('cart');
-            $order_id = Order::where('user_id',$reqData['user_id'])->value('id');
+            $order_id = Order::where('user_id',$reqData['user_id'])->max('id');
             foreach($carts as $cartid => $cart){
                 $order_details = new OrderDetails();
                 $order_details->order_id = $order_id ?? null;

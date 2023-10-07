@@ -2,11 +2,11 @@
 @section('content')
 <style>
     table.table-bordered > thead > tr > th{
-       border: 0.5px solid black;
+      height: 5px !important;
     }
     table.table-bordered > tbody > tr > td{
-       border: 0.5px solid black;
-       font-weight: 900;
+       border: 0.2px solid rgba(112, 108, 108, 0.2);
+       height: 5px !important;
     }
 </style>
 <div class="page-body">
@@ -29,7 +29,7 @@
             <div class="dt-plugin-buttons"></div>
                 <div class="dt-responsive table-responsive">
                     <table id="table" class="table table-bordered nowrap">
-                        <thead class="{{ isset($tableStyleClass) ? $tableStyleClass : 'bg-primary'}}">
+                        <thead class="{{ isset($tableStyleClass) ? $tableStyleClass : ''}}" style="background-color: #7bb882;">
                             <tr>
                                 @foreach($tableColumns as $column)
                                     <th> @lang('table.'.$column)</th>
@@ -49,7 +49,7 @@
             table = $('#table').DataTable({
             processing: true,
             serverSide: true,
-            ordering: true,
+            ordering: false,
             ajax: '{{ isset($dataTableUrl) && !empty($dataTableUrl) ? $dataTableUrl : URL::current() }}',
             columns: [
                 @foreach($dataTableColumns as $column)
@@ -59,22 +59,23 @@
             "language": {
                 "lengthMenu": "_MENU_"
             },
-            "rowCallback": function(row, data) {
-                var status = data.status;
-                switch (status) {
-                    case 'Pending':
-                        $(row).css("background-color", "#ffeecc");
-                        break;
-                    case 'Processing':
-                        $(row).css("background-color", "#ccffff");
-                        break;
-                    case 'Cancelled':
-                        $(row).css("background-color", "#ffcccc");
-                        break;
-                    default:
-                        break;
-                }
-            }
+            // "rowCallback": function(row, data) {
+            //     var status = data.status;
+            //     switch (status) {
+            //         case 'Pending':
+            //             $(row).css("background-color", "#ffeecc");
+            //             break;
+            //         case 'Processing':
+            //             $(row).css("background-color", "#ccffff");
+            //             break;
+            //         case 'Cancelled':
+            //             $(row).css("background-color", "#ffcccc");
+            //             break;
+            //         default:
+            //             break;
+            //     }
+            // },
+           
 
         });
     });

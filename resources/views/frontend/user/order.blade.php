@@ -1,11 +1,13 @@
-@extends('frontend.user.masterPage')
-@section('contentHome')
+{{-- @extends('frontend.user.masterPage') --}}
+@extends('frontend.masterPage')
+{{-- @section('contentHome') --}}
+@section('all')
  {{-- @if(session('error'))
     <div class="alert alert-danger">
     {{ session('error') }}
     </div> 
  @endif --}}
-<div class="row">
+<div class="row mt-2">
     <div class="col-12 col-lg-12">
         <div class="card">
            <div class="card-body">
@@ -54,7 +56,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="address">Shipping address</label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
+                                    <input type="text" class="form-control" id="address" name="address">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +116,7 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -123,7 +125,7 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> --}}
 
 
 <!-- ssl commrez integration-->
