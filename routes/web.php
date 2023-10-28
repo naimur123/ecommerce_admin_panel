@@ -175,6 +175,8 @@ Route::middleware(["auth:admin"])->group(function(){
             Route::get('/permanentDelete/{id}',[ProductController::class, 'parmenentDelete'])->name('products.pdelete');
             Route::get('/search',[ProductController::class, 'search'])->name('products.search');
 
+            Route::get('/approve',[ProductController::class,'approve'])->name('products.approve');
+
         });
 
         // Coupon 

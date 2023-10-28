@@ -15,7 +15,9 @@ use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -49,7 +51,7 @@ class LoginController extends Controller
     function __construct()
     {
         $this->redirectTo = route('vendor.home');
-        $this->logout = route('vendor.login');
+        $this->logout = route('vendor.login.page');
     }
 
     // Show Login Form
@@ -77,6 +79,7 @@ class LoginController extends Controller
      * After Logout the redirect location
      */
     protected function loggedOut(){
+        FacadesSession::flush();
         Auth::guard('vendor')->logout();
         return redirect($this->logout);
     }
@@ -94,9 +97,11 @@ class LoginController extends Controller
         // dd($order);
      
         $vendor = Auth::user()->id;
+        // dd($request->user()->is_approved);
     
-        if($request->user() == null){
-           echo "empty";
+        if($request->user()->is_approved == 0){
+            Alert::error('Error', 'Your new vendor regsitration not approved yet');
+            return redirect($this->logout);
         }
         else{
             $params =[

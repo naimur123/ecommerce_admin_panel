@@ -65,36 +65,26 @@
                               @endif
                               
                               
-                               {{-- Products --}}
-                              {{-- @hasanyrole('superadmin|admin')  --}}
-                              {{-- @if(auth()->user()->hasAnyPermission('Product view','Product create','Product edit','Product delete'))
-                               <li>
-                                  <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 text-white">
-                                    <i class="fa-solid fa-bag-shopping"></i><span id="menuSpan">Products</span>
-                                  </a>
-                                  
-                                  <ul class="collapse nav flex-column " id="submenu3">
-                                      @if(auth()->user()->can('Product view'))
-                                      <li >
-                                          <a href="{{ route('admin.products') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-list"></i> Product List</a>
-                                      </li>
-                                      @endif
-      
-                                      @if(auth()->user()->can('Product create'))
-                                      <li>
-                                          
-                                          <a href="{{ route('admin.products.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add New Product</a>
-                                      </li>
-                                      @endif
-      
-                                      @if(auth()->user()->can('Product delete'))
-                                      <li>
-                                          <a href="{{ route('admin.products.archive') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-box-archive"></i> Deleted Products</a>
-                                      </li>
-                                      @endif
-                                  </ul>
-                                </li>
-                              @endif --}}
+                                {{-- Products --}}
+                           {{-- @hasanyrole('superadmin|admin')  --}}
+                           @if(auth()->user()->hasAnyPermission('Product view','Product create','Product edit','Product delete'))
+                           <li>
+                              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+                                <i class="fa-solid fa-bag-shopping"></i><span id="menuSpan">Products</span>
+                              </a>
+                              
+                              <ul class="collapse nav flex-column " id="submenu3">
+                                 
+                                  @if(auth()->user()->can('Product create'))
+                                  <li>
+                                      
+                                      <a href="{{ route('vendor.products.create') }}" class="nav-link px-2 text-white"><i class="fa-solid fa-circle-plus"></i> Add New Product</a>
+                                  </li>
+                                  @endif
+  
+                              </ul>
+                          </li>
+                          @endif
                        </ul>
                        <hr>
                    </div>

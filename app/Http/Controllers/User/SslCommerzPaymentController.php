@@ -30,7 +30,7 @@ class SslCommerzPaymentController extends Controller
         $post_data['user_id'] = $reqData['user_id']; # You cant not pay less than 10
         $post_data['phone'] = $reqData['phone']; # You cant not pay less than 10
         $post_data['shipping_id'] = $reqData['shipping_id']; # You cant not pay less than 10
-        $post_data['address'] = $reqData['address']; # You cant not pay less than 10
+        $post_data['address'] = $reqData['address_details']; # You cant not pay less than 10
         $post_data['payment_type_id'] = $reqData['payment_type_id']; # You cant not pay less than 10
         $post_data['sub_total_price'] = $reqData['sub_total_price']; # You cant not pay less than 10
         $post_data['shipping_cost'] = $reqData['shipping_cost']; # You cant not pay less than 10

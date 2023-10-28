@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
+use App\Notifications\EmailApprovedVendors;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rule;
@@ -26,7 +27,7 @@ class VendorController extends Controller
         // Get Datas
         public function index(Request $request){
             $vendor = Vendor::where('is_approved',1)->orderBy('id',"ASC");
-            $vendor = $vendor->paginate(5);
+            $vendor = $vendor->paginate(10);
             $params =[
 
                 "title" => "Vendor List",
@@ -123,6 +124,7 @@ class VendorController extends Controller
                     $vendor->approved_by = Auth::user()->id;
                     $vendor->save();
 
+                    $vendor->notify(new EmailApprovedVendors());
                     return back();
 
                 }catch(Exception $e){

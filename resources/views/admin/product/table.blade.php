@@ -51,7 +51,29 @@
                 "lengthMenu": "_MENU_"
             },
         });
+
+        $('#table').on('click', '.approve-product', function() {
+            var status = 1;
+            var productId = $(this).data('product-id');
+            $.ajax({
+                url: '{{ route('admin.products.approve') }}?product_id=' + productId + '&status_id=' + status,
+                type: 'get',
+                success: function (res) {
+                    Swal.fire({
+                        title: 'Approved!',
+                        text: 'Product Approved!',
+                        icon: 'success',
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    });
+                   
+                }
+            });
+        });
     });
+
+
 </script>
 
 @endsection

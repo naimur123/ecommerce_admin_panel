@@ -48,11 +48,23 @@ class HomeController extends Controller
                                         MIN(products.price) as price, 
                                         currencies.currency_symbol as currency_symbol,
                                         MIN(products.image_one) as image_one')
+                            ->where('products.status_id', 1)
                             ->groupBy('product_name', 'currency_symbol')
                             ->get(),
             "subcategories" => SubCategory::where('status_id',1)->take(5)->get(),
             "sliders"  => Slider::where('status_id',1)->get(),
-            "latest_products" => Product::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
+            // "latest_products" => Product::where('status_id',1)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(12),
+            "latest_products" => DB::table('products')
+                                ->join('currencies', 'currencies.id', '=', 'products.currency_id')
+                                ->selectRaw('MIN(products.id) as id, products.name as product_name, 
+                                            MIN(products.discount_price) as discount_price, 
+                                            MIN(products.price) as price, 
+                                            currencies.currency_symbol as currency_symbol,
+                                            MIN(products.image_one) as image_one')
+                                ->where('products.status_id', 1)
+                                ->whereBetween('products.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                ->groupBy('product_name', 'currency_symbol')
+                                ->get(),
         ];
         // dd($params);
         return view('frontend.home.home',$params);
@@ -146,7 +158,7 @@ class HomeController extends Controller
     public function productDetails(Request $request){
         
             $product = Product::findOrFail($request->id);
-            $vendor = Product::where('name', $product->name)->with('vendor')->get();
+            $vendor = Product::where('name', $product->name)->where('status_id',1)->with('vendor')->get();
             $params =[
                 'products' => Product::with('categories','subcategory','brands','status','currency')->where('id',$request->id)->get(),
                 'vendors'  => $vendor

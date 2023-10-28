@@ -13,7 +13,7 @@
 </div>
 <br>
 <div class="table-responsive text-nowrap">
-<table class="table table-bordered table-lg">
+  <table class="table table-bordered table-lg">
     <thead class="table text-white" style="background-color: #0ac282">
       <tr class="text-center">
         <th scope="col">#</th>
@@ -28,7 +28,7 @@
     <tbody>
         <?php $i = 1 ?>
     @forelse ($vendors as $vendor)
-      <input type="hidden" id="vendor_id" value="{{ $vendor->id }}">
+      {{-- <input type="hidden" id="vendor_id" value="{{ $vendor->id }}"> --}}
       <tr class="text-center">
         <th scope="row">{{ $i++ }}</th>
         <td>{{ $vendor->name }}</td>
@@ -37,8 +37,8 @@
         <td>{!! $vendor->details ?? "" !!}</td>
         <td><img src="{{ asset('storage/'.$vendor->picture) }}" height="100px" width="100px"></td>
         <td class="d-flex gap-2 ml-2 mt-4">
-           <button id="approve" class="btn btn-warning btn-sm">Approve</button>
-           <button id="cancel" class="btn btn-danger btn-sm">Cancel</button>
+          <button class="approve btn btn-warning btn-sm" data-vendor-id="{{ $vendor->id }}">Approve</button>
+          <button class="cancel btn btn-danger btn-sm" data-vendor-id="{{ $vendor->id }}">Cancel</button>
         </td>
       </tr>
       @empty
@@ -49,11 +49,12 @@
     </tbody>
   </table>
 </div>
-<script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script type="text/javascript">
     $(document).ready(function(){
-        $("#approve").click(function(){
+        $(".approve").click(function(){
             var status = 1;
-            var vendor_id = $("#vendor_id").val();
+            var vendor_id = $(this).data('vendor-id');
             $.ajax({
                 url: '{{ route('admin.statusupdate.vendor') }}?vendor_id=' + vendor_id + '&status_id=' + status,
                 type: 'get',
@@ -63,8 +64,6 @@
                         text: 'Vendor Approved!',
                         icon: 'success',
                         onClose: function () {
-                            // This function will be called when the user clicks the "OK" button
-                            // You can remove the success message from the DOM or take any other action here
                             window.location.reload();
                         }
                     });

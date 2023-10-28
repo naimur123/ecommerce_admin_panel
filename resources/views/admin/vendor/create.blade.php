@@ -103,9 +103,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('#summernote1').summernote();
-    })
-</script>
 @endsection

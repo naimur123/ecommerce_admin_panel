@@ -57,19 +57,14 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3" style="padding-bottom: 20px;">
                         <img class="img-fluid w-50 align-self-center mb-3" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 100px;">
                         <div id="namePrice">
-                            {{-- <p class="text-truncate">{{ $product->name }}</p> --}}
                             <p class="text-truncate">{{ $product->product_name }}</p>
                             <div class="d-flex justify-content-center">
                                
                                 @if ($product->discount_price != 0)
-                                    {{-- <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price - $product->discount_price }}
-                                        <span class="text-decoration-line-through ms-1" style="font-size: 10px">{{ $product->currency->currency_symbol }}{{ $product->price }}</span>
-                                    </h6> --}}
                                     <h6 class="text-primary">{{ $product->currency_symbol }}{{ $product->price - $product->discount_price }}
                                         <span class="text-decoration-line-through ms-1" style="font-size: 10px">{{ $product->currency_symbol }}{{ $product->price }}</span>
                                     </h6>
                                 @else
-                                    {{-- <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price }}</h6>  --}}
                                     <h6 class="text-primary">{{ $product->currency_symbol }}{{ $product->price }}</h6> 
                                 @endif
                                 
@@ -77,7 +72,6 @@
                         </div>
 
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm p-0 ml-auto" id="detailsCardBtn"><strong>View Detail</strong></a>
-                        {{-- <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a> --}}
                     </div>
                 </div>
             </div>
@@ -103,22 +97,21 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3" style="padding-bottom: 20px;">
                         <img class="img-fluid w-50 align-self-center mb-3" src="{{ asset('storage/'.$product->image_one) }}" alt="" style="height: 100px;">
                         <div id="namePrice">
-                            <p class="text-truncate">{{ $product->name }}</p>
+                            <p class="text-truncate">{{ $product->product_name }}</p>
                             <div class="d-flex justify-content-center">
                                
                                 @if ($product->discount_price != 0)
-                                    <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price - $product->discount_price }}
-                                        <span class="text-decoration-line-through ms-1" style="font-size: 10px">{{ $product->currency->currency_symbol }}{{ $product->price }}</span>
+                                    <h6 class="text-primary">{{ $product->currency_symbol }}{{ $product->price - $product->discount_price }}
+                                        <span class="text-decoration-line-through ms-1" style="font-size: 10px">{{ $product->currency_symbol }}{{ $product->price }}</span>
                                     </h6>
                                 @else
-                                    <h6 class="text-primary">{{ $product->currency->currency_symbol }}{{ $product->price }}</h6> 
+                                    <h6 class="text-primary">{{ $product->currency_symbol }}{{ $product->price }}</h6> 
                                 @endif
                                 
                             </div>
                         </div>
 
                         <a href="{{ route('product.details',$product->id) }}" class="btn btn-sm p-0 ml-auto" id="detailsCardBtn"><strong>View Detail</strong></a>
-                        {{-- <a href="{{ route('addtocart',$product->id) }}" class="btn btn-sm p-0 mr-auto" role="button" id="addCardBtn"><strong>Add To Cart</strong></a> --}}
                     </div>
                 </div>
             </div>

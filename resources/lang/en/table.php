@@ -2,8 +2,9 @@
 
 return [
     "#"                  => "#",
-    "index"                  => "#",
+    "index"              => "#",
     "name"               => "Name",
+    "vendor_name"        => "Vendor Name",
     "category_name"      => "Category Name",
     "subcategory_name"   => "Subcategory Name",
     "brand_name"         => "Brand Name" ,     

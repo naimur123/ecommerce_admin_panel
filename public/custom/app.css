@@ -29,6 +29,11 @@
     height: 200vh;
     margin-top: 52px;
 }
+@media (min-width: 1400px) and (max-width: 1600px) {
+    #sidebar {
+        width: 240px;
+    }
+}
 
 #sidebar.active {
 left: -220px;

@@ -34,13 +34,13 @@ class ProductController extends Controller
 {
      // Get Table Column List
     private function getColumns(){
-        $columns = ["name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status","image","action"];
+        $columns = ["index","vendor_name","name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status","image","action"];
         return $columns;
     }
 
     // Get DataTable Column List
     private function getDataTableColumns(){
-        $columns = ["name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status_id","image_one","action"];
+        $columns = ["index","vendor_name","name","category_name","subcategory_name","brand_name", "code","quantity","price","discount_price","discount_percentage","status_id","image_one","action"];
         return $columns;
     }
 
@@ -309,12 +309,32 @@ class ProductController extends Controller
         
     }
 
+    // status update
+    public function approve(Request $request){
+        $status = $request->status_id;
+        $product_id = $request->product_id;
+        $product = Product::find($product_id);
+        if($product){
+            if($status == 1){
+                try{
+                    $product->status_id = $status;
+                    $product->save();
+                    return back();
+
+                }catch(Exception $e){
+
+                }
+            }
+        }
+    }
+
    protected function getDataTable(Request $request){
       if ($request->ajax()){
-         $data = Product::with('categories','subcategory','brands','status')->get();
+         $data = Product::with('categories','subcategory','brands','status','vendor')->get();
          
          return DataTables::of($data)->addIndexColumn()
-                // ->addColumn('index', function(){ return ++$this->index; })
+                ->addColumn('index', function(){ return ++$this->index; })
+                ->addColumn('vendor_name', function($row){ return $row->vendor->name; })
                 ->addColumn('category_name', function($row){ return $row->categories->name; })
                 ->addColumn('subcategory_name', function($row){ return $row->subcategory->name ?? "N/A"; })
                 ->addColumn('brand_name', function($row){ return $row->brands->name ?? "N/A"; })
@@ -334,6 +354,10 @@ class ProductController extends Controller
                     if($admin->hasPermissionTo('Product delete')){
                         $deleteBtn = '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
                         $btn .= ($btn ? ' ' : '') . $deleteBtn;
+                    }
+                    if ($row->status->id == 2) {
+                        $approveBtn = '<button class="btn btn-warning btn-sm approve-product" data-product-id="'.$row->id.'">Approve</button>';
+                        $btn .= ($btn ? ' ' : '') . $approveBtn;
                     }
                     return $btn;
                     
