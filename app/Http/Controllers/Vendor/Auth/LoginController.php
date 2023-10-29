@@ -79,7 +79,6 @@ class LoginController extends Controller
      * After Logout the redirect location
      */
     protected function loggedOut(){
-        FacadesSession::flush();
         Auth::guard('vendor')->logout();
         return redirect($this->logout);
     }

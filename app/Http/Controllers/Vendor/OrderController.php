@@ -67,8 +67,9 @@ class OrderController extends Controller
                   ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })
                   ->addColumn('action', function($row){
                       $vendor = Vendor::find(Auth::user()->id);
-                      if($vendor->hasPermissionTo('Order delete')){
-                          $deleteBtn = '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
+                      $deleteBtn = '';
+                      if($vendor->hasPermissionTo('Order Cancel')){
+                          $deleteBtn .= '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
                           
                       }
                       return $deleteBtn;
