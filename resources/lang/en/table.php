@@ -21,6 +21,7 @@ return [
     "product_name"       => "Product name",
     "order_quantity"     => "Order quantity",
     "customer_name"      => "Customer name",
+    "customer_phone"     => "Customer phone",
     "vendor_name"        => "Vendor name",
     "transaction_no"     => "Transaction no",
     "division"           => "Division",

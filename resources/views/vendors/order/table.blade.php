@@ -2,11 +2,14 @@
 @section('content')
 <style>
     table.table-bordered > thead > tr > th{
-       border: 0.5px solid black;
+       border: 0.5px solid rgb(211, 207, 207);
     }
     table.table-bordered > tbody > tr > td{
-       border: 0.5px solid black;
-       font-weight: 900;
+       border: 0.5px solid rgb(211, 207, 207);
+       text-align: center;
+    }
+    .bg-light-blue {
+        background-color: rgb(79, 236, 217);
     }
 </style>
 <div class="page-body">
@@ -51,22 +54,6 @@
             ],
             "language": {
                 "lengthMenu": "_MENU_"
-            },
-            "rowCallback": function(row, data) {
-                var status = data.status;
-                switch (status) {
-                    case 'Pending':
-                        $(row).css("background-color", "#ffeecc");
-                        break;
-                    case 'Processing':
-                        $(row).css("background-color", "#ccffff");
-                        break;
-                    case 'Cancelled':
-                        $(row).css("background-color", "#ffcccc");
-                        break;
-                    default:
-                        break;
-                }
             }
 
         });

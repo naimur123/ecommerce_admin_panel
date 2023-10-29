@@ -15,13 +15,13 @@ class OrderController extends Controller
 {
     // Get Table Column List
     private function getColumns(){
-        $columns = ["index","invoice_no","product_name","order_quantity","customer_name", "code","transaction_no","price","status","action"];
+        $columns = ["index","invoice_no","product_name","order_quantity","customer_name","customer_phone", "division","address", "code","transaction_no","price","status","action"];
         return $columns;
     }
 
     // Get DataTable Column List
     private function getDataTableColumns(){
-        $columns = ["index","invoice_no","product_name","product_sales_quantity","customer_name","code","transaction_id","price","status","action"];
+        $columns = ["index","invoice_no","product_name","order_quantity","customer_name","customer_phone","division","address","code","transaction_id","price","status","action"];
         return $columns;
     }
     //GetModel
@@ -43,7 +43,7 @@ class OrderController extends Controller
             'tableColumns'      => $this->getColumns(),
             'dataTableColumns'  => $this->getDataTableColumns(),
             "dataTableUrl"      => URL::current(),
-            'tableStyleClass'   => 'bg-success',
+            'tableStyleClass'   => 'bg-light-blue',
            
         ];
         return view('vendors.order.table', $params);
@@ -59,9 +59,13 @@ class OrderController extends Controller
            return DataTables::of($data)->addIndexColumn()
                   ->addColumn('index', function(){ return ++$this->index; })
                   ->addColumn('invoice_no', function($row){ return $row->order->invoice_no; })
-                  ->addColumn('product_name', function($row){ return $row->productOrdered->name; })
-                  ->addColumn('customer_name', function($row){ return $row->order->user->name ?? "N/A"; })
                   ->addColumn('code', function($row){ return $row->productOrdered->code ?? "N/A"; })
+                  ->addColumn('product_name', function($row){ return $row->productOrdered->name; })
+                  ->addColumn('order_quantity', function($row){ return $row->product_sales_quantity; })
+                  ->addColumn('customer_name', function($row){ return $row->order->user->name ?? "N/A"; })
+                  ->addColumn('customer_phone', function($row){ return $row->order->phone ?? "N/A"; })
+                  ->addColumn('division', function($row){ return $row->order->shipping->division ?? ""; })
+                  ->addColumn('address', function($row){ return $row->order->shipping_address_details ?? ""; })
                   ->addColumn('transaction_id', function($row){ return $row->order->transaction_id ?? "N/A"; })
                   ->addColumn('price', function($row){ return $row->order->amount ?? "N/A"; })
                   ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })

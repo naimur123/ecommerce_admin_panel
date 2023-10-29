@@ -2,11 +2,14 @@
 @section('content')
 <style>
     table.table-bordered > thead > tr > th{
-      height: 5px !important;
+       border: 0.5px solid rgb(211, 207, 207);
     }
     table.table-bordered > tbody > tr > td{
-       border: 0.2px solid rgba(112, 108, 108, 0.2);
-       height: 5px !important;
+       border: 0.5px solid rgb(211, 207, 207);
+       text-align: center;
+    }
+    .bg-light-blue {
+        background-color: rgb(79, 236, 217);
     }
 </style>
 <div class="page-body">
@@ -29,7 +32,7 @@
             <div class="dt-plugin-buttons"></div>
                 <div class="dt-responsive table-responsive">
                     <table id="table" class="table table-bordered nowrap">
-                        <thead class="{{ isset($tableStyleClass) ? $tableStyleClass : ''}}" style="background-color: #7bb882;">
+                        <thead class="{{ isset($tableStyleClass) ? $tableStyleClass : 'bg-info'}}">
                             <tr>
                                 @foreach($tableColumns as $column)
                                     <th> @lang('table.'.$column)</th>
