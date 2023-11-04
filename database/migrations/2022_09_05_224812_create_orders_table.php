@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('currency')->nullable();
             $table->string('status')->nullable();
+            $table->dateTime('accepted_at')->nullable();
+            $table->dateTime('cancelled_at')->nullable();
+            $table->dateTime('shipped_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

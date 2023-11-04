@@ -58,21 +58,20 @@ class OrderController extends Controller
             $user_id = $formData['user'];
             $phone = $formData['phone'];
             $shipping_id = $formData['shipping_id'];
-            $address = $formData['address'];
+            $address = $formData['address_details'];
             $subtotal = $formData['subtotal'];
             $shippingCost = $formData['shipping_cost'];
             $totalAmount = $formData['total_amount'];
         
             $carts = session()->get('cart');
-            // return response()->json(['message' => $carts]);
 
-            //Order place
+             //Order place
             $order = new Order();
-            $order->user_id = $user_id ?? '';
-            $order->phone = $phone ?? '';
-            $order->shipping_id = $shipping_id ?? '';
-            $order->shipping_address_details = $address ?? '';
-            $order->payment_type_id =  2 ?? '';
+            $order->user_id = $user_id;
+            $order->phone = $phone;
+            $order->shipping_id = $shipping_id;
+            $order->shipping_address_details = $address;
+            $order->payment_type_id = 2;
             $order->invoice_no = Str::random(8);
             $order->sub_total_price = $subtotal ?? 0;
             $order->shipping_cost = $shippingCost ?? 0;
@@ -82,9 +81,12 @@ class OrderController extends Controller
             $order->currency = 'BDT';
             $order->status = 'Processing';
             $order->save();
+
             //Order detials
             $order_id = Order::where('user_id',$user_id)->max('id');
             // return response()->json(['message' => $order_id]);
+
+            
 
             foreach($carts as $cartid => $cart){
                 $order_details = new OrderDetails();
@@ -92,14 +94,16 @@ class OrderController extends Controller
                 $order_details->product_id = $cart['product_id'] ?? '';
                 $order_details->product_sales_quantity = $cart['quantity'];
                 $order_details->save();
+                DB::commit();
             }
-
+         
          session()->forget('cart');
          $params = [
             "url" => route('home')
          ];
-        return response()->json($params);
-        }catch(Exception $e){
+         return response($params);
+        }
+        catch(Exception $e){
             DB::rollBack();
             return back()->with("error", $this->getError($e))->withInput();
         }

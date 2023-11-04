@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Vendor;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use App\Models\Vendor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -48,6 +50,47 @@ class OrderController extends Controller
         ];
         return view('vendors.order.table', $params);
     }
+    // status update
+    public function updateOrderStatus(Request $request){
+        $status = $request->status;
+        $order_id = $request->order_id;
+        $product_id = $request->product_id ?? '';
+        $product_qunatity = $request->quantity ?? '';
+        $order = Order::find($order_id);
+        if($order){
+
+            if($status == 'Accepted'){
+                $product = Product::find($product_id);
+                if($product->quantity > 0){
+                    $product->quantity = $product->quantity - $product_qunatity;  
+                    $product->save();
+
+
+                    $order->status = $status;
+                    $order->accepted_at = Carbon::now();
+                    $order->save();
+
+                    return response()->json(['message' => 'Accepted']);
+
+                }
+                else{
+                    return response()->json(['message' => 'Error']);
+                }
+               
+            }else if($status == 'Cancelled'){
+                $order->status = $status;
+                $order->cancelled_at = Carbon::now();
+                $order->save();
+                return response()->json(['message' => 'Cancelled']);
+            }
+            else{
+                $order->status = $status;
+                $order->shifted_at = Carbon::now();
+                $order->save();
+                return response()->json(['message' => 'Shipped']);
+            }
+        }
+    }
 
     protected function getDataTable(Request $request){
         if ($request->ajax()){
@@ -70,13 +113,22 @@ class OrderController extends Controller
                   ->addColumn('price', function($row){ return $row->order->amount ?? "N/A"; })
                   ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })
                   ->addColumn('action', function($row){
-                      $vendor = Vendor::find(Auth::user()->id);
-                      $deleteBtn = '';
-                      if($vendor->hasPermissionTo('Order Cancel')){
-                          $deleteBtn .= '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
+                    //   $vendor = Vendor::find(Auth::user()->id);
+                    //   $deleteBtn = '';
+                    //   if($vendor->hasPermissionTo('Order Cancel')){
+                    //       $deleteBtn .= '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
                           
-                      }
-                      return $deleteBtn;
+                    //   }
+                    //   return $deleteBtn;
+                    $btn = '';
+                    if($row->order->status == 'Processing'){
+                        $btn = '<button class="btn btn-warning btn-sm accept-order" data-order-id="'.$row->order->id.'" data-product-id ="'.$row->productOrdered->id.'" data-quantity="'.$row->product_sales_quantity.'">Accept</button> &nbsp';
+                        $btn .= '<button class="btn btn-danger btn-sm cancel-order" data-order-id="'.$row->order->id.'">Cancel</button>';
+                    }
+                    if($row->order->status == 'Accepted'){
+                        $btn .= '<button class="btn btn-success btn-sm ship-order" data-order-id="'.$row->order->id.'">Ship Order</button>';
+                    }
+                    return $btn;
                       
                   })
                   ->rawColumns(['action'])

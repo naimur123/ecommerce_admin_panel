@@ -22,6 +22,7 @@ Route::middleware(['auth:vendor','approved'])->group(function(){
         //Orders
         Route::prefix('orders')->group(function(){
             Route::get('',[OrderController::class,'index'])->name('order.list');
+            Route::get('/updateOrderStatus',[OrderController::class,'updateOrderStatus'])->name('order.updateStatus');
         });
 
         // Products

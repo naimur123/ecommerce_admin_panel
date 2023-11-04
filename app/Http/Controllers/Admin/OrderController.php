@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
+use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,7 +33,6 @@ class OrderController extends Controller
     private function getModel(){
         return new Order();
     }
-
     //Get Datas
     public function index(Request $request){
         if( $request->ajax() )
@@ -43,16 +47,85 @@ class OrderController extends Controller
             'dataTableColumns'  => $this->getDataTableColumns(),
             "dataTableUrl"      => URL::current(),
             'tableStyleClass'   => 'bg-light-blue',
+            'reportUrl'         => route('admin.salesReport')
            
         ];
         return view('admin.order.table', $params);
+    }
+
+    // status update
+    public function updateOrderStatus(Request $request){
+        $status = $request->status;
+        $order_id = $request->order_id;
+        $product_id = $request->product_id ?? '';
+        $product_qunatity = $request->quantity ?? '';
+        $order = Order::find($order_id);
+        if($order){
+
+            if($status == 'Accepted'){
+                $product = Product::find($product_id);
+                if($product->quantity > 0){
+                    $product->quantity = $product->quantity - $product_qunatity;  
+                    $product->save();
+
+
+                    $order->status = $status;
+                    $order->accepted_at = Carbon::now();
+                    $order->save();
+
+                    return response()->json(['message' => 'Accepted']);
+
+                }
+                else{
+                    return response()->json(['message' => 'Error']);
+                }
+               
+            }else if($status == 'Cancelled'){
+                $order->status = $status;
+                $order->cancelled_at = Carbon::now();
+                $order->save();
+                return response()->json(['message' => 'Cancelled']);
+            }
+            else{
+                $order->status = $status;
+                $order->shifted_at = Carbon::now();
+                $order->save();
+                return response()->json(['message' => 'Shipped']);
+            }
+        }
+    }
+
+    //genrate sales report
+    public function generateSalesReport(Request $request){
+        $startDate = Carbon::parse($request->start_date);
+        $endDate = Carbon::parse($request->end_date);
+
+        $sellProducts = OrderDetails::with('productOrdered', 'order')
+                        ->whereHas('order', function ($query) use ($startDate, $endDate) {
+                            $query->where(function ($subQuery) use ($startDate, $endDate) {
+                                $subQuery->where('status', 'Accepted')
+                                        ->orWhere(function ($shippedAtQuery) use ($startDate, $endDate) {
+                                            $shippedAtQuery->where('status', 'Shipped')
+                                                            ->whereBetween('shipped_at', [$startDate, $endDate]);
+                                        });
+                            });
+                        })
+                        ->get();
+
+        $groupedData = $sellProducts->groupBy('productOrdered.vendor.name');
+
+
+        // dd($groupedData);\
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('admin.order.report', compact('groupedData'));
+        return $pdf->stream('report.pdf');
     }
 
     protected function getDataTable(Request $request){
         if ($request->ajax()){
            $data = OrderDetails::with('productOrdered', 'order')->get();
            $data = $data->filter(function ($item) {
-            return $item->order->status === "Processing";
+            return $item->order->status != "Pending";
            });
            return DataTables::of($data)->addIndexColumn()
                   ->addColumn('index', function(){ return ++$this->index; })
@@ -71,12 +144,15 @@ class OrderController extends Controller
                   ->addColumn('created_at', function($row){ return $row->order->created_at ?? ""; })
                   ->addColumn('status', function($row){ return $row->order->status; })
                   ->addColumn('action', function($row){
-                      $admin = Admin::find(Auth::user()->id);
-                      if($admin->hasPermissionTo('Order delete')){
-                          $deleteBtn = '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
-                          
-                      }
-                      return $deleteBtn;
+                    $btn = '';
+                    if($row->order->status == 'Processing'){
+                        $btn = '<button class="btn btn-warning btn-sm accept-order" data-order-id="'.$row->order->id.'" data-product-id ="'.$row->productOrdered->id.'" data-quantity="'.$row->product_sales_quantity.'">Accept</button> &nbsp';
+                        $btn .= '<button class="btn btn-danger btn-sm cancel-order" data-order-id="'.$row->order->id.'">Cancel</button>';
+                    }
+                    if($row->order->status == 'Accepted'){
+                        $btn .= '<button class="btn btn-success btn-sm ship-order" data-order-id="'.$row->order->id.'">Ship Order</button>';
+                    }
+                    return $btn;
                       
                   })
                   ->rawColumns(['action'])

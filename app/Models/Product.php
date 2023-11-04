@@ -42,7 +42,10 @@ class Product extends Model
     public function vendor(){
         return $this->belongsTo(Vendor::class,'vendor_id');
     }
-
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class, 'product_id');
+    }
     protected $fillable = [
         'name', 'quantity'
     ];

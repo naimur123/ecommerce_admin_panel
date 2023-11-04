@@ -238,6 +238,9 @@ Route::middleware(["auth:admin"])->group(function(){
         //Orders
         Route::prefix('orders')->group(function(){
             Route::get('',[OrderController::class,'index'])->name('order.list');
+            Route::get('/updateOrderStatus',[OrderController::class,'updateOrderStatus'])->name('order.updateStatus');
+            Route::post('/generateSalesReport', [OrderController::class,'generateSalesReport'])->name('salesReport');
+
         });
 
         //Others

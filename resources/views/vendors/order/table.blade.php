@@ -58,6 +58,77 @@
 
         });
     });
+    $('#table').on('click', '.accept-order', function() {
+        var status = 'Accepted';
+        var OrderId = $(this).data('order-id');
+        var productId = $(this).data('product-id');
+        var quantity = $(this).data('quantity');
+        $.ajax({
+                url: '{{ route('vendor.order.updateStatus') }}?product_id=' + productId + '&status=' + status + '&order_id=' + OrderId + '&quantity=' +quantity,
+                type: 'get',
+                success: function (res) {
+                    if (res.message == "Accepted") {
+                    Swal.fire({
+                        title: res.message,
+                        text: "Order Accpeted",
+                        icon: 'success',
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    });
+                } 
+                else{
+                    Swal.fire({
+                        title: res.message,
+                        text: "Product is less than 0",
+                        icon: 'error',
+                    });
+                }
+            
+            }
+        });
+    });  
+    $('#table').on('click', '.cancel-order', function() {
+        var status = 'Cancelled';
+        var OrderId = $(this).data('order-id');
+        $.ajax({
+            url: '{{ route('vendor.order.updateStatus') }}?order_id=' + OrderId + '&status=' + status,
+            type: 'get',
+            success: function (res) {
+                if (res.message == "Cancelled") {
+                    Swal.fire({
+                        title: res.message,
+                        text: 'Order Cancelled',
+                        icon: 'success',
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    });
+                } 
+            }
+        });
+    });
+    $('#table').on('click', 'ship-order', function() {
+        var status = 'Shipped';
+        var OrderId = $(this).data('order-id');
+        $.ajax({
+            url: '{{ route('vendor.order.updateStatus') }}?order_id=' + OrderId + '&status=' + status,
+            type: 'get',
+            success: function (res) {
+                console.log(res);
+                if (res.message == "Shipped") {
+                    Swal.fire({
+                        title: res.message,
+                        text: 'Order Shipped',
+                        icon: 'success',
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    });
+                } 
+            }
+        })
+    });
 </script>
 
 @endsection
