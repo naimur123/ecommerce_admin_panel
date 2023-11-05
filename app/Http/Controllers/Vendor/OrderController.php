@@ -33,7 +33,6 @@ class OrderController extends Controller
 
     //Get Datas
     public function index(Request $request){
-       
         if( $request->ajax() )
         {
             return $this->getDataTable($request);
@@ -46,6 +45,7 @@ class OrderController extends Controller
             'dataTableColumns'  => $this->getDataTableColumns(),
             "dataTableUrl"      => URL::current(),
             'tableStyleClass'   => 'bg-light-blue',
+            'reportUrl'         => route('vendor.salesReport')
            
         ];
         return view('vendors.order.table', $params);
@@ -85,20 +85,51 @@ class OrderController extends Controller
             }
             else{
                 $order->status = $status;
-                $order->shifted_at = Carbon::now();
+                $order->shipped_at = Carbon::now();
                 $order->save();
                 return response()->json(['message' => 'Shipped']);
             }
         }
     }
 
+    
+    //genrate sales report
+    public function generateSalesReport(Request $request){
+        $startDate = Carbon::parse($request->start_date);
+        $endDate = Carbon::parse($request->end_date);
+        $vendor = Auth::user()->id;
+        $sellProducts = OrderDetails::with('productOrdered', 'order')
+                        ->whereHas('productOrdered', function ($query) use ($vendor) {
+                            $query->where('vendor_id', $vendor);
+                        })
+                        ->whereHas('order', function ($query) use ($startDate, $endDate) {
+                            $query->where(function ($subQuery) use ($startDate, $endDate) {
+                                $subQuery->where('status', 'Accepted')
+                                    ->whereBetween('accepted_at', [$startDate, $endDate]);
+                            })->orWhere(function ($shippedAtQuery) use ($startDate, $endDate) {
+                                $shippedAtQuery->where('status', 'Shipped')
+                                    ->whereBetween('shipped_at', [$startDate, $endDate]);
+                            });
+                        })
+                        ->get();
+                        
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('vendors.order.report', compact('sellProducts','startDate','endDate'));
+        return $pdf->stream('Vendor Sell Report.pdf');
+    }
+
     protected function getDataTable(Request $request){
         if ($request->ajax()){
-           $vendor = Auth::user()->id;
-           $data = OrderDetails::with('productOrdered', 'order')
-                ->whereHas('productOrdered', function ($query) use ($vendor) {
-               $query->where('vendor_id', $vendor);
-           })->get();
+        
+            $vendor = Auth::user()->id;
+            $data = OrderDetails::with('productOrdered', 'order')
+                 ->whereHas('productOrdered', function ($query) use ($vendor) {
+                $query->where('vendor_id', $vendor);
+            })->get();
+            $data = $data->filter(function ($item) {
+               return $item->order->status != "Pending";
+            });
+
            return DataTables::of($data)->addIndexColumn()
                   ->addColumn('index', function(){ return ++$this->index; })
                   ->addColumn('invoice_no', function($row){ return $row->order->invoice_no; })
@@ -113,13 +144,6 @@ class OrderController extends Controller
                   ->addColumn('price', function($row){ return $row->order->amount ?? "N/A"; })
                   ->addColumn('status', function($row){ return $row->order->status ?? "N/A"; })
                   ->addColumn('action', function($row){
-                    //   $vendor = Vendor::find(Auth::user()->id);
-                    //   $deleteBtn = '';
-                    //   if($vendor->hasPermissionTo('Order Cancel')){
-                    //       $deleteBtn .= '<a href="'.route('admin.products.delete', $row->id).'" class="btn btn-danger btn-sm" data-confirm-delete="true">Cancel</a>';
-                          
-                    //   }
-                    //   return $deleteBtn;
                     $btn = '';
                     if($row->order->status == 'Processing'){
                         $btn = '<button class="btn btn-warning btn-sm accept-order" data-order-id="'.$row->order->id.'" data-product-id ="'.$row->productOrdered->id.'" data-quantity="'.$row->product_sales_quantity.'">Accept</button> &nbsp';

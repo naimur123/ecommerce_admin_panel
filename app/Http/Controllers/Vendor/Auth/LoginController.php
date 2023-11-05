@@ -97,6 +97,7 @@ class LoginController extends Controller
      
         $vendor = Auth::user()->id;
         // dd($request->user()->is_approved);
+        
     
         if($request->user()->is_approved == 0){
             Alert::error('Error', 'Your new vendor regsitration not approved yet');
@@ -109,7 +110,9 @@ class LoginController extends Controller
                                 ->whereHas('productOrdered', function ($query) use ($vendor) {
                                     $query->where('vendor_id', $vendor);
                                 })
-                                ->count(),
+                                ->whereHas('order', function ($query) {
+                                    $query->whereNotIn('status', ['Pending']);
+                                })->count(),
                                 
                 "todayOrders" =>  Order::whereHas('orderDetails.productOrdered', function ($query) use ($vendor) {
                                         $query->where('vendor_id', $vendor);

@@ -88,7 +88,7 @@ class OrderController extends Controller
             }
             else{
                 $order->status = $status;
-                $order->shifted_at = Carbon::now();
+                $order->shipped_at = Carbon::now();
                 $order->save();
                 return response()->json(['message' => 'Shipped']);
             }
@@ -104,20 +104,18 @@ class OrderController extends Controller
                         ->whereHas('order', function ($query) use ($startDate, $endDate) {
                             $query->where(function ($subQuery) use ($startDate, $endDate) {
                                 $subQuery->where('status', 'Accepted')
-                                        ->orWhere(function ($shippedAtQuery) use ($startDate, $endDate) {
+                                         ->whereBetween('accepted_at', [$startDate, $endDate])
+                                         ->orWhere(function ($shippedAtQuery) use ($startDate, $endDate) {
                                             $shippedAtQuery->where('status', 'Shipped')
                                                             ->whereBetween('shipped_at', [$startDate, $endDate]);
-                                        });
+                                         });
                             });
                         })
                         ->get();
 
         $groupedData = $sellProducts->groupBy('productOrdered.vendor.name');
-
-
-        // dd($groupedData);\
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('admin.order.report', compact('groupedData'));
+        $pdf->loadView('admin.order.report', compact('groupedData','startDate','endDate'));
         return $pdf->stream('report.pdf');
     }
 

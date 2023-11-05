@@ -102,7 +102,7 @@
         var quantity = $(this).data('quantity');
         $.ajax({
                 url: '{{ route('admin.order.updateStatus') }}?product_id=' + productId + '&status=' + status + '&order_id=' + OrderId + '&quantity=' +quantity,
-                type: 'get',
+                type: 'GET',
                 success: function (res) {
                     if (res.message == "Accepted") {
                     Swal.fire({
@@ -130,7 +130,7 @@
         var OrderId = $(this).data('order-id');
         $.ajax({
             url: '{{ route('admin.order.updateStatus') }}?order_id=' + OrderId + '&status=' + status,
-            type: 'get',
+            type: 'GET',
             success: function (res) {
                 if (res.message == "Cancelled") {
                     Swal.fire({
@@ -150,7 +150,7 @@
         var OrderId = $(this).data('order-id');
         $.ajax({
             url: '{{ route('admin.order.updateStatus') }}?order_id=' + OrderId + '&status=' + status,
-            type: 'get',
+            type: 'GET',
             success: function (res) {
                 console.log(res);
                 if (res.message == "Shipped") {
