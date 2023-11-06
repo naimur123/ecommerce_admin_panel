@@ -36,7 +36,7 @@
                 </div>
                 
                 <div class="card-footer text-center">
-                    <a href="{{ route('admin.order.list') }}" class="text-white text-decoration-none">Today Orders</a>
+                    <a href="{{ route('vendor.order.list') }}" class="text-white text-decoration-none">Today Orders</a>
                 </div>
             </div>
         </div>
