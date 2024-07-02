@@ -38,8 +38,9 @@ class EmailDatabaseBackup extends Notification
         return (new MailMessage)
                     ->line('Please CheckOut The Database Backup File')
                     ->line('Attached is the latest database backup.')
-                    ->line('Date' . date('Y-m-d H:i:s'))
-                    ->attach($this->backupfile);
+                    ->line('Date: ' . date('Y-m-d H:i:s'))
+                    ->attach($this->backupfile)
+                    ->salutation('KenakataBD');
     }
 
     /**
